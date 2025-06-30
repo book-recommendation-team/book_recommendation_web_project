@@ -1,0 +1,79 @@
+package security;
+
+//src/main/java/com/bookrecommendation/security/JwtUtil.java
+
+import java.security.Key; // java.security.Key 임포트
+import java.util.Date;
+import java.util.concurrent.TimeUnit; // 시간 단위 사용
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys; // Keys.secretKeyFor() 사용을 위함
+
+public class JwtUtil {
+ // JWT 서명에 사용할 비밀 키. 실제 운영 환경에서는 절대 코드에 하드코딩하면 안 됩니다.
+ // 환경 변수, 외부 설정 파일, 또는 안전한 키 저장소에서 로드해야 합니다.
+ // 여기서는 개발 테스트를 위해 간단히 Base64 인코딩된 문자열을 사용합니다.
+ // 이 키는 최소 256비트(32바이트) 이상이어야 합니다.
+ private final Key key;
+ private final long validityInMilliseconds; // 토큰 유효 시간 (밀리초)
+
+ public JwtUtil(String secret) {
+     // HMAC-SHA256 알고리즘에 맞는 안전한 키를 생성합니다.
+     // Base64 디코딩하여 바이트 배열로 사용
+     this.key = Keys.hmacShaKeyFor(secret.getBytes());
+     // 토큰 유효 시간 설정 (예: 1시간)
+     this.validityInMilliseconds = TimeUnit.HOURS.toMillis(1); // 1시간
+ }
+
+ /**
+  * 사용자 정보를 바탕으로 JWT 토큰을 생성합니다.
+  * @param userId 사용자 ID
+  * @param username 사용자 이름
+  * @return 생성된 JWT 문자열
+  */
+ public String generateToken(int userId, String username) {
+     Date now = new Date();
+     Date validity = new Date(now.getTime() + validityInMilliseconds);
+
+     return Jwts.builder()
+             .setSubject(String.valueOf(userId)) // 토큰의 주체 (여기서는 userId)
+             .claim("username", username)       // 사용자 이름 클레임 추가
+             // 필요에 따라 다른 정보(예: role) 추가 가능
+             .setIssuedAt(now)                  // 토큰 발급 시간
+             .setExpiration(validity)           // 토큰 만료 시간
+             .signWith(key, SignatureAlgorithm.HS256) // HS256 알고리즘과 비밀 키로 서명
+             .compact(); // 토큰 압축 및 문자열 반환
+ }
+
+ /**
+  * JWT 토큰에서 클레임(Claim) 정보를 추출합니다.
+  * @param token JWT 토큰 문자열
+  * @return 토큰의 클레임 (페이로드)
+  */
+ public Claims getClaimsFromToken(String token) {
+     return Jwts.parserBuilder()
+             .setSigningKey(key) // 토큰 서명 검증을 위한 키 설정
+             .build()
+             .parseClaimsJws(token) // JWS(JSON Web Signature) 파싱 및 클레임 추출
+             .getBody(); // 클레임(페이로드) 반환
+ }
+
+ /**
+  * JWT 토큰의 유효성을 검증합니다.
+  * @param token JWT 토큰 문자열
+  * @return 유효하면 true, 유효하지 않으면 false
+  */
+ public boolean validateToken(String token) {
+     try {
+         // 토큰을 파싱하고 서명을 검증하는 과정에서 문제가 발생하면 예외가 발생합니다.
+         Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+         return true;
+     } catch (Exception e) {
+         // 서명 오류, 만료된 토큰, 유효하지 않은 토큰 등 다양한 예외 처리
+         System.err.println("JWT Token validation error: " + e.getMessage());
+         return false;
+     }
+ }
+}
