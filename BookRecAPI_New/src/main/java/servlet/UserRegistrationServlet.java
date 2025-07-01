@@ -38,8 +38,10 @@ public class UserRegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        // --- 여기를 수정했습니다 ---
+        response.setContentType("application/json; charset=UTF-8");
+        // --- 수정 끝 ---
+        response.setCharacterEncoding("UTF-8"); // 이 줄은 그대로 둡니다.
         PrintWriter out = response.getWriter();
 
         try {
