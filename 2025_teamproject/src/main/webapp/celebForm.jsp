@@ -1,15 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="./css/celebList.css" />
+<%@ include file="css/main_css.jsp"%>
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
 <head>
 <title>게시글 작성</title>
 <style>
 body {
-	font-family: 'Noto Sans KR', sans-serif;
-	margin: 40px auto;
-	max-width: 800px;
-	padding: 20px;
-	background-color: #f9f9f9;
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	padding: 0;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 30px auto;
 }
 
 h2 {
@@ -27,7 +37,7 @@ input[type="text"], input[type="file"], textarea {
 }
 
 .editor-block {
-width: 100%;
+	width: 100%;
 	border: 1px solid #ddd;
 	padding: 12px;
 	border-radius: 8px;
@@ -80,37 +90,62 @@ width: 100%;
 }
 </style>
 </head>
+
 <body>
+	<header>
+		<div id="logo">
+			<a href="main.jsp"> <img src="img/logo.png" alt="로고">
+			</a>
+		</div>
 
-	<h2>셀럽 추천 글 작성</h2>
+		<div class="search-group">
+			<input type="text" id="search-box" placeholder="검색어를 입력하세요..." />
+			<button id="search-btn">검색</button>
+		</div>
+		<div id="user-buttons">
+			<button id="join-btn" onclick="location.href='join.jsp'">회원가입</button>
+			<button id="login-btn" onclick="location.href='Login.jsp'">로그인</button>
+		</div>
+	</header>
 
-	<form action="submitCelebPost" method="post"
-		enctype="multipart/form-data">
-		<label>이름</label> <input type="text" name="title" required> <label>설명</label>
-		<input type="text" name="desc" required> <label>썸네일
-			이미지</label> <input type="file" name="thumbnail" accept="image/*">
+	<nav>
+		<a href="#">(AI) 책 추천</a> <a
+			href="${pageContext.request.contextPath}/reviewList">리뷰</a> <a
+			href="#">플레이리스트</a> <a
+			href="${pageContext.request.contextPath}/celebList">셀럽추천</a> <a
+			href="#">마이페이지</a>
+	</nav>
+	<div class="container">
 
-		<div id="editor-area">
-			<div class="editor-block">
-				<label>텍스트 입력</label>
-				<textarea name="contentBlock1_text"></textarea>
+		<h2>셀럽 추천 글 작성</h2>
+
+		<form action="submitCelebPost" method="post"
+			enctype="multipart/form-data">
+			<label>이름</label> <input type="text" name="title" required> <label>설명</label><input
+				type="text" name="desc" required> <label>썸네일 이미지</label> <input
+				type="file" name="thumbnail" accept="image/*">
+
+			<div id="editor-area">
+				<div class="editor-block">
+					<label>텍스트 입력</label>
+					<textarea name="contentBlock1_text"></textarea>
+				</div>
 			</div>
-		</div>
 
-		<div style="text-align: center; margin-bottom: 20px;">
-			<button type="button" class="add-block-btn"
-				onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
-			<button type="button" class="add-block-btn"
-				onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
-		</div>
+			<div style="text-align: center; margin-bottom: 20px;">
+				<button type="button" class="add-block-btn"
+					onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
+				<button type="button" class="add-block-btn"
+					onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
+			</div>
 
 
-		<div class="button-box">
-			<button type="submit" class="submit-btn">작성하기</button>
-			<button type="button" class="cancel-btn" onclick="history.back()">취소</button>
-		</div>
-	</form>
-
+			<div class="button-box">
+				<button type="submit" class="submit-btn">작성하기</button>
+				<button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+			</div>
+		</form>
+	</div>
 	<script>
 	let blockCount = 1;
 
