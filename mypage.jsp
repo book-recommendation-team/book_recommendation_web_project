@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>WITHUS - main</title>
 <link rel="icon" href="image/icon2.png" type="image/png">
-<link rel="stylesheet" type="text/css" href="teamproject.css">
+<link rel="stylesheet" type="text/css" href="mypage.css">
 </head>
 <body>
 	<header>
