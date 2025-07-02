@@ -1,0 +1,280 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WITHUS - main</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #eff7e8;
+            padding: 2px;
+        }
+
+        #logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        #search-box {
+            padding: 8px;
+            width: 400px;
+            border: 1px solid #ccc;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #logout-btn {
+            background-color: #e6f0d7;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            width: 90px;
+        }
+
+        nav {
+            background-color: #e6f0d7;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin: 0 40px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .banner {
+		    position: relative;
+		    width: 100%;
+		    height: 650px;
+		    overflow: hidden;
+		    background-color: #ffe04d;
+		}
+	
+		.banner img {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+		    object-position: center center;
+		    opacity: 0.8;
+		    z-index: 1;
+		}
+
+
+
+        .banner-text {
+            position: relative;
+            z-index: 2;
+            color: #000;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .banner-text h2 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+
+        .banner-controls {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 3;
+            display: flex;
+            gap: 6px;
+        }
+
+        .banner-controls button {
+            background-color: rgba(255, 193, 7, 0.9);
+            border: none;
+            padding: 6px 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            transition: background-color 0.3s ease;
+        }
+
+        .banner-controls button:hover {
+            background-color: rgba(255, 160, 0, 0.95);
+        }
+
+	      .section-title {
+		    background-color: #e6f0d7;
+		    display: flex;
+		    justify-content: center;
+		    flex-wrap: wrap;
+		    gap: 30px;
+		    padding: 20px 0;
+		    max-width: 800px;
+		    margin: 10px auto;  /* 상하 여백 40px */
+		}
+
+
+        .section-title a {
+            text-decoration: none;
+            margin: 0 20px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .section-title a:hover {
+            text-decoration: underline;
+        }
+
+        .main_list {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .book-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .book-item img {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div id="logo"><img src="img/로고.png"></div>
+    <input type="text" id="search-box" placeholder="검색어를 입력하세요..." />
+    <button id="logout-btn" onclick="location.href='Logout.jsp'">로그아웃</button>
+</header>
+
+<nav>
+    <a href="#">(AI) 책 추천</a>
+    <a href="#">리뷰</a>
+    <a href="#">플레이리스트</a>
+    <a href="/celebList">셀럽추천</a>
+    <a href="#">마이페이지</a>
+</nav>
+
+<!-- 🔽 배너 -->
+<div class="banner">
+
+   <!-- 텍스트 -->
+    <div class="banner-text">
+    </div>
+    
+    
+    <!-- 이미지 -->
+    <img id="banner-image" src="img/추천 1.png" alt="배너 이미지" />
+
+
+
+    <!-- 컨트롤 버튼 -->
+    <div class="banner-controls">
+        <button onclick="prevImage()">&#9664;</button>
+        <button onclick="toggleSlide()" id="pause-btn">⏸</button>
+        <button onclick="nextImage()">&#9654;</button>
+    </div>
+</div>
+
+<!-- 섹션 타이틀 (이미지 바꾸기용 버튼) -->
+<div class="section-title">
+    <a href="#" onclick="changeBanner('weekly')">이 주의 책</a>
+    <a href="#" onclick="changeBanner('new')">신간 소개</a>
+    <a href="#" onclick="changeBanner('featured')">눈에 띄는 새책</a>
+    <a href="#" onclick="changeBanner('hot')">화제의 책</a>
+    <a href="#" onclick="changeBanner('exclusive')">단독 에디션</a>
+</div>
+
+<!-- 책 목록 -->
+<div class="main_list">
+    <h2>돌고 돌아 여름</h2>
+    <div class="book-list">
+        <div class="book-item"><img src="img/9788970638331.jpg" alt="책1" /></div>
+        <div class="book-item"><img src="img/급류.png" alt="책2" /></div>
+        <div class="book-item"><img src="img/고래눈이 내리다.png" alt="책3" /></div>
+        <div class="book-item"><img src="img/일억 번째 여름.png" alt="책4" /></div>
+    </div>
+</div>
+
+<!-- 스크립트 -->
+<script>
+	const bannerImage = document.getElementById("banner-image");
+
+    const bannerImages = [
+        "img/추천 1.png",
+        "img/추천 2.png",
+        "img/혼모노 추천.jpg",
+        "img/추천 4.png",
+        "img/캘린더.jpg"
+    ];
+
+    const bannerMap = {
+        weekly: 1,
+        new: 2,
+        featured: 0,
+        hot: 3,
+        exclusive: 4
+    };
+
+    let index = 0;
+    let playing = true;
+    let interval = setInterval(nextImage, 3000);
+
+    function updateImage() {
+        bannerImage.src = bannerImages[index];
+    }
+
+    function nextImage() {
+        index = (index + 1) % bannerImages.length;
+        updateImage();
+    }
+
+    function prevImage() {
+        index = (index - 1 + bannerImages.length) % bannerImages.length;
+        updateImage();
+    }
+
+    function toggleSlide() {
+        const btn = document.getElementById("pause-btn");
+        if (playing) {
+            clearInterval(interval);
+            btn.textContent = "▶";
+        } else {
+            interval = setInterval(nextImage, 3000);
+            btn.textContent = "⏸";
+        }
+        playing = !playing;
+    }
+
+    function changeBanner(type) {
+        if (bannerMap[type] !== undefined) {
+            index = bannerMap[type];
+            updateImage();
+        }
+    }
+</script>
+
+</body>
+</html>

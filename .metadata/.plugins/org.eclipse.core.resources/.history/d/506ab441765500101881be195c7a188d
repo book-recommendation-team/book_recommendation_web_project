@@ -1,0 +1,15 @@
+package dao;
+
+import java.util.List;
+
+import dto.CelebRecommendations;
+
+public class TestDao {
+    public static void main(String[] args) {
+        CelebRecommendationsDao dao = new CelebRecommendationsDao();
+        List<CelebRecommendations> celebs = dao.getAllCelebs();
+        for (CelebRecommendations c : celebs) {
+            System.out.println(c);
+        }
+    }
+}

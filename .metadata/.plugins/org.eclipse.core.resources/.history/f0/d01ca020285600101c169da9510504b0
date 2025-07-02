@@ -1,0 +1,16 @@
+package servlet;
+
+//ReviewTestServlet.java
+@WebServlet("/reviewList")
+public class ReviewListServlet extends HttpServlet {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     List<Review> reviewList = new ArrayList<>();
+
+     reviewList.add(new Review(1, "자살일기", "쿠로다니무", "https://example.com/img1.jpg", "이제는 너에게 전부가 되므로..."));
+     reviewList.add(new Review(2, "구의 증명", "최진영", "https://example.com/img2.jpg", "사랑이란..."));
+     reviewList.add(new Review(3, "세의 선물", "은희경", "https://example.com/img3.jpg", "전혀 예상하지 못한 감정..."));
+
+     request.setAttribute("reviewList", reviewList);
+     request.getRequestDispatcher("/reviewList.jsp").forward(request, response);
+ }
+}

@@ -1,0 +1,31 @@
+package servlet;
+
+import dto.CelebRecommendations;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebServlet("/celebList")
+public class CelebListServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<CelebRecommendations> celebList = new ArrayList<>();
+
+        // 💡 테스트용 셀럽 3명
+        celebList.add(new CelebRecommendations(1, "박찬욱", "영화감독 박찬욱이 추천한 책 모음", request.getContextPath() + "/img/박찬욱.jpg", null));
+        celebList.add(new CelebRecommendations(2, "아이유", "가수 아이유가 읽고 감동한 책 리스트", request.getContextPath() + "/img/아이유.jpg", null));
+        celebList.add(new CelebRecommendations(3, "RM", "방탄소년단 RM의 책장 속 인생 책들", request.getContextPath() + "/img/RM.jpg", null));
+        celebList.add(new CelebRecommendations(4, "페이커", "페이커 대상혁이 추천하는 책", request.getContextPath() + "/img/페이커.jpg", null));
+        celebList.add(new CelebRecommendations(5, "한강", "노벨문학상 한강의 책장", request.getContextPath() + "/img/한강.jpg", null));
+        celebList.add(new CelebRecommendations(6, "홍경", "홍경의 추천 도서", request.getContextPath() + "/img/홍경.jpg", null));
+        celebList.add(new CelebRecommendations(7, "박정민", "박정민의 인생책", request.getContextPath() + "/img/박정민.jpg", null));
+        celebList.add(new CelebRecommendations(8, "문상훈", "문상훈이 추천하는 시집들", request.getContextPath() + "/img/문상훈.jpg", null));
+
+        request.setAttribute("celebList", celebList);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/celebList.jsp");
+        dispatcher.forward(request, response);
+    }
+}

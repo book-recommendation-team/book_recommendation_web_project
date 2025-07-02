@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>셀럽 추천 리스트</title>
+</head>
+<body>
+ <div class="container">
+        <h2 style="margin-bottom: 20px;">셀럽 추천 책 목록</h2>
+        <div class="grid">
+            <c:forEach var="celeb" items="${celebList}">
+                <a class="card" href="celebBooks?celebId=${celeb.celeb_rec_id}">
+                    <img src="${celeb.celeb_image_url}" alt="${celeb.celeb_name} 이미지" />
+                    <div class="card-content">
+                        <div class="card-title">${celeb.celeb_name}</div>
+                        <div class="card-desc">${celeb.celeb_description}</div>
+                    </div>
+                </a>
+            </c:forEach>
+        </div>
+    </div>
+</body>
+</html>

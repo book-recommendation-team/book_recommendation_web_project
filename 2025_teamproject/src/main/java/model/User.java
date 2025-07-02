@@ -1,0 +1,73 @@
+package model;
+
+import java.time.LocalDateTime;
+
+public class User {
+    private int userId;
+    private String username;
+    private String password; // 암호화된 비밀번호
+    private String nickname;
+    private String email;
+    private String gender; // ENUM 'M', 'F', 'O'
+    private String mbti;   // VARCHAR(10)
+    private LocalDateTime regDate;
+    private LocalDateTime lastLoginDate;
+
+    // 기본 생성자 (필수 아님, 필요시 사용)
+    public User() {}
+
+    // 모든 필드를 초기화하는 생성자 (선택 사항, 유용함)
+    public User(int userId, String username, String password, String nickname, String email, String gender, String mbti, LocalDateTime regDate, LocalDateTime lastLoginDate) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.email = email;
+        this.gender = gender;
+        this.mbti = mbti;
+        this.regDate = regDate;
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    // Getter와 Setter 메서드 (필수)
+    public int getUserId() { return userId; }
+    public void setUserId(int userId) { this.userId = userId; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getMbti() { return mbti; }
+    public void setMbti(String mbti) { this.mbti = mbti; }
+
+    public LocalDateTime getRegDate() { return regDate; }
+    public void setRegDate(LocalDateTime regDate) { this.regDate = regDate; }
+
+    public LocalDateTime getLastLoginDate() { return lastLoginDate; }
+    public void setLastLoginDate(LocalDateTime lastLoginDate) { this.lastLoginDate = lastLoginDate; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+               "userId=" + userId +
+               ", username='" + username + '\'' +
+               ", nickname='" + nickname + '\'' +
+               ", email='" + email + '\'' +
+               ", gender='" + gender + '\'' +
+               ", mbti='" + mbti + '\'' +
+               ", regDate=" + regDate +
+               ", lastLoginDate=" + lastLoginDate +
+               '}';
+    }
+}

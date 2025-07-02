@@ -1,0 +1,11 @@
+package dto;
+
+public class Review {
+    private int reviewId;
+    private String title;
+    private String author;
+    private String coverImageUrl;
+    private String reviewText;
+
+    // Getter/Setter, 생성자 생략
+}

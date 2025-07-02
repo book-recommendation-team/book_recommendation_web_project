@@ -1,0 +1,10 @@
+package dto;
+
+import java.util.Date;
+
+public class CelebRecommendedBooks {
+	private int celeb_rec_book_id;
+	private int celeb_rec_id;
+	private int book_id;
+	private int order_in_rec;
+}

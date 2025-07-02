@@ -1,0 +1,11 @@
+package dao;
+
+public class TestDao {
+    public static void main(String[] args) {
+        CelebRecommendationsDao dao = new CelebRecommendationsDao();
+        List<CelebRecommendations> celebs = dao.getAllCelebs();
+        for (CelebRecommendations c : celebs) {
+            System.out.println(c);
+        }
+    }
+}

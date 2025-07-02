@@ -1,0 +1,61 @@
+package dto;
+
+import java.util.Date;
+
+public class CelebRecommendations {
+	private int celeb_rec_id;
+	private String celeb_name;
+	private String celeb_description;
+	private String celeb_image_url;
+	private Date recommend_date;
+	public int getCeleb_rec_id() {
+		return celeb_rec_id;
+	}
+	public void setCeleb_rec_id(int celeb_rec_id) {
+		this.celeb_rec_id = celeb_rec_id;
+	}
+	public String getCeleb_name() {
+		return celeb_name;
+	}
+	public void setCeleb_name(String celeb_name) {
+		this.celeb_name = celeb_name;
+	}
+	public String getCeleb_description() {
+		return celeb_description;
+	}
+	public void setCeleb_description(String celeb_description) {
+		this.celeb_description = celeb_description;
+	}
+	public String getCeleb_image_url() {
+		return celeb_image_url;
+	}
+	public void setCeleb_image_url(String celeb_image_url) {
+		this.celeb_image_url = celeb_image_url;
+	}
+	public Date getRecommend_date() {
+		return recommend_date;
+	}
+	public void setRecommend_date(Date recommend_date) {
+		this.recommend_date = recommend_date;
+	}
+	public CelebRecommendations(int celeb_rec_id, String celeb_name, String celeb_description, String celeb_image_url,
+			Date recommend_date) {
+		super();
+		this.celeb_rec_id = celeb_rec_id;
+		this.celeb_name = celeb_name;
+		this.celeb_description = celeb_description;
+		this.celeb_image_url = celeb_image_url;
+		this.recommend_date = recommend_date;
+	}
+	public CelebRecommendations() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "CelebRecommendations [celeb_rec_id=" + celeb_rec_id + ", celeb_name=" + celeb_name
+				+ ", celeb_description=" + celeb_description + ", celeb_image_url=" + celeb_image_url
+				+ ", recommend_date=" + recommend_date + "]";
+	}
+	
+	
+}

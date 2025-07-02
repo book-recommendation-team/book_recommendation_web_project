@@ -1,0 +1,141 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>게시글 작성</title>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .editor-block {
+            border: 1px solid #ddd;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background-color: #fff;
+        }
+
+        .editor-block textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .editor-block input[type="file"] {
+            background-color: #f4f4f4;
+        }
+
+        .button-box {
+            text-align: right;
+            margin-top: 24px;
+        }
+
+        .button-box button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 6px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: #e6f0d7;
+            color: black;
+        }
+
+        .cancel-btn {
+            background-color: #fff;
+            color: black;
+        }
+
+        .add-block-btn {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            background-color: #fff;
+            color: black;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>셀럽 추천 글 작성</h2>
+
+<form action="submitCelebPost" method="post" enctype="multipart/form-data">
+    <label>제목</label>
+    <input type="text" name="title" required>
+
+    <label>썸네일 이미지</label>
+    <input type="file" name="thumbnail" accept="image/*">
+
+    <div id="editor-area">
+        <div class="editor-block">
+            <label>텍스트 입력</label>
+            <textarea name="contentBlock1_text"></textarea>
+        </div>
+    </div>
+
+    <button type="button" class="add-block-btn" onclick="addEditorBlock()">+ 블록 추가</button>
+
+    <div class="button-box">
+        <button type="submit" class="submit-btn">작성하기</button>
+        <button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+    </div>
+</form>
+
+<script>
+    let blockCount = 1;
+
+    function addEditorBlock() {
+        blockCount++;
+        const editorArea = document.getElementById("editor-area");
+
+        const blockDiv = document.createElement("div");
+        blockDiv.className = "editor-block";
+
+        const type = prompt("추가할 블록 종류를 선택하세요 (text / image):", "text");
+        if (!type) return;
+
+        if (type === "text") {
+            blockDiv.innerHTML = `
+                <label>텍스트 입력</label>
+                <textarea name="contentBlock${blockCount}_text"></textarea>
+            `;
+        } else if (type === "image") {
+            blockDiv.innerHTML = `
+                <label>이미지 업로드</label>
+                <input type="file" name="contentBlock${blockCount}_image" accept="image/*">
+            `;
+        } else {
+            alert("text 또는 image만 입력 가능합니다.");
+            return;
+        }
+
+        editorArea.appendChild(blockDiv);
+    }
+</script>
+
+</body>
+</html>

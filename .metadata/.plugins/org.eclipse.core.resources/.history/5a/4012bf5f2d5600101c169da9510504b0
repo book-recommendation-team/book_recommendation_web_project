@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0; 
+	padding : 0;
+	background-color: #fff;
+	padding: 0;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #eff7e8;
+	padding: 2px;
+}
+
+#logo img {
+	width: 200px;
+	height: auto;
+}
+
+#search-box {
+	padding: 8px;
+	width: 400px;
+	border: 1px solid #ccc;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+#logout-btn {
+	background-color: #e6f0d7;
+	border: none;
+	padding: 10px 16px;
+	cursor: pointer;
+	width: 90px;
+}
+
+nav {
+	background-color: #e6f0d7;
+	text-align: center;
+	padding: 15px 0;
+}
+
+nav a {
+	text-decoration: none;
+	margin: 0 40px;
+	color: #000;
+	font-weight: bold;
+}
+
+nav a:hover {
+	text-decoration: underline;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 30px auto;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 30px;
+}
+
+.card {
+	position: relative;
+	background-color: #fff;
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+	transition: transform 0.2s ease;
+	text-decoration: none;
+	color: #000;
+}
+
+.card:hover {
+	transform: translateY(-2px);
+}
+
+.card img {
+	width: 100%;
+	height: 260px;
+	object-fit: cover;
+}
+
+.card-content {
+	padding: 12px 14px;
+}
+
+.card-title {
+	font-size: 1rem;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.card-desc {
+	font-size: 0.875rem;
+	color: #555;
+	line-height: 1.4;
+	height: 2.6em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 북마크 아이콘 */
+.bookmark-icon {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	font-size: 1.2rem;
+	color: #fff;
+	padding: 6px;
+	border-radius: 50%;
+	transition: color 0.2s ease;
+}
+
+.bookmark-icon:hover {
+	color: #fff;
+}

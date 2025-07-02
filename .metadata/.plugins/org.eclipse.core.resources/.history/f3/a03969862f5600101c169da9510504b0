@@ -1,0 +1,35 @@
+package servlet;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dto.Review;
+
+//ReviewTestServlet.java
+@WebServlet("/reviewList")
+public class ReviewListServlet extends HttpServlet {
+ protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     List<Review> reviewList = new ArrayList<>();
+
+     reviewList.add(new Review(1, "자살일기", "쿠로다니무", request.getContextPath() + "/img/자살일기.jpg", "이제는 너에게 전부가 되므로..."));
+     reviewList.add(new Review(2, "구의 증명", "최진영", request.getContextPath() + "/img/구의증명.jpg", "사랑이란..."));
+     reviewList.add(new Review(3, "새의 선물", "은희경", request.getContextPath() + "/img/새의선물.jpg", "전혀 예상하지 못한 감정..."));
+     reviewList.add(new Review(4, "급류", "정대건", request.getContextPath() + "/img/급류.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(5, "자기앞의생", "정대건", request.getContextPath() + "/img/자기앞의생.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(6, "파과", "정대건", request.getContextPath() + "/img/파과.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(7, "작별하지않는다", "정대건", request.getContextPath() + "/img/작별하지않는다.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(8, "여덟단어", "정대건", request.getContextPath() + "/img/여덟단어.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(9, "스토너", "정대건", request.getContextPath() + "/img/스토너.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+     reviewList.add(new Review(10, "사랑과결함", "정대건", request.getContextPath() + "/img/사랑과결함.jpg", "한 번쯤 강렬한 사랑을 해보고 싶던 적이.."));
+
+     request.setAttribute("reviewList", reviewList);
+     request.getRequestDispatcher("/reviewList.jsp").forward(request, response);
+ }
+}
