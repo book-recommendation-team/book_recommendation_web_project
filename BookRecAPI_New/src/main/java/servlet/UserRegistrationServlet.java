@@ -1,26 +1,26 @@
 package servlet;
 
-import dao.UserDao; // 직접 사용 대신 UserService에 주입
-import dto.ApiResponse;
-import dto.UserRegistrationRequest;
-import dto.UserResponse;
-import model.User;
-import security.BCryptPasswordEncoder; // 직접 사용 대신 UserService에 주입
-import security.PasswordEncoder; // 직접 사용 대신 UserService에 주입
-import service.UserService; // UserService 임포트 추가
-import service.UserRegistrationException; // UserService에서 정의한 회원가입 관련 예외 임포트
-
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
+import dao.UserDao; // 직접 사용 대신 UserService에 주입
+import dto.ApiResponse;
+import dto.UserRegistrationRequest;
+import dto.UserResponse;
+import model.User;
+import security.BCryptPasswordEncoder; // 직접 사용 대신 UserService에 주입
+import service.UserRegistrationException; // UserService에서 정의한 회원가입 관련 예외 임포트
+import service.UserService; // UserService 임포트 추가
 
 @WebServlet("/api/users")
 public class UserRegistrationServlet extends HttpServlet {
