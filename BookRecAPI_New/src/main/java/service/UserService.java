@@ -11,14 +11,6 @@ import security.PasswordEncoder;
 
 // 사용자 관련 비즈니스 로직에서 발생할 수 있는 특정 예외들을 정의합니다.
 // 이렇게 하면 서블릿에서 더 구체적인 오류 처리가 가능합니다.
-class UserLoginException extends Exception {
-    private String code;
-    public UserLoginException(String code, String message) {
-        super(message);
-        this.code = code;
-    }
-    public String getCode() { return code; }
-}
 
 class UserProfileException extends Exception {
     private String code;
