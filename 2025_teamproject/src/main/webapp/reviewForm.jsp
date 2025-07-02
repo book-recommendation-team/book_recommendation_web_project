@@ -115,5 +115,14 @@ textarea {
 			</div>
 		</form>
 	</div>
+	
+		<footer>
+		<div class="footer-container">
+			<p>&copy; 2025 WITHUS. All rights reserved.</p>
+			<div class="footer-links">
+				<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> | <a href="#">고객센터</a>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

@@ -121,9 +121,9 @@ input[type="text"], input[type="file"], textarea {
 
 		<form action="submitCelebPost" method="post"
 			enctype="multipart/form-data">
-			<label>이름</label> <input type="text" name="title" required> <label>설명</label><input
-				type="text" name="desc" required> <label>썸네일 이미지</label> <input
-				type="file" name="thumbnail" accept="image/*">
+			<label>이름</label> <input type="text" name="title" required> <label>설명</label>
+			<input type="text" name="desc" required> <label>썸네일 이미지</label> 
+			<input type="file" name="thumbnail" accept="image/*">
 
 			<div id="editor-area">
 				<div class="editor-block">
@@ -146,6 +146,15 @@ input[type="text"], input[type="file"], textarea {
 			</div>
 		</form>
 	</div>
+	
+		<footer>
+		<div class="footer-container">
+			<p>&copy; 2025 WITHUS. All rights reserved.</p>
+			<div class="footer-links">
+				<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> | <a href="#">고객센터</a>
+			</div>
+		</div>
+	</footer>
 	<script>
 	let blockCount = 1;
 

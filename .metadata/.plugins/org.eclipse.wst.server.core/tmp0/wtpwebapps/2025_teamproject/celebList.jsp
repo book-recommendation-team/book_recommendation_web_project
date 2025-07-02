@@ -44,7 +44,7 @@
 		<div class="grid">
 			<c:forEach var="celeb" items="${celebList}">
 				<!-- <a class="card" href="celebDetail?celebId=${celeb.celeb_rec_id}">  -->
-					<a class="card" href="celebDetail.jsp"/>
+					<a class="card" href="${pageContext.request.contextPath}/celebDetail"/>
 					<!-- 북마크 아이콘 --> <i class="fas fa-bookmark bookmark-icon"></i> <img
 					src="${celeb.celeb_image_url}" alt="${celeb.celeb_name} 이미지" />
 					<div class="card-content">
@@ -62,6 +62,15 @@
 	<button id="topBtn" title="맨 위로 이동">
 		<i class="fas fa-arrow-up"></i>
 	</button>
+	
+		<footer>
+		<div class="footer-container">
+			<p>&copy; 2025 WITHUS. All rights reserved.</p>
+			<div class="footer-links">
+				<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> | <a href="#">고객센터</a>
+			</div>
+		</div>
+	</footer>
 	<script>
 	document.addEventListener("DOMContentLoaded", () => {
 		document.getElementById("topBtn").addEventListener("click", () => {

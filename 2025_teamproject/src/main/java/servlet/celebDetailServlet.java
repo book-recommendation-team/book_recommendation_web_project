@@ -1,0 +1,27 @@
+package servlet;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dto.CelebRecommendations;
+
+@WebServlet("/celebDetail")
+public class celebDetailServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<CelebRecommendations> celebDetail = new ArrayList<>();
+        
+        celebDetail.add(new CelebRecommendations(1, "박찬욱", "영화감독 박찬욱이 추천한 책 모음", request.getContextPath() + "/img/박찬욱.jpg", null));
+        
+        request.setAttribute("celebDetail", celebDetail);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/celebDetail.jsp");
+        dispatcher.forward(request, response);
+	}
+}
