@@ -1,14 +1,15 @@
---  Users 테이블 (회원 정보)
+-- Users 테이블 (회원 정보)
 CREATE TABLE Users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL, -- 비밀번호 해싱을 고려한 길이
     nickname VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) UNIQUE,
     gender ENUM('M', 'F', 'O'), -- 'M': 남성, 'F': 여성, 'O': 기타/선택안함
     mbti VARCHAR(10),
     reg_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    last_login_date DATETIME
+    last_login_date DATETIME,
+    status ENUM('active', 'inactive', 'withdrawn') DEFAULT 'active' -- 회원 상태 (활성, 비활성, 탈퇴)
 );
 
 -- Books 테이블 (책 정보)
@@ -16,7 +17,7 @@ CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     isbn VARCHAR(20) NOT NULL UNIQUE, -- 국제 표준 도서 번호
     title VARCHAR(255) NOT NULL,
-    author VARCHAR(255),
+    author VARCHAR(255), -- 초기에는 문자열로 유지, 추후 Authors 테이블과 연동 고려 가능
     publisher VARCHAR(100),
     pub_date DATE,
     description TEXT,
@@ -38,9 +39,52 @@ CREATE TABLE Reviews (
     FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
 );
 
+-- Wishlists 테이블 (찜 목록)
+CREATE TABLE Wishlists (
+    wish_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL, -- 찜한 대상이 책
+    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
+    UNIQUE (user_id, book_id) -- 한 사용자는 한 책을 한 번만 찜할 수 있습니다.
+);
 
+-- Authors 테이블 (작가 정보)
+CREATE TABLE Authors (
+    author_id INT AUTO_INCREMENT PRIMARY KEY,
+    author_name VARCHAR(255) NOT NULL UNIQUE,
+    author_description TEXT,
+    author_image_url VARCHAR(500),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
--- Playlists 테이블 (사용자 플레이리스트)
+-- AuthorSubscriptions 테이블 (작가 구독 정보)
+CREATE TABLE AuthorSubscriptions (
+    subscription_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    author_id INT NOT NULL,
+    subscribed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE CASCADE,
+    UNIQUE (user_id, author_id) -- 한 사용자는 한 작가를 한 번만 구독할 수 있습니다.
+);
+
+-- Inquiries 테이블 (문의하기)
+CREATE TABLE Inquiries (
+    inquiry_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    inquiry_type VARCHAR(50), -- 문의 유형 (예: '일반', '오류', '제안')
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'answered', 'closed') DEFAULT 'pending', -- 문의 상태
+    answer_content TEXT,
+    answered_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
+);
+
+-- Playlists 테이블 (사용자 플레이리스트 - 찜 목록과는 별개로 사용자 정의 목록)
 CREATE TABLE Playlists (
     playlist_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -49,7 +93,6 @@ CREATE TABLE Playlists (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );
-
 
 -- PlaylistBooks 테이블 (플레이리스트-책 관계: N:M 해소)
 CREATE TABLE PlaylistBooks (
@@ -62,7 +105,7 @@ CREATE TABLE PlaylistBooks (
     UNIQUE (playlist_id, book_id)
 );
 
--- UserInterests 테이블 (사용자 취미/관심사)
+-- UserInterests 테이블 (사용자 취미/관심사 - 사용자 맞춤 추천을 위함)
 CREATE TABLE UserInterests (
     user_interest_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -71,13 +114,11 @@ CREATE TABLE UserInterests (
     UNIQUE (user_id, interest_tag)
 );
 
-
 -- Hashtags 테이블 (해시태그 정보)
 CREATE TABLE Hashtags (
     tag_id INT AUTO_INCREMENT PRIMARY KEY,
     tag_name VARCHAR(50) NOT NULL UNIQUE
 );
-
 
 -- BookHashtags 테이블 (책-해시태그 관계: N:M 해소)
 CREATE TABLE BookHashtags (
@@ -89,8 +130,7 @@ CREATE TABLE BookHashtags (
     UNIQUE (book_id, tag_id)
 );
 
-
--- CelebRecommendations 테이블 (셀럽 추천 정보)
+-- CelebRecommendations 테이블 (셀럽 추천 정보 - 별도의 추천 콘텐츠 관리)
 CREATE TABLE CelebRecommendations (
     celeb_rec_id INT AUTO_INCREMENT PRIMARY KEY,
     celeb_name VARCHAR(100) NOT NULL,
@@ -98,7 +138,6 @@ CREATE TABLE CelebRecommendations (
     celeb_image_url VARCHAR(500),
     recommend_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 
 -- CelebRecommendedBooks 테이블 (셀럽 추천-책 관계: N:M 해소)
 CREATE TABLE CelebRecommendedBooks (
@@ -110,16 +149,3 @@ CREATE TABLE CelebRecommendedBooks (
     FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
     UNIQUE (celeb_rec_id, book_id)
 );
-
-
--- Wishlists 테이블 (찜 목록)
-CREATE TABLE Wishlists (
-    wish_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    book_id INT NOT NULL, -- 찜한 대상이 책이라고 가정
-    added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
-    UNIQUE (user_id, book_id)
-);
-
