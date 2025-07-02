@@ -8,53 +8,6 @@ body {
 	padding: 0;
 }
 
-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: #eff7e8;
-	padding: 2px;
-}
-
-#logo img {
-	width: 200px;
-	height: auto;
-}
-
-#search-box {
-	padding: 8px;
-	width: 400px;
-	border: 1px solid #ccc;
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
-}
-
-#logout-btn {
-	background-color: #e6f0d7;
-	border: none;
-	padding: 10px 16px;
-	cursor: pointer;
-	width: 90px;
-}
-
-nav {
-	background-color: #e6f0d7;
-	text-align: center;
-	padding: 15px 0;
-}
-
-nav a {
-	text-decoration: none;
-	margin: 0 40px;
-	color: #000;
-	font-weight: bold;
-}
-
-nav a:hover {
-	text-decoration: underline;
-}
-
 .container {
 	max-width: 1200px;
 	margin: 30px auto;
