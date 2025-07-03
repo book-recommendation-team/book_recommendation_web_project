@@ -81,18 +81,18 @@
     
     Map<String, String> block10 = new HashMap<>();
     block4.put("type", "image");
-    block4.put("value", "/img/지속의순간들.png");
+    block4.put("value", "/img/이민자들.png");
     blocks.add(block10);
 
     Map<String, String> block11 = new HashMap<>();
     block11.put("type", "book");
-    block11.put("title", "지속의 순간들");
-    block11.put("author", "제프 다이어");
-    block11.put("publisher", "을유문화사");
-    block11.put("pubDate", "2022.03.05");
-    block11.put("image", "/img/지속의 순간들.jpg");
-    block11.put("link", "https://product.kyobobook.co.kr/detail/S000000576590");
-    block11.put("desc", "사진을 찍지 않는 사진 비평가만의 새롭고 독특한 시선");
+    block11.put("title", "이민자들");
+    block11.put("author", "W. G. 제발트");
+    block11.put("publisher", "창비");
+    block11.put("pubDate", "2018.03.22");
+    block11.put("image", "/img/이민자들.jpg");
+    block11.put("link", "https://product.kyobobook.co.kr/detail/S000000612803");
+    block11.put("desc", "제발트 탄생 75주년 기념 개정판 출간");
     blocks.add(block11);
 
     request.setAttribute("contentBlocks", blocks);

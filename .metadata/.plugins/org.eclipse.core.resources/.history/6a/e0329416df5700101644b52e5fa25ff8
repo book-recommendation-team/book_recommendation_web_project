@@ -49,51 +49,51 @@
     
     Map<String, String> block6 = new HashMap<>();
     block6.put("type", "image");
-    block6.put("value", "/img/괴물들.png");
+    block6.put("value", "/img/이민자들.png");
     blocks.add(block6);
 
     Map<String, String> block7 = new HashMap<>();
     block7.put("type", "book");
-    block7.put("title", "괴물들");
-    block7.put("author", "클레어 데더러");
-    block7.put("publisher", "을유문화사");
-    block7.put("pubDate", "2024.09.30");
-    block7.put("image", "/img/괴물들.jpg");
-    block7.put("link", "https://product.kyobobook.co.kr/detail/S000214356477");
-    block7.put("desc", "위대한 걸작을 탄생시킨 괴물 예술가를 어떻게 마주할 것인가?");
+    block7.put("title", "이민자들");
+    block7.put("author", "W. G. 제발트");
+    block7.put("publisher", "창비");
+    block7.put("pubDate", "2018.03.22");
+    block7.put("image", "/img/이민자들.jpg");
+    block7.put("link", "https://product.kyobobook.co.kr/detail/S000000612803");
+    block7.put("desc", "제발트 탄생 75주년 기념 개정판 출간");
     blocks.add(block7);
     
     Map<String, String> block8 = new HashMap<>();
     block8.put("type", "image");
-    block8.put("value", "/img/브라이턴록.png");
-    blocks.add(block8);
+    block8.put("value", "/img/이민자들.png");
+    blocks.add(block4);
 
     Map<String, String> block9 = new HashMap<>();
-    block9.put("type", "book");
-    block9.put("title", "브라이턴 록");
-    block9.put("author", "그레이엄 그린");
-    block9.put("publisher", "현대문학");
-    block9.put("pubDate", "2021.04.23");
-    block9.put("image", "/img/브라이턴 록.jpg");
-    block9.put("link", "https://product.kyobobook.co.kr/detail/S000001945339");
-    block9.put("desc", "악의 본성을 탐구한 걸작 미스터리");
-    blocks.add(block9);
+    block5.put("type", "book");
+    block5.put("title", "이민자들");
+    block5.put("author", "W. G. 제발트");
+    block5.put("publisher", "창비");
+    block5.put("pubDate", "2018.03.22");
+    block5.put("image", "/img/이민자들.jpg");
+    block5.put("link", "https://product.kyobobook.co.kr/detail/S000000612803");
+    block5.put("desc", "제발트 탄생 75주년 기념 개정판 출간");
+    blocks.add(block5);
     
     Map<String, String> block10 = new HashMap<>();
     block4.put("type", "image");
-    block4.put("value", "/img/지속의순간들.png");
-    blocks.add(block10);
+    block4.put("value", "/img/이민자들.png");
+    blocks.add(block4);
 
     Map<String, String> block11 = new HashMap<>();
-    block11.put("type", "book");
-    block11.put("title", "지속의 순간들");
-    block11.put("author", "제프 다이어");
-    block11.put("publisher", "을유문화사");
-    block11.put("pubDate", "2022.03.05");
-    block11.put("image", "/img/지속의 순간들.jpg");
-    block11.put("link", "https://product.kyobobook.co.kr/detail/S000000576590");
-    block11.put("desc", "사진을 찍지 않는 사진 비평가만의 새롭고 독특한 시선");
-    blocks.add(block11);
+    block5.put("type", "book");
+    block5.put("title", "이민자들");
+    block5.put("author", "W. G. 제발트");
+    block5.put("publisher", "창비");
+    block5.put("pubDate", "2018.03.22");
+    block5.put("image", "/img/이민자들.jpg");
+    block5.put("link", "https://product.kyobobook.co.kr/detail/S000000612803");
+    block5.put("desc", "제발트 탄생 75주년 기념 개정판 출간");
+    blocks.add(block5);
 
     request.setAttribute("contentBlocks", blocks);
 %>
