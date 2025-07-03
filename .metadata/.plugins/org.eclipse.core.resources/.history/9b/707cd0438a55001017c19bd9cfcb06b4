@@ -1,0 +1,22 @@
+package dto;
+
+//로그인 성공 시 클라이언트에게 보낼 응답 데이터 (토큰 포함)
+public class LoginResponse {
+private String accessToken;
+private int userId;
+private String username;
+private String nickname;
+
+public LoginResponse(String accessToken, int userId, String username, String nickname) {
+   this.accessToken = accessToken;
+   this.userId = userId;
+   this.username = username;
+   this.nickname = nickname;
+}
+
+// Getter 메서드
+public String getAccessToken() { return accessToken; }
+public int getUserId() { return userId; }
+public String getUsername() { return username; }
+public String getNickname() { return nickname; }
+}

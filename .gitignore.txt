@@ -1,0 +1,27 @@
+# Eclipse specific files
+.classpath
+.project
+.settings/
+.metadata/
+
+# Build artifacts
+bin/
+target/
+*.class
+
+# Web specific (for Dynamic Web Project)
+WebContent/WEB-INF/lib/  # JARs in lib folder - IMPORTANT!
+
+# Log files
+*.log
+logs/
+
+# IDE specific files
+.idea/ # IntelliJ IDEA files
+*.iml  # IntelliJ IDEA module files
+*.ipr
+*.iws
+
+# OS generated files
+.DS_Store
+Thumbs.db
