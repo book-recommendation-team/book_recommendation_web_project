@@ -103,7 +103,7 @@ body.delete-mode-active .card-actions {
 /* 이미지 스타일 */
 .card img {
     width: 100%; /* 부모 너비에 꽉 채움 */
-    height: 200px; /* 이미지 높이 고정 (필요 시) */
+    height: 280px; /* 이미지 높이 고정 (필요 시) */
     object-fit: cover; /* 이미지가 잘리더라도 비율 유지하며 컨테이너 채움 */
     border-bottom: 1px solid #eee;
 }
