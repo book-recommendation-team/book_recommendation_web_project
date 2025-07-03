@@ -80,8 +80,8 @@
     blocks.add(block9);
     
     Map<String, String> block10 = new HashMap<>();
-    block10.put("type", "image");
-    block10.put("value", "/img/지속의순간들.png");
+    block4.put("type", "image");
+    block4.put("value", "/img/지속의순간들.png");
     blocks.add(block10);
 
     Map<String, String> block11 = new HashMap<>();
@@ -94,54 +94,6 @@
     block11.put("link", "https://product.kyobobook.co.kr/detail/S000000576590");
     block11.put("desc", "사진을 찍지 않는 사진 비평가만의 새롭고 독특한 시선");
     blocks.add(block11);
-    
-    Map<String, String> block12 = new HashMap<>();
-    block12.put("type", "image");
-    block12.put("value", "/img/관촌수필.png");
-    blocks.add(block12);
-
-    Map<String, String> block13 = new HashMap<>();
-    block13.put("type", "book");
-    block13.put("title", "관촌수필");
-    block13.put("author", "이문구");
-    block13.put("publisher", "문학과지성사");
-    block13.put("pubDate", "2018.09.03");
-    block13.put("image", "/img/관촌수필.jpg");
-    block13.put("link", "https://product.kyobobook.co.kr/detail/S000000570374");
-    block13.put("desc", "우리 문학 토양을 단단하고 풍요롭게 다져온 작품을 만나다.");
-    blocks.add(block13);
-    
-    Map<String, String> block14 = new HashMap<>();
-    block14.put("type", "image");
-    block14.put("value", "/img/정확한 사랑의 실험.png");
-    blocks.add(block14);
-
-    Map<String, String> block15 = new HashMap<>();
-    block15.put("type", "book");
-    block15.put("title", "정확한 사랑의 실험");
-    block15.put("author", "신형철");
-    block15.put("publisher", "마음산책");
-    block15.put("pubDate", "2014.10.01");
-    block15.put("image", "/img/정확한 사랑의 실험.jpg");
-    block15.put("link", "https://product.kyobobook.co.kr/detail/S000000938887");
-    block15.put("desc", "이야기 속에 숨어 있는 인간의 비밀을 ‘정확한 문장’으로 말한다!");
-    blocks.add(block15);
-    
-    Map<String, String> block16 = new HashMap<>();
-    block16.put("type", "image");
-    block16.put("value", "/img/창백한 언덕 풍경.png");
-    blocks.add(block16);
-
-    Map<String, String> block17 = new HashMap<>();
-    block17.put("type", "book");
-    block17.put("title", "창백한 언덕 풍경");
-    block17.put("author", "가즈오 이시구로");
-    block17.put("publisher", "민음사");
-    block17.put("pubDate", "2012.11.30");
-    block17.put("image", "/img/창백한 언덕 풍경.jpg");
-    block17.put("link", "https://product.kyobobook.co.kr/detail/S000000621324");
-    block17.put("desc", "흐릿한 기억 속에서 재생되는 과거의 상처!");
-    blocks.add(block17);
 
     request.setAttribute("contentBlocks", blocks);
 %>
