@@ -49,8 +49,8 @@
     <a href="#">(AI) 책 추천</a>
     <a href="${pageContext.request.contextPath}/reviewList">리뷰</a>
     <a href="#">플레이리스트</a>
-    <a href="${pageContext.request.contextPath}/celebList">셀럽추천</a> <%-- 셀럽추천 링크 수정 --%>
-    <a href="<%= (loggedInUser != null ? "mypage.jsp" : "login.jsp") %>">마이페이지</a> <%-- 로그인 상태에 따라 마이페이지 링크 변경 --%>
+    <a href="${pageContext.request.contextPath}/celebList">셀럽추천</a>
+    <a href="<%= (loggedInUser != null ? "mypage.jsp" : "login.jsp") %>">마이페이지</a>
 </nav>
 
 <div class="banner">
@@ -99,11 +99,9 @@
 </footer>
 
 <script>
-    // 태그 배열과 현재 인덱스
     const tags = ['cool', 'tearful', 'moment', 'new'];
     let currentTagIndex = 0;
 
-    // 각 태그 버튼에 맞는 한글 라벨
     function getTagLabel(tag) {
         switch(tag) {
             case 'cool': return '서늘한 여름';
@@ -114,7 +112,6 @@
         }
     }
 
-    // 활성화된 태그 버튼 표시 업데이트
     function updateActiveTagButton() {
         const buttons = document.querySelectorAll('.tag-button');
         buttons.forEach(btn => btn.classList.remove('active'));
@@ -126,7 +123,6 @@
         });
     }
 
-    // 책 데이터 (이 부분은 백엔드 API를 통해 동적으로 가져오는 것이 궁극적인 목표)
     const booksData = {
         cool: `
             <div class="book-carousel">
@@ -205,12 +201,10 @@
                 </div>
               </div>
             </div>
-            <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
           </div>
         `,
         moment: `
             <div class="book-carousel">
-              <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
               <div class="carousel-window">
                 <div class="carousel-track">
                   <div class="book-item">
@@ -250,12 +244,10 @@
                 </div>
                 </div>
               </div>
-              <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
             </div>
         `,
         new: `
             <div class="book-carousel">
-              <button class="carousel-btn prev" onclick="moveCarousel(this, -1)">&#10094;</button>
               <div class="carousel-window">
                 <div class="carousel-track">
                   <div class="book-item">
@@ -288,12 +280,10 @@
                   </div>
                 </div>
               </div>
-              <button class="carousel-btn next" onclick="moveCarousel(this, 1)">&#10095;</button>
             </div>
         `
     };
 
-    // 책 리스트 출력 함수 (태그에 맞게 내용 바꾸고 활성 버튼 업데이트)
     function showBooks(tag) {
         const container = document.getElementById('book-list-container');
         container.innerHTML = booksData[tag] || '<p>해당 카테고리의 책이 없습니다.</p>';
@@ -301,7 +291,6 @@
         updateActiveTagButton();
     }
 
-    // 책 슬라이더 좌우 이동 함수 (기존)
     const slideIndices = new Map();
     function moveCarousel(button, direction) {
         const carousel = button.closest('.book-carousel');
@@ -322,26 +311,23 @@
         slideIndices.set(carousel, index);
     }
 
-    // 이전 버튼 클릭 시 태그 인덱스 감소 및 책 갱신
     document.getElementById('carousel-prev-btn').addEventListener('click', () => {
         currentTagIndex = (currentTagIndex - 1 + tags.length) % tags.length;
         showBooks(tags[currentTagIndex]);
     });
 
-    // 다음 버튼 클릭 시 태그 인덱스 증가 및 책 갱신
     document.getElementById('carousel-next-btn').addEventListener('click', () => {
         currentTagIndex = (currentTagIndex + 1) % tags.length;
         showBooks(tags[currentTagIndex]);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-        // 배너 자동 슬라이드 및 컨트롤 관련 로직
         const bannerImagesMap = {
-          weekly: "img/recommend1.png",
-          new: "img/honmono_reco.jpg",
-          featured: "img/recommend3.png",
-          hot: "img/recommend4.png",
-          exclusive: "img/event.png"
+            weekly: "img/recommend1.png",
+            new: "img/honmono_reco.jpg",
+            featured: "img/recommend3.png",
+            hot: "img/recommend4.png",
+            exclusive: "img/event.png"
         };
 
         let bannerKeys = Object.keys(bannerImagesMap);
@@ -352,54 +338,53 @@
         const pauseBtn = document.getElementById('pause-btn');
 
         function showBanner(index) {
-          const key = bannerKeys[index];
-          bannerImageElement.src = bannerImagesMap[key];
-          updateActiveBannerButton(key);
+            const key = bannerKeys[index];
+            bannerImageElement.src = bannerImagesMap[key];
+            updateActiveBannerButton(key);
         }
 
         function updateActiveBannerButton(key) {
-          const buttons = document.querySelectorAll('.section-title a');
-          buttons.forEach(btn => btn.classList.remove('active'));
-          const activeBtn = document.getElementById(`btn-${key}`);
-          if (activeBtn) activeBtn.classList.add('active');
+            const buttons = document.querySelectorAll('.section-title a');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`btn-${key}`);
+            if (activeBtn) activeBtn.classList.add('active');
         }
 
         function nextImage() {
-          currentBannerIndex = (currentBannerIndex + 1) % bannerKeys.length;
-          showBanner(currentBannerIndex);
+            currentBannerIndex = (currentBannerIndex + 1) % bannerKeys.length;
+            showBanner(currentBannerIndex);
         }
 
         function prevImage() {
-          currentBannerIndex = (currentBannerIndex - 1 + bannerKeys.length) % bannerKeys.length;
-          showBanner(currentBannerIndex);
+            currentBannerIndex = (currentBannerIndex - 1 + bannerKeys.length) % bannerKeys.length;
+            showBanner(currentBannerIndex);
         }
 
         function toggleSlide() {
-          if (bannerInterval) {
-            clearInterval(bannerInterval);
-            bannerInterval = null;
-            pauseBtn.textContent = "▶"; // 재생
-          } else {
-            startAutoSlide();
-            pauseBtn.textContent = "⏸"; // 일시정지
-          }
+            if (bannerInterval) {
+                clearInterval(bannerInterval);
+                bannerInterval = null;
+                pauseBtn.textContent = "▶";
+            } else {
+                startAutoSlide();
+                pauseBtn.textContent = "⏸";
+            }
         }
 
         function startAutoSlide() {
-          bannerInterval = setInterval(nextImage, 3000);
+            bannerInterval = setInterval(nextImage, 3000);
         }
 
         function changeBanner(key) {
-          const index = bannerKeys.indexOf(key);
-          if (index === -1) return;
-          currentBannerIndex = index;
-          showBanner(currentBannerIndex);
-          clearInterval(bannerInterval);
-          bannerInterval = null;
-          pauseBtn.textContent = "▶";
+            const index = bannerKeys.indexOf(key);
+            if (index === -1) return;
+            currentBannerIndex = index;
+            showBanner(currentBannerIndex);
+            clearInterval(bannerInterval);
+            bannerInterval = null;
+            pauseBtn.textContent = "▶";
         }
 
-        // 외부에서 접근 가능하게
         window.prevImage = prevImage;
         window.nextImage = nextImage;
         window.toggleSlide = toggleSlide;
@@ -408,40 +393,20 @@
         showBanner(currentBannerIndex);
         startAutoSlide();
 
-        // 초기 로드시 책 보여주기 및 활성화 버튼 표시
-        showBooks('cool');  
+        showBooks('cool');
         updateActiveTagButton();
 
-        // 로그아웃 버튼 이벤트 리스너 추가
+        // ⭐⭐⭐ 로그아웃 버튼 이벤트 리스너 수정 ⭐⭐⭐
         const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) { 
-            logoutBtn.addEventListener('click', async () => {
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => { // async 제거, fetch 호출 제거
                 const isConfirmed = confirm('로그아웃 하시겠습니까?');
                 if (!isConfirmed) {
                     return;
                 }
-
-                try {
-                    const response = await fetch('api/auth/logout', { 
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json' 
-                        }
-                    });
-
-                    const apiResponse = await response.json(); 
-
-                    if (response.ok) { 
-                        alert(apiResponse.message || '로그아웃 되었습니다.');
-                        window.location.href = 'main.jsp'; 
-                    } else {
-                        alert(apiResponse.message || '로그아웃 실패: 서버 오류');
-                        console.error('로그아웃 실패 응답:', apiResponse);
-                    }
-                } catch (error) {
-                    console.error('로그아웃 요청 중 오류 발생:', error);
-                    alert('로그아웃 중 통신 오류가 발생했습니다.');
-                }
+                // fetch 대신 직접 페이지 이동 요청
+                window.location.href = '${pageContext.request.contextPath}/logout'; 
+                // 이제 LogoutServlet이 리다이렉션을 처리하므로 클라이언트에서 추가적인 JSON 파싱이나 리다이렉션 로직이 필요 없음
             });
         }
     });
