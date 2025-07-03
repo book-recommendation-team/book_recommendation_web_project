@@ -137,6 +137,8 @@ input[type="text"], input[type="file"], textarea {
 					onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
 				<button type="button" class="add-block-btn"
 					onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
+					<button type="button" class="add-block-btn"
+	onclick="addEditorBlock('link')">+ 링크 블록 추가</button>
 			</div>
 
 
@@ -159,29 +161,53 @@ input[type="text"], input[type="file"], textarea {
 	let blockCount = 1;
 
 	function addEditorBlock(type) {
-	    blockCount++;
-	    const editorArea = document.getElementById("editor-area");
+		blockCount++;
+		const editorArea = document.getElementById("editor-area");
 
-	    const blockDiv = document.createElement("div");
-	    blockDiv.className = "editor-block";
+		const blockDiv = document.createElement("div");
+		blockDiv.className = "editor-block";
 
-	    if (type === "text") {
-	        blockDiv.innerHTML = `
-	            <label>텍스트 입력</label>
-	            <textarea name="contentBlock${blockCount}_text"></textarea>
-	        `;
-	    } else if (type === "image") {
-	        blockDiv.innerHTML = `
-	            <label>이미지 업로드</label>
-	            <input type="file" name="contentBlock${blockCount}_image" accept="image/*">
-	        `;
-	    } else {
-	        alert("알 수 없는 블록 타입입니다.");
-	        return;
-	    }
+		if (type === "text") {
+			blockDiv.innerHTML = `
+				<label>텍스트 입력</label>
+				<textarea name="contentBlock${blockCount}_text"></textarea>
+			`;
+		} else if (type === "image") {
+			blockDiv.innerHTML = `
+				<label>이미지 업로드</label>
+				<input type="file" name="contentBlock${blockCount}_image" accept="image/*">
+			`;
+		} else if (type === "link") {
+			blockDiv.innerHTML = `
+				<label>책 제목</label>
+				<input type="text" name="contentBlock${blockCount}_title" />
 
-	    editorArea.appendChild(blockDiv);
+				<label>저자</label>
+				<input type="text" name="contentBlock${blockCount}_author" />
+
+				<label>출판사</label>
+				<input type="text" name="contentBlock${blockCount}_publisher" />
+
+				<label>발매일</label>
+				<input type="text" name="contentBlock${blockCount}_pubDate" placeholder="예: 2022.07.20" />
+
+				<label>책 표지 이미지</label>
+				<input type="file" name="contentBlock${blockCount}_image" accept="image/*" />
+
+				<label>책 링크</label>
+				<input type="text" name="contentBlock${blockCount}_link" placeholder="https://..." />
+
+				<label>설명</label>
+				<textarea name="contentBlock${blockCount}_desc"></textarea>
+			`;
+		} else {
+			alert("알 수 없는 블록 타입입니다.");
+			return;
+		}
+
+		editorArea.appendChild(blockDiv);
 	}
+
 </script>
 
 

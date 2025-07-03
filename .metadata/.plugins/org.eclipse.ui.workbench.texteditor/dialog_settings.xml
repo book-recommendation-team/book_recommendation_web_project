@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="&lt;%@ page contentType=&quot;text/html; charset=UTF-8&quot; language=&quot;java&quot;%&gt;"/>
 			<item value="book"/>
 		</list>
 		<list key="replacehistory">

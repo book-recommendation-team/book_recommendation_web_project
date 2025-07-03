@@ -506,3 +506,10 @@
 0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:30:09 +0900] "GET /2025_teamproject/img/%EB%B0%95%EC%A0%95%EB%AF%BC.jpg HTTP/1.1" 304 -
 0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:30:11 +0900] "GET /2025_teamproject/celebDetail HTTP/1.1" 200 8512
 0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:30:11 +0900] "GET /2025_teamproject//img/parkchanwook_BOOK.png HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:34:06 +0900] "GET /2025_teamproject/celebList HTTP/1.1" 200 11510
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:34:08 +0900] "GET /2025_teamproject/reviewList HTTP/1.1" 200 13810
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:34:08 +0900] "GET /2025_teamproject/css/reviewList.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:34:09 +0900] "GET /2025_teamproject/reviewForm.jsp HTTP/1.1" 200 8859
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:35:32 +0900] "GET /2025_teamproject/celebList HTTP/1.1" 200 11510
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:35:33 +0900] "GET /2025_teamproject/celebDetail HTTP/1.1" 200 8512
+0:0:0:0:0:0:0:1 - - [02/Jul/2025:17:35:33 +0900] "GET /2025_teamproject//img/parkchanwook_BOOK.png HTTP/1.1" 304 -
