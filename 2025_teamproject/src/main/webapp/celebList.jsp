@@ -44,7 +44,7 @@
 		<div class="grid">
 			<c:forEach var="celeb" items="${celebList}">
 				<!-- <a class="card" href="celebDetail?celebId=${celeb.celeb_rec_id}">  -->
-					<a class="card" href="${pageContext.request.contextPath}/celebDetail"/>
+					<a class="card" href="${pageContext.request.contextPath}/celebDetail">
 					<!-- 북마크 아이콘 --> <i class="fas fa-bookmark bookmark-icon"></i> <img
 					src="${celeb.celeb_image_url}" alt="${celeb.celeb_name} 이미지" />
 					<div class="card-content">

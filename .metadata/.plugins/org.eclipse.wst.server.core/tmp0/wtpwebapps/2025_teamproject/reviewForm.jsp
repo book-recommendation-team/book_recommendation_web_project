@@ -14,26 +14,21 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #fff;
-	padding: 0;
 }
 
 .container {
 	max-width: 1000px;
 	margin: 30px auto;
+	padding: 0 16px;
 }
 
 h2 {
 	text-align: center;
-	margin-bottom: 30px;
+	margin: 60px;
 }
 
-label {
-	display: block;
-	margin-top: 15px;
-	font-weight: bold;
-}
-
-input[type="text"], textarea {
+input[type="text"], input[type="file"], textarea {
+	box-sizing: border-box;
 	width: 100%;
 	padding: 10px;
 	margin-top: 8px;
@@ -43,36 +38,61 @@ input[type="text"], textarea {
 	font-size: 1rem;
 }
 
-textarea {
-	height: 150px;
-	resize: vertical;
-}
-
-.button-group {
-	text-align: center;
-	margin-top: 30px;
-}
-
-.button-group button {
-	padding: 10px 20px;
-	border: none;
+.editor-block {
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 12px;
 	border-radius: 8px;
-	font-size: 1rem;
-	cursor: pointer;
-	margin: 0 10px;
+	margin-bottom: 12px;
+	background-color: #fff;
 }
 
-.button-submit {
+.editor-block textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+
+.editor-block input[type="file"] {
+	background-color: #f4f4f4;
+}
+
+.button-box {
+	text-align: center;
+	margin-top: 24px;
+}
+
+.button-box button {
+	padding: 10px 20px;
+	font-size: 1rem;
+	border: none;
+	border-radius: 6px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.submit-btn {
 	background-color: #e6f0d7;
 	color: black;
 }
 
-.button-cancel {
+.cancel-btn {
 	background-color: #fff;
 	color: black;
 }
+
+.add-block-btn {
+	display: block;
+	margin: 0 auto 20px;
+	padding: 8px 16px;
+	border-radius: 10px;
+	background-color: #eff7f8;
+	color: black;
+	border: none;
+	cursor: pointer;
+}
 </style>
 </head>
+
 <body>
 	<header>
 		<div id="logo">
@@ -97,26 +117,40 @@ textarea {
 			href="${pageContext.request.contextPath}/celebList">셀럽추천</a> <a
 			href="#">마이페이지</a>
 	</nav>
+
 	<div class="container">
 		<h2>책 리뷰 작성</h2>
-		<form action="submitReview" method="post">
-			<label for="title">책 제목</label> <input type="text" id="title"
-				name="title" required /> <label for="author">저자</label> <input
-				type="text" id="author" name="author" required /> <label
-				for="coverImageUrl">책 표지 이미지 URL</label> <input type="text"
-				id="coverImageUrl" name="coverImageUrl" placeholder="https://..."
-				required /> <label for="reviewText">리뷰 내용</label>
-			<textarea id="reviewText" name="reviewText" placeholder="내용을 입력하세요."
-				required></textarea>
-
-			<div class="button-group">
-				<button type="submit" class="button-submit">작성하기</button>
-				<button type="button" class="button-cancel" onclick="history.back()">취소</button>
+		<form action="submitReview" method="post"
+			enctype="multipart/form-data">
+			<div id="editor-area">
+				<div class="editor-block">
+					<label>책 제목</label> <input type="text" name="title" required>
+					<label>저자</label> <input type="text" name="author" required>
+					<label>책 표지 이미지 URL</label> <input type="text" name="coverImageUrl"
+						placeholder="https://..." required> <label>리뷰 작성</label>
+					<textarea name="reviewText" required></textarea>
+				</div>
 			</div>
 		</form>
 	</div>
-	
-		<footer>
+
+
+	<!-- 블록 추가 버튼 -->
+	<div style="text-align: center; margin-bottom: 20px;">
+		<button type="button" class="add-block-btn"
+			onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
+		<button type="button" class="add-block-btn"
+			onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
+	</div>
+
+	<div class="button-box">
+		<button type="submit" class="submit-btn">작성하기</button>
+		<button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+	</div>
+	</form>
+	</div>
+
+	<footer>
 		<div class="footer-container">
 			<p>&copy; 2025 WITHUS. All rights reserved.</p>
 			<div class="footer-links">
@@ -124,5 +158,34 @@ textarea {
 			</div>
 		</div>
 	</footer>
+
+	<script>
+	let blockCount = 1;
+
+	function addEditorBlock(type) {
+		blockCount++;
+		const editorArea = document.getElementById("editor-area");
+
+		const blockDiv = document.createElement("div");
+		blockDiv.className = "editor-block";
+
+		if (type === "text") {
+			blockDiv.innerHTML = `
+				<label>텍스트 입력</label>
+				<textarea name="contentBlock${blockCount}_text"></textarea>
+			`;
+		} else if (type === "image") {
+			blockDiv.innerHTML = `
+				<label>이미지 업로드</label>
+				<input type="file" name="contentBlock${blockCount}_image" accept="image/*">
+			`;
+		} else {
+			alert("알 수 없는 블록 타입입니다.");
+			return;
+		}
+
+		editorArea.appendChild(blockDiv);
+	}
+	</script>
 </body>
 </html>

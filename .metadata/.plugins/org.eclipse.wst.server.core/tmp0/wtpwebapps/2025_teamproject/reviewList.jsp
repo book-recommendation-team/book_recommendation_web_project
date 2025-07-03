@@ -43,18 +43,19 @@
 
 		<div class="grid">
 			<c:forEach var="review" items="${reviewList}">
-				<div class="card"
-					onclick="location.href='reviewDetail?reviewId=${review.reviewId}'">
+				<%-- <div class="card" onclick="location.href='reviewDetail?reviewId=${review.reviewId}'"> --%>
+				<div class="card" onclick="location.href='${pageContext.request.contextPath}/reviewDetail'">
 					<!-- 북마크 아이콘 -->
 					<i class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
 						src="${review.coverImageUrl}" alt="배경" /> <img class="cover-img"
 						src="${review.coverImageUrl}" alt="표지" />
+						
 					<div class="card-content">
 						<div class="book-title">${review.title}</div>
 						<div class="book-author">${review.author}</div>
 						<div class="review-preview">${review.reviewText}</div>
 					</div>
-				</div>
+					</div>
 			</c:forEach>
 		</div>
 		<div style="height: 2000px;"></div>

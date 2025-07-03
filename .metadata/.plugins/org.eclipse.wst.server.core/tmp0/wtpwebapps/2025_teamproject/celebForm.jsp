@@ -7,7 +7,7 @@
 <%@ include file="css/main_css.jsp"%>
 <link rel="icon" href="img/icon2.png" type="image/x-icon">
 <head>
-<title>게시글 작성</title>
+<title>셀럽 추천 작성</title>
 <style>
 body {
 	font-family: 'Arial', sans-serif;
@@ -20,13 +20,16 @@ body {
 .container {
 	max-width: 1000px;
 	margin: 30px auto;
+	padding: 0 16px;
 }
 
 h2 {
-	margin-bottom: 20px;
+	text-align: center;
+	margin: 60px;
 }
 
 input[type="text"], input[type="file"], textarea {
+	box-sizing: border-box;
 	width: 100%;
 	padding: 10px;
 	margin-top: 8px;
@@ -82,8 +85,8 @@ input[type="text"], input[type="file"], textarea {
 	display: block;
 	margin: 0 auto 20px;
 	padding: 8px 16px;
-	border-radius: 6px;
-	background-color: #fff;
+	border-radius: 10px;
+	background-color: #eff7f8;
 	color: black;
 	border: none;
 	cursor: pointer;
@@ -116,19 +119,15 @@ input[type="text"], input[type="file"], textarea {
 			href="#">마이페이지</a>
 	</nav>
 	<div class="container">
-
 		<h2>셀럽 추천 글 작성</h2>
-
 		<form action="submitCelebPost" method="post"
 			enctype="multipart/form-data">
-			<label>이름</label> <input type="text" name="title" required> <label>설명</label>
-			<input type="text" name="desc" required> <label>썸네일 이미지</label> 
-			<input type="file" name="thumbnail" accept="image/*">
-
 			<div id="editor-area">
 				<div class="editor-block">
-					<label>텍스트 입력</label>
-					<textarea name="contentBlock1_text"></textarea>
+			<label>이름</label> <input type="text" name="title" required> 
+			<label>설명</label> <input type="text" name="desc" required> 
+			<label>썸네일 이미지</label> <input type="file" name="thumbnail" accept="image/*">
+					<label>텍스트 입력</label> <textarea name="contentBlock1_text"></textarea>
 				</div>
 			</div>
 
@@ -137,10 +136,9 @@ input[type="text"], input[type="file"], textarea {
 					onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
 				<button type="button" class="add-block-btn"
 					onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
-					<button type="button" class="add-block-btn"
-	onclick="addEditorBlock('link')">+ 링크 블록 추가</button>
+				<button type="button" class="add-block-btn"
+					onclick="addEditorBlock('link')">+ 링크 블록 추가</button>
 			</div>
-
 
 			<div class="button-box">
 				<button type="submit" class="submit-btn">작성하기</button>
@@ -148,8 +146,8 @@ input[type="text"], input[type="file"], textarea {
 			</div>
 		</form>
 	</div>
-	
-		<footer>
+
+	<footer>
 		<div class="footer-container">
 			<p>&copy; 2025 WITHUS. All rights reserved.</p>
 			<div class="footer-links">

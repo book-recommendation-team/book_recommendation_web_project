@@ -1,0 +1,29 @@
+package servlet;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dto.CelebRecommendations;
+import dto.Review;
+
+@WebServlet("/reviewDetail")
+public class reviewDetailServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ArrayList<Review> reviewDetail = new ArrayList<>();
+        
+        reviewDetail.add(new Review(1, "자살일기", "쿠로다니무", request.getContextPath() + "/img/자살일기.jpg", null));
+        
+        request.setAttribute("reviewDetail", reviewDetail);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/reviewDetail.jsp");
+        dispatcher.forward(request, response);
+	}
+
+}
