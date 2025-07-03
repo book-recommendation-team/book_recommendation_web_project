@@ -15,16 +15,17 @@ public class UserDao {
 
     /**
      * 새로운 사용자를 데이터베이스에 추가합니다.
-     * User 모델에 'status' 필드를 추가했으므로, INSERT 쿼리에 'status' 컬럼을 명시적으로 포함합니다.
+     * 'name', 'hobbies', 'status' 컬럼을 INSERT 쿼리에 명시적으로 포함합니다.
      * 'status'는 기본적으로 'active'로 설정됩니다.
+     * 'reg_date'는 현재 시간으로, 'last_login_date'와 'deleted_at'은 null로 초기화됩니다.
      *
      * @param user 추가할 사용자 정보 객체 (password는 이미 해싱된 상태여야 함)
      * @return 데이터베이스에 저장된 사용자 정보 (user_id 포함) 또는 null (실패 시)
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public User createUser(User user) throws SQLException {
-        // 'status' 컬럼을 명시적으로 추가하여 'active'로 설정
-        String sql = "INSERT INTO Users (username, password, nickname, email, gender, mbti, reg_date, status) VALUES (?, ?, ?, ?, ?, ?, NOW(), 'active')";
+        // 'name', 'hobbies' 필드 추가 및 'status', 'reg_date', 'last_login_date', 'deleted_at' 포함
+        String sql = "INSERT INTO Users (username, password, nickname, email, gender, mbti, name, hobbies, reg_date, last_login_date, status, deleted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NULL, 'active', NULL)";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -38,6 +39,8 @@ public class UserDao {
             pstmt.setString(4, user.getEmail());
             pstmt.setString(5, user.getGender());
             pstmt.setString(6, user.getMbti());
+            pstmt.setString(7, user.getName());    // ✨ name 필드 추가
+            pstmt.setString(8, user.getHobbies()); // ✨ hobbies 필드 추가
 
             int affectedRows = pstmt.executeUpdate();
 
@@ -46,7 +49,9 @@ public class UserDao {
                 if (rs.next()) {
                     user.setUserId(rs.getInt(1));
                     user.setRegDate(LocalDateTime.now());
-                    user.setStatus("active"); // 생성 시 status 설정 동기화
+                    user.setLastLoginDate(null); // DB와 동기화
+                    user.setStatus("active"); // DB와 동기화
+                    user.setDeletedAt(null); // DB와 동기화
                     return user;
                 }
             }
@@ -60,15 +65,15 @@ public class UserDao {
 
     /**
      * 사용자 이름으로 사용자를 조회합니다. (로그인 및 중복 확인용)
-     * 'status' 컬럼을 함께 조회하여 계정 상태를 확인할 수 있도록 합니다.
+     * 'status', 'name', 'hobbies', 'deleted_at' 컬럼을 함께 조회하여 계정 상태 및 전체 정보를 확인할 수 있도록 합니다.
      *
      * @param username 조회할 사용자 이름
      * @return 해당 사용자 객체 또는 null (사용자가 없는 경우)
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public User findByUsername(String username) throws SQLException {
-        // 'status' 컬럼 추가하여 조회
-        String sql = "SELECT user_id, username, password, nickname, email, gender, mbti, reg_date, last_login_date, status FROM Users WHERE username = ?";
+        // 'name', 'hobbies', 'status', 'deleted_at' 컬럼 추가하여 조회
+        String sql = "SELECT user_id, username, password, nickname, email, gender, mbti, name, hobbies, reg_date, last_login_date, status, deleted_at FROM Users WHERE username = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -89,9 +94,12 @@ public class UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setGender(rs.getString("gender"));
                 user.setMbti(rs.getString("mbti"));
+                user.setName(rs.getString("name"));        // ✨ name 필드 매핑
+                user.setHobbies(rs.getString("hobbies"));  // ✨ hobbies 필드 매핑
                 user.setRegDate(rs.getTimestamp("reg_date") != null ? rs.getTimestamp("reg_date").toLocalDateTime() : null);
                 user.setLastLoginDate(rs.getTimestamp("last_login_date") != null ? rs.getTimestamp("last_login_date").toLocalDateTime() : null);
-                user.setStatus(rs.getString("status")); // status 필드 매핑
+                user.setStatus(rs.getString("status"));
+                user.setDeletedAt(rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null); // ✨ deleted_at 필드 매핑
             }
             return user;
         } finally {
@@ -109,6 +117,8 @@ public class UserDao {
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public boolean isEmailTaken(String email) throws SQLException {
+        // 'is_deleted' 또는 'status'가 'active'인 사용자만 고려하는 것이 일반적입니다.
+        // 현재는 모든 이메일 중복을 확인하지만, 필요에 따라 활성 계정만 대상으로 변경할 수 있습니다.
         String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -138,6 +148,7 @@ public class UserDao {
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public boolean isUsernameTaken(String username) throws SQLException {
+        // 'is_deleted' 또는 'status'가 'active'인 사용자만 고려하는 것이 일반적입니다.
         String sql = "SELECT COUNT(*) FROM Users WHERE username = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -167,6 +178,7 @@ public class UserDao {
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public boolean isNicknameTaken(String nickname) throws SQLException {
+        // 'is_deleted' 또는 'status'가 'active'인 사용자만 고려하는 것이 일반적입니다.
         String sql = "SELECT COUNT(*) FROM Users WHERE nickname = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -210,19 +222,17 @@ public class UserDao {
         }
     }
 
-  
-
     /**
      * 사용자 ID로 사용자를 조회합니다. (마이페이지 프로필 조회용)
-     * 'status' 컬럼을 함께 조회하여 사용자 상태를 확인할 수 있도록 합니다.
+     * 'status', 'name', 'hobbies', 'deleted_at' 컬럼을 함께 조회하여 사용자 상태 및 전체 정보를 확인할 수 있도록 합니다.
      *
      * @param userId 조회할 사용자 ID
      * @return 해당 사용자 객체 또는 null
      * @throws SQLException 데이터베이스 작업 중 오류 발생 시
      */
     public User findByUserId(int userId) throws SQLException {
-        // 'status' 컬럼 추가하여 조회
-        String sql = "SELECT user_id, username, password, nickname, email, gender, mbti, reg_date, last_login_date, status FROM Users WHERE user_id = ?";
+        // 'name', 'hobbies', 'status', 'deleted_at' 컬럼 추가하여 조회
+        String sql = "SELECT user_id, username, password, nickname, email, gender, mbti, name, hobbies, reg_date, last_login_date, status, deleted_at FROM Users WHERE user_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -243,9 +253,12 @@ public class UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setGender(rs.getString("gender"));
                 user.setMbti(rs.getString("mbti"));
+                user.setName(rs.getString("name"));        // ✨ name 필드 매핑
+                user.setHobbies(rs.getString("hobbies"));  // ✨ hobbies 필드 매핑
                 user.setRegDate(rs.getTimestamp("reg_date") != null ? rs.getTimestamp("reg_date").toLocalDateTime() : null);
                 user.setLastLoginDate(rs.getTimestamp("last_login_date") != null ? rs.getTimestamp("last_login_date").toLocalDateTime() : null);
-                user.setStatus(rs.getString("status")); // status 필드 매핑
+                user.setStatus(rs.getString("status"));
+                user.setDeletedAt(rs.getTimestamp("deleted_at") != null ? rs.getTimestamp("deleted_at").toLocalDateTime() : null); // ✨ deleted_at 필드 매핑
             }
             return user;
         } finally {
@@ -257,7 +270,7 @@ public class UserDao {
 
     /**
      * 사용자 프로필 정보를 업데이트합니다.
-     * (닉네임, 이메일, 성별, MBTI)
+     * (닉네임, 이메일, 성별, MBTI, 이름, 취미)
      * 이메일과 닉네임의 중복 확인은 서비스 계층에서 먼저 수행되어야 합니다.
      *
      * @param userId 사용자 ID
@@ -266,7 +279,8 @@ public class UserDao {
      * @throws SQLException 데이터베이스 오류 발생 시
      */
     public boolean updateUserProfile(int userId, UserProfileUpdateRequest reqDto) throws SQLException {
-        String sql = "UPDATE Users SET nickname = ?, email = ?, gender = ?, mbti = ? WHERE user_id = ?";
+        // SQL 쿼리에 name, hobbies 컬럼 추가
+        String sql = "UPDATE Users SET nickname = ?, email = ?, gender = ?, mbti = ?, name = ?, hobbies = ? WHERE user_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
 
@@ -277,7 +291,9 @@ public class UserDao {
             pstmt.setString(2, reqDto.getEmail());
             pstmt.setString(3, reqDto.getGender());
             pstmt.setString(4, reqDto.getMbti());
-            pstmt.setInt(5, userId);
+            pstmt.setString(5, reqDto.getName()); // ✨ name 필드 추가
+            pstmt.setString(6, reqDto.getHobbies()); // ✨ hobbies 필드 추가
+            pstmt.setInt(7, userId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } finally {
@@ -314,15 +330,16 @@ public class UserDao {
 
     /**
      * 사용자의 상태를 업데이트합니다. (예: 'active', 'inactive', 'withdrawn')
-     * 회원 탈퇴 기능에 사용됩니다.
+     * 특히 'withdrawn' 상태로 변경 시 deleted_at 컬럼에 현재 시간을 기록합니다.
      *
      * @param userId 사용자 ID
-     * @param status 변경할 상태 문자열 ('active', 'inactive', 'withthrown')
+     * @param status 변경할 상태 문자열 ('active', 'withdrawn', 'suspended' 등)
      * @return 성공 시 true, 실패 시 false
      * @throws SQLException 데이터베이스 오류 발생 시
      */
     public boolean updateUserStatus(int userId, String status) throws SQLException {
-        String sql = "UPDATE Users SET status = ? WHERE user_id = ?";
+        // status가 'withdrawn'일 경우 deleted_at도 함께 업데이트
+        String sql = "UPDATE Users SET status = ?, deleted_at = ? WHERE user_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
 
@@ -330,7 +347,15 @@ public class UserDao {
             conn = DBUtil.getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, status);
-            pstmt.setInt(2, userId);
+            
+            // 상태가 'withdrawn'이면 현재 시간을, 아니면 null을 설정
+            if ("withdrawn".equals(status)) {
+                pstmt.setTimestamp(2, java.sql.Timestamp.valueOf(LocalDateTime.now()));
+            } else {
+                pstmt.setNull(2, java.sql.Types.TIMESTAMP); // 다른 상태로 변경 시 deleted_at 초기화
+            }
+            
+            pstmt.setInt(3, userId);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } finally {

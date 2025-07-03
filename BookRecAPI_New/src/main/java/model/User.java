@@ -10,16 +10,21 @@ public class User {
     private String nickname;
     private String email;
     private String gender; // ENUM 'M', 'F', 'O'
-    private String mbti;   // VARCHAR(10)
+    private String mbti;    // VARCHAR(10)
+    private String name;    // ✨ 추가: 이름 필드
+    private String hobbies; // ✨ 추가: 취미/관심사 필드 (콤마 등으로 구분된 문자열)
     private LocalDateTime regDate;
     private LocalDateTime lastLoginDate;
-    private String status; // <-- 이 필드가 추가되었습니다.
+    private String status;
+    private LocalDateTime deletedAt;
 
     // 기본 생성자
     public User() {}
 
-    // 모든 필드를 초기화하는 생성자 (status 필드 포함)
-    public User(int userId, String username, String password, String nickname, String email, String gender, String mbti, LocalDateTime regDate, LocalDateTime lastLoginDate, String status) {
+    // 모든 필드를 초기화하는 생성자 (업데이트)
+    public User(int userId, String username, String password, String nickname, String email, String gender, String mbti,
+                String name, String hobbies, // ✨ 추가된 필드들
+                LocalDateTime regDate, LocalDateTime lastLoginDate, String status, LocalDateTime deletedAt) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -27,9 +32,12 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.mbti = mbti;
+        this.name = name;        // ✨ 초기화
+        this.hobbies = hobbies;  // ✨ 초기화
         this.regDate = regDate;
         this.lastLoginDate = lastLoginDate;
-        this.status = status; // <-- 생성자에 status 필드 추가
+        this.status = status;
+        this.deletedAt = deletedAt;
     }
 
     // Getter와 Setter 메서드 (필수)
@@ -60,23 +68,37 @@ public class User {
     public LocalDateTime getLastLoginDate() { return lastLoginDate; }
     public void setLastLoginDate(LocalDateTime lastLoginDate) { this.lastLoginDate = lastLoginDate; }
 
-    // status 필드의 Getter와 Setter (새롭게 추가된 부분)
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getDeletedAt() { return deletedAt; }
+    public void setDeletedAt(LocalDateTime deletedAt) { this.deletedAt = deletedAt; }
+
+    // ✨ 추가: name 필드의 Getter 및 Setter
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    // ✨ 추가: hobbies 필드의 Getter 및 Setter
+    public String getHobbies() { return hobbies; }
+    public void setHobbies(String hobbies) { this.hobbies = hobbies; }
 
     @Override
     public String toString() {
         return "User{" +
-               "userId=" + userId +
-               ", username='" + username + '\'' +
-               ", nickname='" + nickname + '\'' +
-               ", email='" + email + '\'' +
-               ", gender='" + gender + '\'' +
-               ", mbti='" + mbti + '\'' +
-               ", regDate=" + regDate +
-               ", lastLoginDate=" + lastLoginDate +
-               ", status='" + status + '\'' + // <-- toString에도 status 추가
-               '}';
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + "[PROTECTED]" + '\'' + // 비밀번호는 출력하지 않는 것이 좋음
+                ", nickname='" + nickname + '\'' +
+                ", email='" + email + '\'' +
+                ", gender='" + gender + '\'' +
+                ", mbti='" + mbti + '\'' +
+                ", name='" + name + '\'' +       // ✨ toString에도 추가
+                ", hobbies='" + hobbies + '\'' + // ✨ toString에도 추가
+                ", regDate=" + regDate +
+                ", lastLoginDate=" + lastLoginDate +
+                ", status='" + status + '\'' +
+                ", deletedAt=" + deletedAt +
+                '}';
     }
 
     @Override
