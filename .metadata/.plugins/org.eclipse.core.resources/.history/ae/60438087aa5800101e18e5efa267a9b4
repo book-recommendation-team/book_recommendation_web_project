@@ -1,0 +1,101 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>책 리뷰 작성</title>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 20px 0 8px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 28px;
+    }
+
+    .star {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .star.hovered,
+    .star.selected {
+      color: gold;
+    }
+
+    .button-box {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button-box button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      background-color: #e6f0d7;
+      color: black;
+    }
+
+    .cancel-btn {
+      background-color: #fff;
+      color: black;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>책 리뷰 작성</h2>
+    <form action="submitReview" method="post">
+      <label>별점</label>
+      <div class="star-rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <

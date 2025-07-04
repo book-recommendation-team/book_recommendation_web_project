@@ -5,6 +5,7 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 <link rel="stylesheet" href="./css/celebList.css" />
 <%@ include file="css/main_css.jsp"%>
+<%@ include file="./main2.jsp"%>
 <link rel="icon" href="img/icon2.png" type="image/x-icon">
 <head>
 <title>리뷰 작성</title>
@@ -89,41 +90,44 @@ input[type="text"], input[type="file"], textarea {
 	color: black;
 	border: none;
 	cursor: pointer;
-}
+	
+/* 별점 */
+    .star-rating {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 28px;
+    }
+
+    .star {
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .star.hovered,
+    .star.selected {
+      color: gold;
+    }
 </style>
 </head>
-
 <body>
-	<header>
-		<div id="logo">
-			<a href="main.jsp"> <img src="img/logo.png" alt="로고">
-			</a>
-		</div>
-
-		<div class="search-group">
-			<input type="text" id="search-box" placeholder="검색어를 입력하세요..." />
-			<button id="search-btn">검색</button>
-		</div>
-		<div id="user-buttons">
-			<button id="join-btn" onclick="location.href='join.jsp'">회원가입</button>
-			<button id="login-btn" onclick="location.href='Login.jsp'">로그인</button>
-		</div>
-	</header>
-
-	<nav>
-		<a href="#">(AI) 책 추천</a> <a
-			href="${pageContext.request.contextPath}/reviewList">리뷰</a> <a
-			href="#">플레이리스트</a> <a
-			href="${pageContext.request.contextPath}/celebList">셀럽추천</a> <a
-			href="#">마이페이지</a>
-	</nav>
-
 	<div class="container">
 		<h2>책 리뷰 작성</h2>
 		<form action="submitReview" method="post"
 			enctype="multipart/form-data">
 			<div id="editor-area">
 				<div class="editor-block">
+					   <form action="submitReview" method="post">
+      <label>별점</label>
+      <div class="star-rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+        <input type="hidden" name="rating" id="rating" value="0">
+      </div>
 					<label>책 제목</label> <input type="text" name="title" required>
 					<label>저자</label> <input type="text" name="author" required>
 					<label>책 표지 이미지 URL</label> <input type="text" name="coverImageUrl"
@@ -186,6 +190,28 @@ input[type="text"], input[type="file"], textarea {
 
 		editorArea.appendChild(blockDiv);
 	}
+	
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach((star, idx) => {
+      star.addEventListener('mouseover', () => {
+        stars.forEach((s, i) => {
+          s.classList.toggle('hovered', i <= idx);
+        });
+      });
+
+      star.addEventListener('mouseout', () => {
+        stars.forEach(s => s.classList.remove('hovered'));
+      });
+
+      star.addEventListener('click', () => {
+        ratingInput.value = idx + 1;
+        stars.forEach((s, i) => {
+          s.classList.toggle('selected', i <= idx);
+        });
+      });
+    });
 	</script>
 </body>
 </html>

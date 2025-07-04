@@ -17,11 +17,16 @@ public class reviewDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Review> reviewDetail = new ArrayList<>();
         
-        Review review = new Review(1, "자살일기", "쿠로다니무", request.getContextPath() + "/img/자살일기.jpg", "이제는 너에게 전부가 되므로...");
-        request.setAttribute("review", review);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/reviewDetail.jsp");
-        dispatcher.forward(request, response);
-	}
-
-}
+        Review review = new Review(
+                1,
+                "자살일기",
+                "쿠로다니무",
+                request.getContextPath() + "/img/자살일기.jpg",
+                "이제는 너에게 전부가 되므로...",
+                4 // ⭐️ 별점 추가
+            );
+            request.setAttribute("review", review);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/reviewDetail.jsp");
+            dispatcher.forward(request, response);
+        }
+    }

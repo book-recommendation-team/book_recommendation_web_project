@@ -6,6 +6,8 @@ public class Review {
     private String author;
     private String coverImageUrl;
     private String reviewText;
+    private int rating;
+    
 	public int getReviewId() {
 		return reviewId;
 	}
@@ -36,13 +38,21 @@ public class Review {
 	public void setReviewText(String reviewText) {
 		this.reviewText = reviewText;
 	}
-	public Review(int reviewId, String title, String author, String coverImageUrl, String reviewText) {
+	public int getRating() {
+	    return rating;
+	}
+	public void setRating(int rating) {
+	    this.rating = rating;
+	}
+	
+	public Review(int reviewId, String title, String author, String coverImageUrl, String reviewText, int rating) {
 		super();
 		this.reviewId = reviewId;
 		this.title = title;
 		this.author = author;
 		this.coverImageUrl = coverImageUrl;
 		this.reviewText = reviewText;
+	    this.rating = rating;
 	}
 	public Review() {
 		super();
@@ -51,7 +61,7 @@ public class Review {
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", title=" + title + ", author=" + author + ", coverImageUrl="
-				+ coverImageUrl + ", reviewText=" + reviewText + "]";
+				+ coverImageUrl + ", reviewText=" + reviewText  + ", rating=" + rating + "]";
 	}
 
     

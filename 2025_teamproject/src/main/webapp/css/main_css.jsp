@@ -90,14 +90,14 @@ nav a:hover {
     display: flex;
     gap: 10px;
     margin-right: 150px;
-}
+} 
 
 .banner {
     position: relative;
     width: 100%;
     height: 650px;
     overflow: hidden;
-    background-color: #ffe04d;
+      background-color: transparent;
 }
 
 .banner img {
@@ -108,7 +108,6 @@ nav a:hover {
     height: 100%;
     object-fit: cover;
     object-position: center center;
-    opacity: 0.8;
     z-index: 1;
 }
 
@@ -163,7 +162,7 @@ nav a:hover {
     text-align: center;
 }
 
-.tag-list {
+ .tag-list {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -322,4 +321,47 @@ footer {
     background-color: #446b3c;
     color: white;
 }
+#scrollToTopBtn {
+  position: fixed;
+  bottom: 150px;
+  right: 40px;
+  width: 66px; /* 이미지와 딱 맞게 약간 키움 */
+  height: 66px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 그림자 더 작고 약하게 */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  padding: 0;
+  margin-top: 0px; /* margin-top 제거 또는 0으로 */
+}
+
+#scrollToTopBtn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: rotate(-45deg);
+  display: block;
+  transition: transform 0.3s ease;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+#scrollToTopBtn:hover {
+  transform: rotate(45deg) translateY(2px); /* 움직임도 줄임 */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 호버시 그림자도 작게 */
+}
+
+#scrollToTopBtn:hover img {
+  transform: scale(1.05) rotate(-45deg);
+}
+
 </style>
