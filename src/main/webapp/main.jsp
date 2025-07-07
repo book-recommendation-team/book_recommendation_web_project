@@ -228,12 +228,167 @@ String contextPath = request.getContextPath(); // [개선 1] contextPath도 미�
         // 아래 booksData처럼 JavaScript 변수에 많은 양의 HTML을 문자열로 저장하는 것은
         // 유지보수를 매우 어렵게 만듭니다. 서버에서 데이터를 JSON으로 받아와 동적으로 HTML을 생성(AJAX)하는
         // 방식을 사용하는 것이 훨씬 좋은 아키텍처입니다.
-        const booksData = {
-            cool: `<p>서늘한 여름 책 목록 HTML...</p>`, // 예시: 실제로는 book-carousel HTML
-            tearful: `<p>눈물의 여름 책 목록 HTML...</p>`,
-            moment: `<p>여름의 순간들 책 목록 HTML...</p>`,
-            new: `<p>상반기 베스트 셀러 목록 HTML...</p>`
-        };
+        
+       const booksData = {
+		    cool: `
+		      <div class="book-carousel">
+		        <div class="carousel-window">
+		          <div class="carousel-track">
+		            <div class="book-item">
+		              <img src="img/love.jpg" alt="칵테일, 러브, 좀비" />
+		              <div class="book-info">
+		                <p class="book-title">칵테일, 러브, 좀비 (리커버)</p>
+		                <p class="book-author">조예은</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791158791971.jpg" alt="우중괴담" />
+		              <div class="book-info">
+		                <p class="book-title">우중괴담</p>
+		                <p class="book-author">미쓰다 신조</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791160408331.jpg" alt="트로피컬 나이트" />
+		              <div class="book-info">
+		                <p class="book-title">트로피컬 나이트</p>
+		                <p class="book-author">조예은</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791193190364.jpg" alt="당신의 잘린, 손" />
+		              <div class="book-info">
+		                <p class="book-title">당신의 잘린, 손</p>
+		                <p class="book-author">배예람, 클레이븐</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791158792183.jpg" alt="세뇌살인" />
+		              <div class="book-info">
+		                <p class="book-title">세뇌살인</p>
+		                <p class="book-author">혼다 데쓰야</p>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    `,
+		    tearful: `
+			  <div class="book-carousel">
+			    <div class="carousel-window">
+			      <div class="carousel-track">
+			        <div class="book-item">
+			          <img src="img/9791196674380.jpg" alt="오지 않는 버스를 기다리는 아이" />
+			          <div class="book-info">
+			            <p class="book-title">오지 않는 버스를 기다리는 아이</p>
+			            <p class="book-author">토마스 S. 스프래들리 , 제임스 P. 스프래들리</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9791191043754.jpg" alt="세상의 마지막 기차역(리커버 에디션)" />
+			          <div class="book-info">
+			            <p class="book-title">세상의 마지막 기차역(리커버 에디션)</p>
+			            <p class="book-author">무라세 다케시</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9791167901484.jpg" alt="나미야 잡화점의 기적" />
+			          <div class="book-info">
+			            <p class="book-title">나미야 잡화점의 기적</p>
+			            <p class="book-author">히가시노 게이고</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9791197377143.jpg" alt="어서 오세요, 휴남동 서점입니다" />
+			          <div class="book-info">
+			            <p class="book-title">어서 오세요, 휴남동 서점입니다</p>
+			            <p class="book-author">황보름</p>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		    `,
+		    moment: `
+		      <div class="book-carousel">
+		        <div class="carousel-window">
+		          <div class="carousel-track">
+		            <div class="book-item">
+		              <img src="img/9791194324799.jpg" alt="여름어 사전" />
+		              <div class="book-info">
+		                <p class="book-title">여름어 사전</p>
+		                <p class="book-author">아침달 편집부</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791130667607.jpg" alt="주게무의 여름" />
+		              <div class="book-info">
+		                <p class="book-title">주게무의 여름</p>
+		                <p class="book-author">모가미 잇페이</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/9791194192329.jpg" alt=" 스웨덴에서 보낸 여름" />
+		              <div class="book-info">
+		                <p class="book-title">스웨덴에서 보낸 여름</p>
+		                <p class="book-author">김승래</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/photo8.jpeg" alt="첫 여름, 완주" />
+		              <div class="book-info">
+		                <p class="book-title">첫 여름, 완주</p>
+		                <p class="book-author">김금희</p>
+		              </div>
+		            </div>
+		            <div class="book-item">
+		              <img src="img/photo3.jpeg" alt="고래눈이 내리다" />
+			          <div class="book-info">
+			            <p class="book-title">고래눈이 내리다</p>
+			            <p class="book-author">김보영</p>
+			          </div>
+			        </div>
+		          </div>
+		        </div>
+		      </div>
+		    `,
+		    new: `
+		      <div class="book-carousel">
+		        <div class="carousel-window">
+		          <div class="carousel-track">
+			        <div class="book-item">
+			          <img src="img/Unknown.jpeg" alt="소년이 온다" />
+			          <div class="book-info">
+			            <p class="book-title">소년이 온다</p>
+			            <p class="book-author">한강</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9788901294742.jpg" alt="청춘의 독서" />
+			          <div class="book-info">
+			            <p class="book-title">청춘의 독서</p>
+			            <p class="book-author">유시민</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9788932043562.jpg" alt="빛과 실" />
+			          <div class="book-info">
+			            <p class="book-title">빛과 실</p>
+			            <p class="book-author">한강</p>
+			          </div>
+			        </div>
+			        <div class="book-item">
+			          <img src="img/9788998441012.jpg" alt="모순" />
+			          <div class="book-info">
+			            <p class="book-title">모순</p>
+			            <p class="book-author">양귀자</p>
+			          </div>
+			        </div>
+		          </div>
+		        </div>
+		      </div>
+		    `
+		};
 
         const tags = ['cool', 'tearful', 'moment', 'new'];
         let currentTagIndex = 0;
