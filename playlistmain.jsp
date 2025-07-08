@@ -305,20 +305,30 @@ body.delete-mode-active .card-actions {
 					</c:otherwise>
 			</c:choose>
 		</div>
+
 	</div>
 
 	<button id="topBtn" title="맨 위로 이동">
 		<i class="fas fa-arrow-up"></i>
 	</button>
-	
-// JSP 파일에서 <div class="grid" id="cards-grid"> 부분을 다음과 같이 수정:
+
 
 <div class="grid" id="cards-grid">
     <!-- 서버 데이터 제거, JavaScript로 카드 생성 -->
 </div>
 
-// 그리고 JavaScript 부분에 카드 생성 함수 추가:
 
+    <footer>
+         <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">회사소개</a>
+                <a href="#">이용약관</a>
+                <a href="#">개인정보처리방침</a>
+                <a href="#">고객센터</a>
+            </div>
+            <p>&copy; 2024 WithUs. All rights reserved.</p>
+        </div>
+    </footer>
 <script>
 let isNavigating = false;
 
