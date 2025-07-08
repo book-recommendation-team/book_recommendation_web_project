@@ -312,221 +312,112 @@ body.delete-mode-active .card-actions {
 		<i class="fas fa-arrow-up"></i>
 	</button>
 	
-	<script>
-	// 전역 변수
-	let originalCardsData = [];
-	let isNavigating = false; // 네비게이션 중인지 확인하는 플래그
+// JSP 파일에서 <div class="grid" id="cards-grid"> 부분을 다음과 같이 수정:
 
-	document.addEventListener("DOMContentLoaded", () => {
-		// 커스텀 카드 데이터가 있고 서버 데이터가 없다면 커스텀 데이터로 카드 생성
-		if (typeof customCards !== 'undefined' && document.querySelectorAll('.celeb-card-container').length === 0) {
-			createCardsFromCustomData();
-		}
+<div class="grid" id="cards-grid">
+    <!-- 서버 데이터 제거, JavaScript로 카드 생성 -->
+</div>
 
-		// TOP 버튼 스크롤
-		document.getElementById("topBtn").addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: 'smooth' });
-		});
+// 그리고 JavaScript 부분에 카드 생성 함수 추가:
 
-		// 카드 클릭 이벤트
-		document.querySelector('.grid').addEventListener('click', async (event) => {
-			// 삭제 버튼 클릭 처리
-			if (event.target.classList.contains('delete-btn')) {
-				event.preventDefault();
-				event.stopPropagation();
-				handleDeleteCard(event.target);
-				return;
-			}
+<script>
+let isNavigating = false;
 
-			// 카드 클릭 처리 (a 태그로 감싸진 카드 전체 클릭)
-			const clickedCard = event.target.closest('.celeb-card-container');
-			if (clickedCard && !isNavigating) {
-				event.preventDefault();
-				event.stopPropagation();
-				
-				// 클릭된 카드의 링크 URL 찾기
-				const cardId = clickedCard.dataset.celebId;
-				const cardData = customCards.find(card => card.id == cardId);
-				
-				if (cardData && cardData.linkUrl) {
-					isNavigating = true;
-					// 모든 카드 사라지기 애니메이션 실행
-					await fadeOutAllCardsWithNavigation(cardData.linkUrl);
-				}
-				return;
-			}
-		});
+document.addEventListener("DOMContentLoaded", () => {
+    // 커스텀 카드 생성
+    createCardsFromCustomData();
+    
+    // TOP 버튼 스크롤
+    document.getElementById("topBtn").addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-		// 선택 삭제 모드 토글
-		document.getElementById('deleteSelectedBtn').addEventListener('click', () => {
-			document.body.classList.toggle('delete-mode-active');
-			const deleteBtn = document.getElementById('deleteSelectedBtn');
-			if (document.body.classList.contains('delete-mode-active')) {
-				deleteBtn.textContent = '삭제 모드 종료';
-			} else {
-				deleteBtn.textContent = '선택 삭제';
-			}
-		});
-	});
-
-	// 커스텀 데이터로 카드 생성
-	function createCardsFromCustomData() {
-		const grid = document.getElementById('cards-grid');
-		customCards.forEach(data => {
-            let finalImageUrl = data.imageUrl;
-            if (!finalImageUrl.startsWith("http://") && !finalImageUrl.startsWith("https://")) {
-                finalImageUrl = contextPath + "/" + finalImageUrl;
+    // 카드 클릭 이벤트
+    document.querySelector('.grid').addEventListener('click', async (event) => {
+        const clickedCard = event.target.closest('.celeb-card-container');
+        if (clickedCard && !isNavigating) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const cardId = clickedCard.dataset.celebId;
+            const cardData = customCards.find(card => card.id == cardId);
+            
+            if (cardData && cardData.linkUrl) {
+                isNavigating = true;
+                await fadeOutAllCardsWithNavigation(cardData.linkUrl);
             }
-			const card = createCardElement(data.id, finalImageUrl, data.title, data.description, data.userText, data.linkUrl);
-			grid.appendChild(card);
-		});
-	}
+        }
+    });
+});
 
-	// 카드 엘리먼트 생성 (링크 추가)
-	function createCardElement(id, imageUrl, title, desc, userText = '', linkUrl = '') {
-		const cardContainer = document.createElement('div');
-		cardContainer.className = 'celeb-card-container';
-		cardContainer.dataset.celebId = id;
-		if (linkUrl) {
-			cardContainer.dataset.linkUrl = linkUrl;
-		}
+// 커스텀 데이터로 카드 생성
+function createCardsFromCustomData() {
+    const grid = document.getElementById('cards-grid');
+    customCards.forEach(data => {
+        let finalImageUrl = data.imageUrl;
+        if (!finalImageUrl.startsWith("http://") && !finalImageUrl.startsWith("https://")) {
+            finalImageUrl = contextPath + "/" + finalImageUrl;
+        }
+        const card = createCardElement(data.id, finalImageUrl, data.title, data.description, data.userText, data.linkUrl);
+        grid.appendChild(card);
+    });
+}
 
-		// userText가 있는 경우에만 해당 영역을 추가
-		const userTextHtml = userText ? '<div class="card-user-text">' + userText + '</div>' : '';
+// 카드 엘리먼트 생성
+function createCardElement(id, imageUrl, title, desc, userText = '', linkUrl = '') {
+    const cardContainer = document.createElement('div');
+    cardContainer.className = 'celeb-card-container';
+    cardContainer.dataset.celebId = id;
+    if (linkUrl) {
+        cardContainer.dataset.linkUrl = linkUrl;
+    }
 
-		cardContainer.innerHTML = 
-			'<i class="fas fa-bookmark bookmark-icon"></i>' +
-			'<div class="card-actions">' +
-				'<button class="delete-btn">삭제</button>' + 
-			'</div>' +
-			'<div class="card">' +
-				'<img src="' + imageUrl + '" alt="' + title + ' 이미지" class="loaded" />' +
-				'<div class="card-content">' +
-					'<div class="card-title">' + title + '</div>' +
-					'<div class="card-desc">' + desc + '</div>' +
-					userTextHtml +
-				'</div>' +
-			'</div>';
+    const userTextHtml = userText ? '<div class="card-user-text">' + userText + '</div>' : '';
 
-		return cardContainer;
-	}
+    cardContainer.innerHTML = 
+        '<i class="fas fa-bookmark bookmark-icon"></i>' +
+        '<div class="card-actions">' +
+            '<button class="delete-btn">삭제</button>' + 
+        '</div>' +
+        '<div class="card">' +
+            '<img src="' + imageUrl + '" alt="' + title + ' 이미지" class="loaded" />' +
+            '<div class="card-content">' +
+                '<div class="card-title">' + title + '</div>' +
+                '<div class="card-desc">' + desc + '</div>' +
+                userTextHtml +
+            '</div>' +
+        '</div>';
 
-	// 모든 카드 페이드아웃 후 네비게이션
-	async function fadeOutAllCardsWithNavigation(targetUrl) {
-		const cards = document.querySelectorAll('.celeb-card-container');
-		
-		// 모든 카드를 순차적으로 사라지게 함
-		const fadePromises = [];
-		cards.forEach((card, index) => {
-			const promise = new Promise((resolve) => {
-				setTimeout(() => {
-					// 1단계: 투명도와 위치 변경
-					card.classList.add('fade-out');
-					
-					// 2단계: 애니메이션 완료 후 높이 줄이기
-					setTimeout(() => {
-						card.classList.add('fade-out-shrink');
-						
-						// 3단계: 높이 애니메이션 완료 후 제거
-						setTimeout(() => {
-							card.remove();
-							resolve();
-						}, 300);
-					}, 1200);
-				}, index * 200);
-			});
-			fadePromises.push(promise);
-		});
+    return cardContainer;
+}
 
-		// 모든 카드가 사라질 때까지 기다림
-		await Promise.all(fadePromises);
-		
-		// 모든 카드가 사라진 후 페이지 이동
-		window.location.href = targetUrl;
-	}
+// 모든 카드 페이드아웃 후 네비게이션
+async function fadeOutAllCardsWithNavigation(targetUrl) {
+    const cards = document.querySelectorAll('.celeb-card-container');
+    
+    const fadePromises = [];
+    cards.forEach((card, index) => {
+        const promise = new Promise((resolve) => {
+            setTimeout(() => {
+                card.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    card.classList.add('fade-out-shrink');
+                    
+                    setTimeout(() => {
+                        card.remove();
+                        resolve();
+                    }, 300);
+                }, 1200);
+            }, index * 200);
+        });
+        fadePromises.push(promise);
+    });
 
-	// 기존 모든 카드 페이드아웃 함수 (이미지 클릭용)
-	function fadeOutAllCards() {
-		const cards = document.querySelectorAll('.celeb-card-container');
-		
-		cards.forEach((card, index) => {
-			setTimeout(() => {
-				// 1단계: 투명도와 위치 변경
-				card.classList.add('fade-out');
-				
-				// 2단계: 애니메이션 완료 후 높이 줄이기
-				setTimeout(() => {
-					card.classList.add('fade-out-shrink');
-					
-					// 3단계: 높이 애니메이션 완료 후 제거
-					setTimeout(() => {
-						card.remove();
-					}, 300);
-				}, 1200);
-			}, index * 200);
-		});
-	}
-
-	// 개별 카드 삭제 처리
-	async function handleDeleteCard(deleteBtn) {
-		const celebCardContainer = deleteBtn.closest('.celeb-card-container');
-		const celebRecId = celebCardContainer ? celebCardContainer.dataset.celebId : null;
-		
-		console.log("------------------------------------------");
-		console.log("클릭된 요소 (deleteBtn):", deleteBtn);
-		console.log("closest('.celeb-card-container'):", celebCardContainer);
-		console.log("celebCardContainer.dataset.celebId:", celebRecId);
-
-		if (!celebRecId || celebRecId.trim() === '' || isNaN(parseInt(celebRecId))) {
-			alert('삭제할 셀럽 ID를 찾을 수 없거나 형식이 올바르지 않습니다.');
-			return;
-		}
-
-		const isConfirmed = confirm('정말로 이 셀럽 추천 글을 삭제하시겠습니까?');
-		if (!isConfirmed) {
-			return;
-		}
-
-		try {
-			const deleteUrl = `${contextPath}/celebList/` + celebRecId;
-			console.log("생성될 DELETE 요청 URL:", deleteUrl);
-
-			const response = await fetch(deleteUrl, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-
-			let apiResponse = {};
-			if (response.status !== 204) {
-				apiResponse = await response.json(); 
-			}
-			
-			if (response.ok) {
-				alert(apiResponse.message || '셀럽 추천 글이 성공적으로 삭제되었습니다!');
-				// 페이드아웃 효과 후 제거 - 레이아웃 깜빡임 방지
-				celebCardContainer.classList.add('fade-out');
-				
-				// 투명도 애니메이션 완료 후 높이 줄이기
-				setTimeout(() => {
-					celebCardContainer.classList.add('fade-out-shrink');
-					
-					// 높이 애니메이션 완료 후 제거
-					setTimeout(() => {
-						celebCardContainer.remove();
-					}, 300);
-				}, 1200);
-			} else {
-				alert(apiResponse.message || `삭제 실패: ${response.statusText}`);
-				console.error('API 응답 오류:', apiResponse);
-			}
-		} catch (error) {
-			console.error('삭제 요청 중 오류 발생:', error);
-			alert('삭제 요청 중 통신 오류가 발생했습니다.');
-		}
-	}
-	</script>
+    await Promise.all(fadePromises);
+    window.location.href = targetUrl;
+}
+</script>
 
 </body>
 </html>
