@@ -305,7 +305,6 @@ body.delete-mode-active .card-actions {
 					</c:otherwise>
 			</c:choose>
 		</div>
-		<div style="height: 2000px;"></div>
 	</div>
 
 	<button id="topBtn" title="맨 위로 이동">
