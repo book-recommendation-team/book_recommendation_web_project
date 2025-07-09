@@ -1,0 +1,169 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<%@ page import="model.User" %> <%-- User 모델 클래스 import --%>
+<%
+    // [추가] 페이지에서 사용할 변수들을 선언합니다.
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    String contextPath = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="./css/celebList.css" />
+<%@ include file="css/main_css.jsp"%>
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<head>
+<title>리뷰 작성</title>
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	padding: 0;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 30px auto;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+label {
+	display: block;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="file"], textarea {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	margin-top: 8px;
+	margin-bottom: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 1rem;
+}
+
+.editor-block {
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 12px;
+	border-radius: 8px;
+	margin-bottom: 12px;
+	background-color: #fff;
+}
+
+.editor-block textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+
+.editor-block input[type="file"] {
+	background-color: #f4f4f4;
+}
+
+.button-box {
+	text-align: center;
+	margin-top: 24px;
+}
+
+.button-box button {
+	padding: 10px 20px;
+	font-size: 1rem;
+	border: none;
+	border-radius: 6px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.submit-btn {
+	background-color: #e6f0d7;
+	color: black;
+}
+
+.cancel-btn {
+	background-color: #fff;
+	color: black;
+}
+
+.add-block-btn {
+	display: block;
+	margin: 0 auto 20px;
+	padding: 8px 16px;
+	border-radius: 10px;
+	background-color: #eff7f8;
+	color: black;
+	border: none;
+	cursor: pointer;
+}
+
+/* ⭐ 별점 관련 스타일 (이건 꼭 바깥에 있어야 적용됨) */
+.star-rating {
+  display: flex;
+  gap: 10px;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.star {
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s ease-in-out;
+}
+
+.star.hovered,
+.star.selected {
+  color: gold;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div id="logo">
+			<a href="main.jsp"> <img src="img/logo.png" alt="로고">
+			</a>
+		</div>
+
+		<div class="search-group">
+			<input type="text" id="search-box" placeholder="검색어를 입력하세요..." />
+			<button id="search-btn">검색</button>
+		</div>
+		<div id="user-buttons">
+			<button id="join-btn" onclick="location.href='join.jsp'">회원가입</button>
+			<button id="login-btn" onclick="location.href='Login.jsp'">로그인</button>
+		</div>
+	</header>
+
+	<nav>
+		<a href="#">(AI) 책 추천</a> <a
+			href="${pageContext.request.contextPath}/reviewList">리뷰</a> <a
+			href="#">플레이리스트</a> <a
+			href="${pageContext.request.contextPath}/celebList">셀럽추천</a> <a
+			href="#">마이페이지</a>
+	</nav>
+	<div class="container">
+		<h2>책 리뷰 작성</h2>
+		<form action="submitReview" method="post">
+			<label for="title">책 제목</label> <input type="text" id="title"
+				name="title" required /> <label for="author">저자</label> <input
+				type="text" id="author" name="author" required /> <label
+				for="coverImageUrl">책 표지 이미지 URL</label> <input type="text"
+				id="coverImageUrl" name="coverImageUrl" placeholder="https://..."
+				required /> <label for="reviewText">리뷰 내용</label>
+			<textarea id="reviewText" name="reviewText" placeholder="내용을 입력하세요."
+				required></textarea>
+
+			<div class="button-group">
+				<button type="submit" class="button-submit">작성하기</button>
+				<button type="button" class="button-cancel" onclick="history.back()">취소</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

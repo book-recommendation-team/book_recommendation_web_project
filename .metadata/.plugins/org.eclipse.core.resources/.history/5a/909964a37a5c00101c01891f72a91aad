@@ -1,0 +1,36 @@
+package servlet;
+
+import dao.ReviewDao;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+import java.io.IOException;
+
+@WebServlet("/submitReview")
+public class ReviewSubmitServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String coverImageUrl = request.getParameter("coverImageUrl");
+        String reviewText = request.getParameter("reviewText");
+        int rating = Integer.parseInt(request.getParameter("rating"));
+
+        Review review = new Review();
+        review.setTitle(title);
+        review.setAuthor(author);
+        review.setCoverImageUrl(coverImageUrl);
+        review.setReviewText(reviewText);
+        review.setRating(rating);
+
+        ReviewDao dao = new ReviewDao();
+        dao.saveReview(review); // DB에 저장
+
+        // 작성 후 목록 페이지로 리다이렉트
+        response.sendRedirect("reviewList");
+    }
+}

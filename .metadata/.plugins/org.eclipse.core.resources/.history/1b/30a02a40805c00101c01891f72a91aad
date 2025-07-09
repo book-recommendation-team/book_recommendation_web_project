@@ -1,0 +1,215 @@
+<%@ page contentType="text/html; charset=UTF-8" language="java"%>
+<%@ page import="model.User" %> <%-- User 모델 클래스 import --%>
+<%
+    // [추가] 페이지에서 사용할 변수들을 선언합니다.
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    String contextPath = request.getContextPath();
+%>
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="./css/celebList.css" />
+<%@ include file="css/main_css.jsp"%>
+<%@ include file="main2.jsp"%>
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<head>
+<title>리뷰 작성</title>
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	padding: 0;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 30px auto;
+}
+
+h2 {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+label {
+	display: block;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+input[type="text"], input[type="file"], textarea {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 10px;
+	margin-top: 8px;
+	margin-bottom: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 1rem;
+}
+
+.editor-block {
+	width: 100%;
+	border: 1px solid #ddd;
+	padding: 12px;
+	border-radius: 8px;
+	margin-bottom: 12px;
+	background-color: #fff;
+}
+
+.editor-block textarea {
+	resize: vertical;
+	min-height: 80px;
+}
+
+.editor-block input[type="file"] {
+	background-color: #f4f4f4;
+}
+
+.button-box {
+	text-align: center;
+	margin-top: 24px;
+}
+
+.button-box button {
+	padding: 10px 20px;
+	font-size: 1rem;
+	border: none;
+	border-radius: 6px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.submit-btn {
+	background-color: #e6f0d7;
+	color: black;
+}
+
+.cancel-btn {
+	background-color: #fff;
+	color: black;
+}
+
+.add-block-btn {
+	display: block;
+	margin: 0 auto 20px;
+	padding: 8px 16px;
+	border-radius: 10px;
+	background-color: #eff7f8;
+	color: black;
+	border: none;
+	cursor: pointer;
+}
+
+/* ⭐ 별점 관련 스타일 (이건 꼭 바깥에 있어야 적용됨) */
+.star-rating {
+  display: flex;
+  gap: 10px;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.star {
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s ease-in-out;
+}
+
+.star.hovered,
+.star.selected {
+  color: gold;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2>리뷰 작성</h2>
+		<form action="submitReview" method="post" enctype="multipart/form-data">
+			<div class="editor-block">
+		        <label>별점</label>
+		        <div class="star-rating">
+		          <span class="star" data-value="1">&#9733;</span>
+		          <span class="star" data-value="2">&#9733;</span>
+		          <span class="star" data-value="3">&#9733;</span>
+		          <span class="star" data-value="4">&#9733;</span>
+		          <span class="star" data-value="5">&#9733;</span>
+		          <input type="hidden" name="rating" id="rating" value="0">
+		        </div>
+				<label>책 제목</label> <input type="text" name="title" required>
+				<label>저자</label> <input type="text" name="author" required>
+				<label>책 표지 이미지 URL</label> <input type="text" name="coverImageUrl"
+					placeholder="https://..." required> <label>리뷰 작성</label>
+				<textarea name="reviewText" required></textarea>
+			</div>
+
+	<!-- 블록 추가 버튼 -->
+		<div style="text-align: center; margin-bottom: 20px;">
+			<button type="button" class="add-block-btn"
+				onclick="addEditorBlock('text')">+ 텍스트 블록 추가</button>
+			<button type="button" class="add-block-btn"
+				onclick="addEditorBlock('image')">+ 이미지 블록 추가</button>
+		</div>
+
+		<div class="button-box">
+			<button type="submit" class="submit-btn">작성하기</button>
+			<button type="button" class="cancel-btn" onclick="history.back()">취소</button>
+		</div>
+	</form>
+</div>
+
+	<script>
+	let blockCount = 1;
+
+	function addEditorBlock(type) {
+		blockCount++;
+		const editorArea = document.getElementById("editor-area");
+
+		const blockDiv = document.createElement("div");
+		blockDiv.className = "editor-block";
+
+		if (type === "text") {
+			blockDiv.innerHTML = `
+				<label>텍스트 입력</label>
+				<textarea name="contentBlock${blockCount}_text"></textarea>
+			`;
+		} else if (type === "image") {
+			blockDiv.innerHTML = `
+				<label>이미지 업로드</label>
+				<input type="file" name="contentBlock${blockCount}_image" accept="image/*">
+			`;
+		} else {
+			alert("알 수 없는 블록 타입입니다.");
+			return;
+		}
+
+		editorArea.appendChild(blockDiv);
+	}
+	
+	const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach((star, idx) => {
+      star.addEventListener('mouseover', () => {
+        stars.forEach((s, i) => {
+          s.classList.toggle('hovered', i <= idx);
+        });
+      });
+
+      star.addEventListener('mouseout', () => {
+        stars.forEach(s => s.classList.remove('hovered'));
+      });
+
+      star.addEventListener('click', () => {
+        ratingInput.value = idx + 1;
+        stars.forEach((s, i) => {
+          s.classList.toggle('selected', i <= idx);
+        });
+      });
+    });
+	</script>
+</body>
+<%@ include file="main_footer.jsp"%>
+</html>
