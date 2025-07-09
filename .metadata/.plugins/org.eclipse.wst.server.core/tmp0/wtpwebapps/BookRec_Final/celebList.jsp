@@ -184,46 +184,129 @@ body.delete-mode-active .card-actions {
 			href="<%=contextPath%>/celebList.jsp">셀럽추천</a> <a
 			href="<%=contextPath%>/mypage.jsp">마이페이지</a>
 	</nav>
-	<div class="container">
-		<div class="action-buttons">
-			<a href="celebForm.jsp" class="create-btn">작성하기</a>
-			<button id="deleteSelectedBtn" class="delete-selected-btn">선택
-				삭제</button>
-		</div>
-
-		<div class="grid">
-			<c:forEach var="celeb" items="${celebList}">
-				<div class="celeb-card-container"
-					data-celeb-id="${celeb.celebRecId}">
-					<i class="fas fa-bookmark bookmark-icon"></i>
-
-					<div class="card-actions">
-						<button class="delete-btn">삭제</button>
-					</div>
-
-					<a class="card" href="celebDetail.jsp?celebId=${celeb.celebRecId}">
-						<img src="${celeb.celebImageUrl}" alt="${celeb.celebName} 이미지" />
-						<div class="card-content">
-							<div class="card-title">${celeb.celebName}</div>
-							<div class="card-desc">${celeb.celebDescription}</div>
-						</div>
-					</a>
-				</div>
-			</c:forEach>
-		</div>
-		<div style="height: 2000px;"></div>
-
+<div class="container">
+	<div class="action-buttons">
+		<a href="celebForm.jsp" class="create-btn">작성하기</a>
+		<button id="deleteSelectedBtn" class="delete-selected-btn">선택 삭제</button>
 	</div>
 
-	<button id="topBtn" title="맨 위로 이동">
-		<i class="fas fa-arrow-up"></i>
-	</button>
+	<div class="grid">
+		<!-- 카드 1 -->
+		<div class="celeb-card-container" data-celeb-id="1">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail1.jsp">
+				<img src="./img/celeb/parkchanwook_thum.jpg" alt="Celeb1 이미지" />
+				<div class="card-content">
+					<div class="card-title">박찬욱</div>
+					<div class="card-desc">"깐느박", "미장센의 제왕" 박찬욱 추천</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 2 -->
+		<div class="celeb-card-container" data-celeb-id="2">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail2.jsp">
+				<img src="./img/celeb/iu_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">IU</div>
+					<div class="card-desc">아이유가 직접 읽고 팬들에게 추천한 책</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 3 -->
+		<div class="celeb-card-container" data-celeb-id="3">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail3.jsp">
+				<img src="./img/celeb/munsanghoon_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">문상훈</div>
+					<div class="card-desc">빠더너스 문상훈이 사랑한 시집들</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 4 -->
+		<div class="celeb-card-container" data-celeb-id="4">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail4.jsp">
+				<img src="./img/celeb/faker_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">페이커</div>
+					<div class="card-desc">페이커 대상혁이 추천하는 책</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 5 -->
+		<div class="celeb-card-container" data-celeb-id="5">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail5.jsp">
+				<img src="./img/celeb/parkjungmin_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">박정민</div>
+					<div class="card-desc">출판사 '무제'대표 박정민의 책장</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 6 -->
+		<div class="celeb-card-container" data-celeb-id="6">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail6.jsp">
+				<img src="./img/celeb/rm_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">RM</div>
+					<div class="card-desc">방탄소년단 RM이 추천하는 인생책</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 7 -->
+		<div class="celeb-card-container" data-celeb-id="7">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail7.jsp">
+				<img src="./img/celeb/hankang_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">한강</div>
+					<div class="card-desc">노벨문학상 한강 작가의 책장</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- 카드 8 -->
+		<div class="celeb-card-container" data-celeb-id="8">
+			<i class="fas fa-bookmark bookmark-icon"></i>
+			<div class="card-actions"><button class="delete-btn">삭제</button></div>
+			<a class="card" href="celebDetail8.jsp">
+				<img src="./img/celeb/hongkyung_thum.jpg" alt="Celeb2 이미지" />
+				<div class="card-content">
+					<div class="card-title">홍경</div>
+					<div class="card-desc">배우 홍경이 추천하는 책</div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div style="height: 1000px;"></div>
+</div>
+
+<button id="scrollToTopBtn">
+  <img src="img/up1.png" alt="위로 가기 버튼" />
+</button>
 	<script>
 	document.addEventListener("DOMContentLoaded", () => {
-		// TOP 버튼 스크롤
-		document.getElementById("topBtn").addEventListener("click", () => {
+		document.getElementById("scrollToTopBtn").addEventListener("click", () => {
 			window.scrollTo({ top: 0, behavior: 'smooth' });
 		});
+	});
 
         // ⭐ 핵심: '.grid' 컨테이너에 이벤트 위임 리스너 등록 ⭐
         document.querySelector('.grid').addEventListener('click', async (event) => {

@@ -1,0 +1,198 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="model.User"%>
+<%
+User loggedInUser = (User) session.getAttribute("loggedInUser");
+String contextPath = request.getContextPath();
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="./css/celebList.css" />
+<link rel="stylesheet" href="./css/celebDetail.css" />
+<%-- 외부 CSS 파일 링크 --%>
+<%@ include file="css/main_css.jsp"%>
+<%-- main_css를 include --%>
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<head>
+<meta charset="UTF-8">
+	<title>아이유의 추천 책</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link rel="icon" href="img/icon2.png" type="image/x-icon">
+
+</head>
+<body>
+	<%@ include file="header.jsp"%>
+
+	<nav>
+		<a href="<%=contextPath%>/aiRecommend.jsp">(AI) 책 추천</a> <a
+			href="<%=contextPath%>/reviewList.jsp">리뷰</a> <a
+			href="<%=contextPath%>/playlistmain.jsp">플레이리스트</a> <a
+			href="<%=contextPath%>/celebList.jsp">셀럽추천</a> <a
+			href="<%=contextPath%>/mypage.jsp">마이페이지</a>
+	</nav>
+	<div class="container">
+		<h1>IU</h1>
+		<p class="desc">아이유가 직접 읽고 팬들에게 추천한 책</p>
+
+		<div class="thumbnail-container">
+			<img src="./img/celeb/iu_thum.jpg" alt="Celeb2 이미지" />
+		</div>
+
+		<div class="text-block">"그 애는 꽃이 아닌 홀씨로 살기로 했다."</div>
+		<div class="text-block">"책을 읽는 과정에서 자기성찰을 하고, 생각의 깊이도 깊어지는 것 같아요. 책 속에는 여러 가지 생각이 모여 있잖아요. 한 구절을 읽으며 생각에 잠기고,
+		새로운 생각에 빠져들다 보면 나중에 음악을 하는 데에도 도움이 되는 것 같아요."<br>
+		<div class="text-block">"독서할 때 습관이 있나요?"<br>
+		<Br>
+		저는 책의 마지막 문장부터 찾아 읽는 것을 좋아해요. 그러고는 처음부터 책을 읽다가 다시 한 번 그 마지막 문장을 읽게 됐을 때 그 느낌이 상당히 오묘하답니다.
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook01.png" alt="책 이미지 1">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000570374', '_blank')">
+			<img src="./img/celeb/parkchanwook_book01.jpg" alt="책1">
+			<div class="book-info">
+				<div class="book-title">관촌수필</div>
+				<p class="book-meta">저자: 이문구</p>
+				<p class="book-meta">출판: 문학과지성사</p>
+				<p class="book-meta">발매: 2018.09.03</p>
+				<p class="book-desc">우리 문학 토양을 단단하고 풍요롭게 다져온 작품을 만나다.</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook02.png" alt="책 이미지 2">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000214356477', '_blank')">
+			<img src="./img/celeb/parkchanwook_book02.jpg" alt="책2">
+			<div class="book-info">
+				<div class="book-title">괴물들</div>
+				<p class="book-meta">저자: 클레어 데더러</p>
+				<p class="book-meta">출판: 을유문화사</p>
+				<p class="book-meta">발매: 2024.09.30</p>
+				<p class="book-desc">위대한 걸작을 탄생시킨 괴물 예술가를 어떻게 마주할 것인가?</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook03.png" alt="책 이미지 3">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000001945339', '_blank')">
+			<img src="./img/celeb/parkchanwook_book03.jpg" alt="책3">
+			<div class="book-info">
+				<div class="book-title">브라이턴 록</div>
+				<p class="book-meta">저자: 그레이엄 그린</p>
+				<p class="book-meta">출판: 현대문학</p>
+				<p class="book-meta">발매: 2021.04.23</p>
+				<p class="book-desc">악의 본성을 탐구한 걸작 미스터리</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook04.png" alt="책 이미지 4">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000061448966', '_blank')">
+			<img src="./img/celeb/parkchanwook_book04.jpg" alt="책4">
+			<div class="book-info">
+				<div class="book-title">오너러블 스쿨보이</div>
+				<p class="book-meta">저자: 존 르카레</p>
+				<p class="book-meta">출판: 열린책들</p>
+				<p class="book-meta">발매: 2022.07.20</p>
+				<p class="book-desc">사상 최고 첩보 시리즈 카를라 3부작의 두 번째 작품 출간</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook05.png" alt="책 이미지 5">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000612803', '_blank')">
+			<img src="./img/celeb/parkchanwook_book05.jpg" alt="책5">
+			<div class="book-info">
+				<div class="book-title">이민자들</div>
+				<p class="book-meta">저자: W. G. 제발트</p>
+				<p class="book-meta">출판: 창비</p>
+				<p class="book-meta">발매: 2018.03.22</p>
+				<p class="book-desc">제발트 탄생 75주년 기념 개정판 출간</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook06.png" alt="책 이미지 6">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000938887', '_blank')">
+			<img src="./img/celeb/parkchanwook_book06.jpg" alt="책6">
+			<div class="book-info">
+				<div class="book-title">정확한 사랑의 실험</div>
+				<p class="book-meta">저자: 신형철</p>
+				<p class="book-meta">출판: 마음산책</p>
+				<p class="book-meta">발매: 2014.10.01</p>
+				<p class="book-desc">이야기 속에 숨어 있는 인간의 비밀을 ‘정확한 문장’으로 말한다!</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook07.png" alt="책 이미지 7">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000576590', '_blank')">
+			<img src="./img/celeb/parkchanwook_book07.jpg" alt="책7">
+			<div class="book-info">
+				<div class="book-title">지속의 순간들</div>
+				<p class="book-meta">저자: 제프 다이어</p>
+				<p class="book-meta">출판: 을유문화사</p>
+				<p class="book-meta">발매: 2022.03.05</p>
+				<p class="book-desc">사진을 찍지 않는 사진 비평가만의 새롭고 독특한 시선</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/parkchanwook08.png" alt="책 이미지 8">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000621324', '_blank')">
+			<img src="./img/celeb/parkchanwook_book08.jpg" alt="책8">
+			<div class="book-info">
+				<div class="book-title">창백한 언덕 풍경</div>
+				<p class="book-meta">저자: 가즈오 이시구로</p>
+				<p class="book-meta">출판: 민음사</p>
+				<p class="book-meta">발매: 2012.11.30</p>
+				<p class="book-desc">흐릿한 기억 속에서 재생되는 과거의 상처!</p>
+			</div>
+		</div>
+
+		<!-- 필요한 만큼 image + book-card 반복 -->
+
+		<button class="back-btn" onclick="history.back()">← 뒤로가기</button>
+	</div>
+<button id="scrollToTopBtn">
+  <img src="img/up1.png" alt="위로 가기 버튼" />
+</button>
+
+	<footer>
+		<div class="footer-container">
+			<p>&copy; 2025 WITHUS. All rights reserved.</p>
+			<div class="footer-links">
+				<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> | <a href="#">고객센터</a>
+			</div>
+		</div>
+	</footer>
+	
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		document.getElementById("scrollToTopBtn").addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+	});
+</script>
+
+</body>
+</html>
