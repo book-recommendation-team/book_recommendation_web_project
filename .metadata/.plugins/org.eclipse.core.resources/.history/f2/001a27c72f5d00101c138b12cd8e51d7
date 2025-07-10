@@ -1,0 +1,169 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="model.User"%>
+<%
+User loggedInUser = (User) session.getAttribute("loggedInUser");
+String contextPath = request.getContextPath();
+%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="stylesheet" href="./css/celebList.css" />
+<link rel="stylesheet" href="./css/celebDetail.css" />
+<%-- 외부 CSS 파일 링크 --%>
+<%@ include file="css/main_css.jsp"%>
+<%-- main_css를 include --%>
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<head>
+<meta charset="UTF-8">
+	<title>홍경의 추천 책</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+	<link rel="icon" href="img/icon2.png" type="image/x-icon">
+
+</head>
+<body>
+	<%@ include file="header.jsp"%>
+
+	<nav>
+		<a href="<%=contextPath%>/aiRecommend.jsp">(AI) 책 추천</a> <a
+			href="<%=contextPath%>/reviewList.jsp">리뷰</a> <a
+			href="<%=contextPath%>/playlistmain.jsp">플레이리스트</a> <a
+			href="<%=contextPath%>/celebList.jsp">셀럽추천</a> <a
+			href="<%=contextPath%>/mypage.jsp">마이페이지</a>
+	</nav>
+	<div class="container">
+		<h1>홍경</h1>
+		<p class="desc">배우 홍경이 추천하는 책</p>
+
+		<div class="thumbnail-container">
+			<img src="./img/celeb/hongkyung_thum.jpg" alt="Celeb2 이미지" />
+		</div>
+
+		<div class="text-block">"그 애는 꽃이 아닌 홀씨로 살기로 했다."</div>
+		<div class="text-block">"책을 읽는 과정에서 자기성찰을 하고, 생각의 깊이도 깊어지는 것 같아요. 책 속에는 여러 가지 생각이 모여 있잖아요. 한 구절을 읽으며 생각에 잠기고,
+		새로운 생각에 빠져들다 보면 나중에 음악을 하는 데에도 도움이 되는 것 같아요."<br>
+		</div>
+		<div class="text-block">"독서할 때 습관이 있나요?"<br>
+		<Br>
+		저는 책의 마지막 문장부터 찾아 읽는 것을 좋아해요. 그러고는 처음부터 책을 읽다가 다시 한 번 그 마지막 문장을 읽게 됐을 때 그 느낌이 상당히 오묘하답니다.
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung01.png" alt="책 이미지 1">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000001789142', '_blank')">
+			<img src="./img/celeb/hongkyung_book01.jpg" alt="책1">
+			<div class="book-info">
+				<div class="book-title">제이콥의 방</div>
+				<p class="book-meta">저자: 버지니아 울프</p>
+				<p class="book-meta">출판: 솔</p>
+				<p class="book-meta">발매: 2019.05.15</p>
+				<p class="book-desc">버지니아 울프의 방대한 문학세계를 완성하다.</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung02.png" alt="책 이미지 2">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000213561796', '_blank')">
+			<img src="./img/celeb/hongkyung_book02.jpg" alt="책2">
+			<div class="book-info">
+				<div class="book-title">최선의 삶</div>
+				<p class="book-meta">저자: 임솔아</p>
+				<p class="book-meta">출판: 문학동네</p>
+				<p class="book-meta">발매: 2024.06.14</p>
+				<p class="book-desc">상처의 크기는 나이에 비례하지 않는다.</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung03.png" alt="책 이미지 3">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000619722', '_blank')">
+			<img src="./img/celeb/hongkyung_book03.jpg" alt="책3">
+			<div class="book-info">
+				<div class="book-title">아침의 피아노</div>
+				<p class="book-meta">저자: 김진영</p>
+				<p class="book-meta">출판: 한겨레출판사</p>
+				<p class="book-meta">발매: 2018.10.05</p>
+				<p class="book-desc">철학자 김진영의 애도 일기 </p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung04.png" alt="책 이미지 4">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000001808222', '_blank')">
+			<img src="./img/celeb/hongkyung_book04.jpg" alt="책4">
+			<div class="book-info">
+				<div class="book-title">예민함이라는 무기</div>
+				<p class="book-meta">저자: 롤프 젤린</p>
+				<p class="book-meta">출판: 나무생각</p>
+				<p class="book-meta">발매: 2018.07.18</p>
+				<p class="book-desc">자극에 둔감해진 시대를 살아가는 우리에게 필요한</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung05.png" alt="책 이미지 5">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000780790', '_blank')">
+			<img src="./img/celeb/hongkyung_book05.jpg" alt="책5">
+			<div class="book-info">
+				<div class="book-title">일인칭 단수</div>
+				<p class="book-meta">저자: 무라카미 하루키</p>
+				<p class="book-meta">출판: 문학동네</p>
+				<p class="book-meta">발매: 2020.11.26</p>
+				<p class="book-desc">‘나’라는 소우주를 탐색하는 여덟 갈래의 이야기</p>
+			</div>
+		</div>
+
+		<div class="img-block">
+			<img src="./img/celeb/hongkyung06.png" alt="책 이미지 6">
+		</div>
+
+		<div class="book-card" onclick="window.open('https://product.kyobobook.co.kr/detail/S000000570387', '_blank')">
+			<img src="./img/celeb/honkyung_book06.jpg" alt="책6">
+			<div class="book-info">
+				<div class="book-title">여수의 사랑</div>
+				<p class="book-meta">저자: 한강</p>
+				<p class="book-meta">출판: 문학과지성사</p>
+				<p class="book-meta">발매: 2018.11.09</p>
+				<p class="book-desc">오늘의 한강을 있게 한 어제의 한강을 읽다!</p>
+			</div>
+		</div>
+
+		<!-- 필요한 만큼 image + book-card 반복 -->
+
+		<button class="back-btn" onclick="history.back()">← 뒤로가기</button>
+	</div>
+<button id="scrollToTopBtn">
+  <img src="img/up1.png" alt="위로 가기 버튼" />
+</button>
+
+	<footer>
+		<div class="footer-container">
+			<p>&copy; 2025 WITHUS. All rights reserved.</p>
+			<div class="footer-links">
+				<a href="#">이용약관</a> | <a href="#">개인정보처리방침</a> | <a href="#">고객센터</a>
+			</div>
+		</div>
+	</footer>
+	
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		document.getElementById("scrollToTopBtn").addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+	});
+</script>
+
+</body>
+</html>
