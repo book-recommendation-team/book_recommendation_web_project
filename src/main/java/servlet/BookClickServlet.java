@@ -15,7 +15,7 @@ import dto.RecentBookDTO;
 
 /**
  * 사용자가 책을 클릭했을 때 요청을 받아 세션에 "최근 본 책" 목록을 기록하는 서블릿.
- * 처리가 끝난 후 원래 책 상세 페이지로 리다이렉트합니다.
+ * 처리 후 원래 책 상세 페이지로 리다이렉트합니다.
  */
 @WebServlet("/bookClick")
 public class BookClickServlet extends HttpServlet {
@@ -25,50 +25,65 @@ public class BookClickServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
-        // 1. 요청 파라미터에서 책 정보 추출
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 1. 요청 파라미터에서 책 정보 추출 (UTF-8 인코딩 설정)
         request.setCharacterEncoding("UTF-8");
-        String id = request.getParameter("id");
-        String title = request.getParameter("title");
+        String id     = request.getParameter("id");
+        String title  = request.getParameter("title");
         String author = request.getParameter("author");
-        String image = request.getParameter("image");
-        String link = request.getParameter("link");
+        String image  = request.getParameter("image");
+        String link   = request.getParameter("link");
 
-        // 필수 파라미터가 없으면 아무 작업도 하지 않고 리다이렉트
-        if (id == null || title == null || image == null || link == null) {
-            // 파라미터가 불완전할 경우 기본 페이지나 에러 페이지로 보낼 수 있음
+        // 2. 필수 파라미터 검증
+        if (id == null || id.isEmpty()
+         || title == null || title.isEmpty()
+         || image == null || image.isEmpty()
+         || link == null || link.isEmpty()) {
+            // 불완전할 경우 메인으로 리다이렉트
             response.sendRedirect(request.getContextPath() + "/main.jsp");
             return;
         }
 
-        // 2. DTO 객체 생성
-        RecentBookDTO newBook = new RecentBookDTO(id, title, author, image, link);
+        // 3. DTO 생성 (author는 옵션)
+        RecentBookDTO newBook = new RecentBookDTO(
+            id,
+            title,
+            (author != null ? author : ""),
+            image,
+            link
+        );
 
-        // 3. 세션에서 '최근 본 책' 목록 가져오기
+        // 4. 세션에서 리스트 불러오기
         HttpSession session = request.getSession();
+        @SuppressWarnings("unchecked")
         List<RecentBookDTO> recentBooks = (List<RecentBookDTO>) session.getAttribute("recentBooks");
-
-        // 세션에 목록이 없으면 새로 생성
         if (recentBooks == null) {
             recentBooks = new ArrayList<>();
         }
 
-        // 4. 목록 관리 (중복 제거 및 맨 앞으로 이동)
-        // 기존 목록에 같은 책이 있으면 제거. id를 기준으로 비교.
-        recentBooks.removeIf(book -> book.getId().equals(newBook.getId()));
-
-        // 새 책을 목록의 맨 앞에 추가
+        // 5. 중복 제거 및 맨 앞에 삽입
+        recentBooks.removeIf(b -> b.getId().equals(newBook.getId()));
         recentBooks.add(0, newBook);
 
-        // 5. 목록 최대 개수 유지
+        // 6. 최대 개수 제한
         while (recentBooks.size() > MAX_RECENT_BOOKS) {
-            recentBooks.remove(recentBooks.size() - 1); // 가장 오래된 항목(리스트의 마지막)을 제거
+            recentBooks.remove(recentBooks.size() - 1);
         }
 
-        // 6. 업데이트된 목록을 다시 세션에 저장
+        // 7. 세션에 저장
         session.setAttribute("recentBooks", recentBooks);
 
-        // 7. 원래 목적지(책 상세 페이지)로 리다이렉트
+        // 8. 원래 외부 링크로 리다이렉트
         response.sendRedirect(link);
     }
 }

@@ -18,9 +18,10 @@ String contextPath = request.getContextPath();
 <link rel="icon" href="img/icon2.png" type="image/x-icon">
 <head>
 <meta charset="UTF-8">
-	<title>아이유의 추천 책</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-	<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<title>아이유의 추천 책</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
 
 </head>
 <body>
@@ -42,132 +43,208 @@ String contextPath = request.getContextPath();
 		</div>
 
 		<div class="text-block">"그 애는 꽃이 아닌 홀씨로 살기로 했다."</div>
-		<div class="text-block">"책을 읽는 과정에서 자기성찰을 하고, 생각의 깊이도 깊어지는 것 같아요. 책 속에는 여러 가지 생각이 모여 있잖아요. 한 구절을 읽으며 생각에 잠기고,
-		새로운 생각에 빠져들다 보면 나중에 음악을 하는 데에도 도움이 되는 것 같아요."<br>
+		<div class="text-block">
+			"책을 읽는 과정에서 자기성찰을 하고, 생각의 깊이도 깊어지는 것 같아요. 책 속에는 여러 가지 생각이 모여 있잖아요. 한
+			구절을 읽으며 생각에 잠기고, 새로운 생각에 빠져들다 보면 나중에 음악을 하는 데에도 도움이 되는 것 같아요."<br>
 		</div>
-		<div class="text-block">"독서할 때 습관이 있나요?"<br>
-		<Br>
-		저는 책의 마지막 문장부터 찾아 읽는 것을 좋아해요. 그러고는 처음부터 책을 읽다가 다시 한 번 그 마지막 문장을 읽게 됐을 때 그 느낌이 상당히 오묘하답니다.
+		<div class="text-block">
+			"독서할 때 습관이 있나요?"<br> <Br> 저는 책의 마지막 문장부터 찾아 읽는 것을 좋아해요.
+			그러고는 처음부터 책을 읽다가 다시 한 번 그 마지막 문장을 읽게 됐을 때 그 느낌이 상당히 오묘하답니다.
 		</div>
+
+		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+		<c:url var="clickUrl_171" value="/bookClick">
+			<c:param name="id" value="171" />
+			<c:param name="title" value="제이콥의 방" />
+			<c:param name="author" value="버지니아 울프" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book01.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000001789142" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu01.png" alt="책 이미지 1">
+			<img src="${contextPath}/img/celeb/iu01.png" alt="책 이미지 1">
 		</div>
 
-		<div class="book-card" data-book-id="171" data-link="https://product.kyobobook.co.kr/detail/S000001789142">
-			<img src="./img/celeb/iu_book01.jpg" alt="책1">
+		<a href="${clickUrl_171}" class="book-card" data-book-id="171"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book01.jpg" alt="제이콥의 방"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">제이콥의 방</div>
 				<p class="book-meta">저자: 버지니아 울프</p>
 				<p class="book-meta">출판: 솔</p>
 				<p class="book-meta">발매: 2019.05.15</p>
 				<p class="book-desc">버지니아 울프의 방대한 문학세계를 완성하다.</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_172" value="/bookClick">
+			<c:param name="id" value="172" />
+			<c:param name="title" value="최선의 삶" />
+			<c:param name="author" value="임솔아" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book02.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000213561796" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu02.png" alt="책 이미지 2">
+			<img src="${contextPath}/img/celeb/iu02.png" alt="책 이미지 2">
 		</div>
 
-		<div class="book-card" data-book-id="172" data-link="https://product.kyobobook.co.kr/detail/S000213561796">
-			<img src="./img/celeb/iu_book02.jpg" alt="책2">
+		<a href="${clickUrl_172}" class="book-card" data-book-id="172"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book02.jpg" alt="최선의 삶"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">최선의 삶</div>
 				<p class="book-meta">저자: 임솔아</p>
 				<p class="book-meta">출판: 문학동네</p>
 				<p class="book-meta">발매: 2024.06.14</p>
 				<p class="book-desc">상처의 크기는 나이에 비례하지 않는다.</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_173" value="/bookClick">
+			<c:param name="id" value="173" />
+			<c:param name="title" value="참을 수 없는 존재의 가벼움" />
+			<c:param name="author" value="밀란 쿤데라" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book03.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000000619722" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu03.png" alt="책 이미지 3">
+			<img src="${contextPath}/img/celeb/iu03.png" alt="책 이미지 3">
 		</div>
 
-		<div class="book-card" data-book-id="173" data-link="https://product.kyobobook.co.kr/detail/S000000619722">
-			<img src="./img/celeb/iu_book03.jpg" alt="책3">
+		<a href="${clickUrl_173}" class="book-card" data-book-id="173"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book03.jpg" alt="참을 수 없는 존재의 가벼움"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">참을 수 없는 존재의 가벼움</div>
 				<p class="book-meta">저자: 밀란 쿤데라</p>
 				<p class="book-meta">출판: 민음사</p>
 				<p class="book-meta">발매: 2018.06.20</p>
 				<p class="book-desc">특별한 동시에 잊을 수 없는 어떤 사랑 이야기!</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_174" value="/bookClick">
+			<c:param name="id" value="174" />
+			<c:param name="title" value="왜 나는 너를 사랑하는가" />
+			<c:param name="author" value="알랭 드 보통" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book04.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000200205332" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu04.png" alt="책 이미지 4">
+			<img src="${contextPath}/img/celeb/iu04.png" alt="책 이미지 4">
 		</div>
 
-		<div class="book-card" data-book-id="174" data-link="https://product.kyobobook.co.kr/detail/S000200205332">
-			<img src="./img/celeb/iu_book04.jpg" alt="책4">
+		<a href="${clickUrl_174}" class="book-card" data-book-id="174"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book04.jpg" alt="왜 나는 너를 사랑하는가"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">왜 나는 너를 사랑하는가</div>
 				<p class="book-meta">저자: 알랭 드 보통</p>
 				<p class="book-meta">출판: 창미래</p>
 				<p class="book-meta">발매: 2022.11.10</p>
 				<p class="book-desc">연애가 사랑이 되는 순간, 우연이 사랑이 되는 순간의 비밀</p>
 			</div>
-		</div>
+		</a>
+
+		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+		<c:url var="clickUrl_175" value="/bookClick">
+			<c:param name="id" value="175" />
+			<c:param name="title" value="인간 실격" />
+			<c:param name="author" value="다자이 오사무" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book05.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000000620240" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu05.png" alt="책 이미지 5">
+			<img src="${contextPath}/img/celeb/iu05.png" alt="책 이미지 5">
 		</div>
 
-		<div class="book-card" data-book-id="175" data-link="https://product.kyobobook.co.kr/detail/S000000620240">
-			<img src="./img/celeb/iu_book05.jpg" alt="책5">
+		<a href="${clickUrl_175}" class="book-card" data-book-id="175"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book05.jpg" alt="인간 실격"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">인간 실격</div>
 				<p class="book-meta">저자: 다자이 오사무</p>
 				<p class="book-meta">출판: 민음사</p>
 				<p class="book-meta">발매: 2012.04.10</p>
 				<p class="book-desc">청춘의 한 시기를 통과 의례처럼 거쳐야 하는 일본 데카당스 문학의 대표작</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_176" value="/bookClick">
+			<c:param name="id" value="176" />
+			<c:param name="title" value="희한한 위로" />
+			<c:param name="author" value="강세형" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book06.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000001939518" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu06.png" alt="책 이미지 6">
+			<img src="${contextPath}/img/celeb/iu06.png" alt="책 이미지 6">
 		</div>
 
-		<div class="book-card" data-book-id="176" data-link="https://product.kyobobook.co.kr/detail/S000001939518">
-			<img src="./img/celeb/iu_book06.jpg" alt="책6">
+		<a href="${clickUrl_176}" class="book-card" data-book-id="176"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book06.jpg" alt="희한한 위로"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">희한한 위로</div>
 				<p class="book-meta">저자: 강세형</p>
 				<p class="book-meta">출판: 수오서재</p>
 				<p class="book-meta">발매: 2020.07.20</p>
 				<p class="book-desc">위로는 정말 그런 걸지도 모른다 엉뚱하고 희한한 곳에서 찾아오는 것</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_177" value="/bookClick">
+			<c:param name="id" value="177" />
+			<c:param name="title" value="슬픔의 위안" />
+			<c:param name="author" value="론 마라스코, 브라이언 셔프" />
+			<c:param name="image" value="${contextPath}/img/celeb/iu_book07.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000000574960" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/iu07.png" alt="책 이미지 7">
+			<img src="${contextPath}/img/celeb/iu07.png" alt="책 이미지 7">
 		</div>
 
-		<div class="book-card" data-book-id="177" data-link="https://product.kyobobook.co.kr/detail/S000000574960">
-			<img src="./img/celeb/iu_book07.jpg" alt="책7">
+		<a href="${clickUrl_177}" class="book-card" data-book-id="177"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/iu_book07.jpg" alt="슬픔의 위안"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">슬픔의 위안</div>
 				<p class="book-meta">저자: 론 마라스코, 브라이언 셔프</p>
 				<p class="book-meta">출판: 현암사</p>
 				<p class="book-meta">발매: 2019.03.15</p>
 				<p class="book-desc">슬픔의 발생과 과정, 회복과 흔적을 어루만지는 따스한 성찰의 에세이</p>
 			</div>
-		</div>
+		</a>
+
 
 
 		<button class="back-btn" onclick="history.back()">← 뒤로가기</button>
 	</div>
-<button id="scrollToTopBtn">
-  <img src="img/up1.png" alt="위로 가기 버튼" />
-</button>
+	<button id="scrollToTopBtn">
+		<img src="img/up1.png" alt="위로 가기 버튼" />
+	</button>
 
 	<footer>
 		<div class="footer-container">
@@ -177,11 +254,11 @@ String contextPath = request.getContextPath();
 			</div>
 		</div>
 	</footer>
-	
-<script>
+
+	<script>
 document.addEventListener('DOMContentLoaded', function () {
-    const contextPath = '<%= contextPath %>';
-    const isLoggedIn  = <%= loggedInUser != null %>;
+    const contextPath = '<%=contextPath%>';
+    const isLoggedIn  = <%=loggedInUser != null%>;
 
     // 초기 북마크 상태 세팅
     const wishedBookIds = new Set([
@@ -199,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // 토글 기능: DELETE 대신 POST만 사용
     document.querySelectorAll('.bookmark-icon').forEach(icon => {
         icon.addEventListener('click', async e => {
+        	
+        	e.preventDefault();
             e.stopPropagation();
             if (!isLoggedIn) {
                 alert('로그인이 필요한 기능입니다.');

@@ -18,9 +18,10 @@ String contextPath = request.getContextPath();
 <link rel="icon" href="img/icon2.png" type="image/x-icon">
 <head>
 <meta charset="UTF-8">
-	<title>RM의 추천 책</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-	<link rel="icon" href="img/icon2.png" type="image/x-icon">
+<title>RM의 추천 책</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link rel="icon" href="img/icon2.png" type="image/x-icon">
 
 </head>
 <body>
@@ -42,144 +43,226 @@ String contextPath = request.getContextPath();
 		</div>
 
 		<div class="text-block">"서울에서는 책을 읽으려고 일부러 공원을 찾아다닌다. "</div>
-		<div class="text-block">"리더의 무게는 무겁다. RM은 공식 석상이나 인터뷰에서 남다른 언변으로 주목을 받아왔다.
-		그 비결은 독서에 있다. 그는 철학, 역사, 문학 등 다양한 분야의 책을 읽는 걸로 유명하다.
-		한 인터뷰에서 말한 바로는 책을 통해 지식과 통찰을 넓히고 음악 작업에도 영향을 준다고 했다."</div>
+		<div class="text-block">"리더의 무게는 무겁다. RM은 공식 석상이나 인터뷰에서 남다른 언변으로
+			주목을 받아왔다. 그 비결은 독서에 있다. 그는 철학, 역사, 문학 등 다양한 분야의 책을 읽는 걸로 유명하다. 한
+			인터뷰에서 말한 바로는 책을 통해 지식과 통찰을 넓히고 음악 작업에도 영향을 준다고 했다."</div>
+
+		<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+		<c:url var="clickUrl_201" value="/bookClick">
+			<c:param name="id" value="201" />
+			<c:param name="title" value="블로노트" />
+			<c:param name="author" value="타블로" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book01.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000001764060" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm01.png" alt="책 이미지 1">
+			<img src="${contextPath}/img/celeb/rm01.png" alt="책 이미지 1">
 		</div>
 
-		<div class="book-card" data-book-id="201" data-link="https://product.kyobobook.co.kr/detail/S000001764060">
-			<img src="./img/celeb/rm_book01.jpg" alt="책1">
+		<a href="${clickUrl_201}" class="book-card" data-book-id="201"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book01.jpg" alt="블로노트"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">블로노트</div>
 				<p class="book-meta">저자: 타블로</p>
 				<p class="book-meta">출판: 달</p>
 				<p class="book-meta">발매: 2026.09.28</p>
 				<p class="book-desc">매일 한 줄로 인생을 말하는 블로노트!</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_202" value="/bookClick">
+			<c:param name="id" value="202" />
+			<c:param name="title" value="한입 코끼리" />
+			<c:param name="author" value="황경신" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book02.jpg" />
+			<c:param name="link"
+				value="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002994770" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm02.png" alt="책 이미지 2">
+			<img src="${contextPath}/img/celeb/rm02.png" alt="책 이미지 2">
 		</div>
 
-		<div class="book-card" data-book-id="202" data-link="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002994770">
-			<img src="./img/celeb/rm_book02.jpg" alt="책2">
+		<a href="${clickUrl_202}" class="book-card" data-book-id="202"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book02.jpg" alt="한입 코끼리"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">한입 코끼리</div>
 				<p class="book-meta">저자: 황경신</p>
 				<p class="book-meta">출판: 큐리어스</p>
 				<p class="book-meta">발매: 2014.11.20</p>
 				<p class="book-desc">생에 대한 성찰이 돋보이는 황경신의 연작 소설!</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_203" value="/bookClick">
+			<c:param name="id" value="203" />
+			<c:param name="title" value="모순" />
+			<c:param name="author" value="양귀자" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book03.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000001632467" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm03.png" alt="책 이미지 3">
+			<img src="${contextPath}/img/celeb/rm03.png" alt="책 이미지 3">
 		</div>
 
-		<div class="book-card" data-book-id="203" data-link="https://product.kyobobook.co.kr/detail/S000001632467">
-			<img src="./img/celeb/rm_book03.jpg" alt="책3">
+		<a href="${clickUrl_203}" class="book-card" data-book-id="203"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book03.jpg" alt="모순"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">모순</div>
 				<p class="book-meta">저자: 양귀자</p>
 				<p class="book-meta">출판: 쓰다</p>
 				<p class="book-meta">발매: 2013.04.01</p>
 				<p class="book-desc">인생은 살아가면서 탐구하는 것!</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_204" value="/bookClick">
+			<c:param name="id" value="204" />
+			<c:param name="title" value="해변의 카프카" />
+			<c:param name="author" value="무라카미 하루키" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book04.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000213398973" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm04.png" alt="책 이미지 4">
+			<img src="${contextPath}/img/celeb/rm04.png" alt="책 이미지 4">
 		</div>
 
-		<div class="book-card" data-book-id="204" data-link="https://product.kyobobook.co.kr/detail/S000213398973">
-			<img src="./img/celeb/rm_book04.jpg" alt="책4">
+		<a href="${clickUrl_204}" class="book-card" data-book-id="204"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book04.jpg" alt="해변의 카프카"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">해변의 카프카</div>
 				<p class="book-meta">저자: 무라카미 하루키</p>
 				<p class="book-meta">출판: 문학사상</p>
 				<p class="book-meta">발매: 2024.06.10</p>
-				<p class="book-desc">묘한 고독감과 서정성으로 독자들의 시선을 사로잡는다. </p>
+				<p class="book-desc">묘한 고독감과 서정성으로 독자들의 시선을 사로잡는다.</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_205" value="/bookClick">
+			<c:param name="id" value="205" />
+			<c:param name="title" value="데미안" />
+			<c:param name="author" value="헤르만 헤세" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book05.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000000620240" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm05.png" alt="책 이미지 5">
+			<img src="${contextPath}/img/celeb/rm05.png" alt="책 이미지 5">
 		</div>
 
-		<div class="book-card" data-book-id="205" data-link="https://product.kyobobook.co.kr/detail/S000000620240">
-			<img src="./img/celeb/rm_book05.jpg" alt="책5">
+		<a href="${clickUrl_205}" class="book-card" data-book-id="205"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book05.jpg" alt="데미안"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">데미안</div>
 				<p class="book-meta">저자: 헤르만 헤세</p>
 				<p class="book-meta">출판: 민음사</p>
 				<p class="book-meta">발매: 2009.01.20</p>
-				<p class="book-desc">새는 알에서 나오려고 투쟁한다. 알은 세계이다. 태어나려는 자는 하나의 세계를 깨뜨려야 한다.</p>
+				<p class="book-desc">새는 알에서 나오려고 투쟁한다. 알은 세계이다. 태어나려는 자는 하나의 세계를
+					깨뜨려야 한다.</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_206" value="/bookClick">
+			<c:param name="id" value="206" />
+			<c:param name="title" value="1984" />
+			<c:param name="author" value="조지 오웰" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book06.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000000620240" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm06.png" alt="책 이미지 6">
+			<img src="${contextPath}/img/celeb/rm06.png" alt="책 이미지 6">
 		</div>
 
-		<div class="book-card" data-book-id="206" data-link="https://product.kyobobook.co.kr/detail/S000000620214">
-			<img src="./img/celeb/rm_book06.jpg" alt="책6">
+		<a href="${clickUrl_206}" class="book-card" data-book-id="206"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book06.jpg" alt="1984"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">1984</div>
 				<p class="book-meta">저자: 조지 오웰</p>
 				<p class="book-meta">출판: 민음사</p>
 				<p class="book-meta">발매: 2007.03.30</p>
 				<p class="book-desc">세계가 나아갈 방향을 제시하는 탁월한 통찰</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_207" value="/bookClick">
+			<c:param name="id" value="207" />
+			<c:param name="title" value="지금 알고 있는 걸 그때도 알았더라면" />
+			<c:param name="author" value="류시화" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book07.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000001079757" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm07.png" alt="책 이미지 7">
+			<img src="${contextPath}/img/celeb/rm07.png" alt="책 이미지 7">
 		</div>
 
-		<div class="book-card" data-book-id="207" data-link="https://product.kyobobook.co.kr/detail/S000001079757">
-			<img src="./img/celeb/rm_book07.jpg" alt="책7">
+		<a href="${clickUrl_207}" class="book-card" data-book-id="207"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book07.jpg"
+			alt="지금 알고 있는 걸 그때도 알았더라면" class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">지금 알고 있는 걸 그때도 알았더라면</div>
 				<p class="book-meta">저자: 류시화</p>
 				<p class="book-meta">출판: 열림원</p>
 				<p class="book-meta">발매: 2014.12.03</p>
 				<p class="book-desc">지역과 시대를 뛰어넘은 고백록과 기도문을 엮은 잠언시집!</p>
 			</div>
-		</div>
+		</a>
+
+		<c:url var="clickUrl_208" value="/bookClick">
+			<c:param name="id" value="208" />
+			<c:param name="title" value="언어의 무게" />
+			<c:param name="author" value="파스칼 메르시어" />
+			<c:param name="image" value="${contextPath}/img/celeb/rm_book08.jpg" />
+			<c:param name="link"
+				value="https://product.kyobobook.co.kr/detail/S000201368764" />
+		</c:url>
 
 		<div class="img-block">
-			<img src="./img/celeb/rm08.png" alt="책 이미지 8">
+			<img src="${contextPath}/img/celeb/rm08.png" alt="책 이미지 8">
 		</div>
 
-		<div class="book-card" data-book-id="208" data-link="https://product.kyobobook.co.kr/detail/S000201368764">
-			<img src="./img/celeb/rm_book08.jpg" alt="책8">
+		<a href="${clickUrl_208}" class="book-card" data-book-id="208"
+			target="_blank"> <i class="fas fa-bookmark bookmark-icon"></i> <img
+			src="${contextPath}/img/celeb/rm_book08.jpg" alt="언어의 무게"
+			class="book-cover-link">
 			<div class="book-info">
-				<i class="fas fa-bookmark bookmark-icon"></i>
 				<div class="book-title">언어의 무게</div>
 				<p class="book-meta">저자: 파스칼 메르시어</p>
 				<p class="book-meta">출판: 비채</p>
 				<p class="book-meta">발매: 2023.04.03</p>
 				<p class="book-desc">《리스본행 야간열차》 이후 16년 만의 신작 장편소설</p>
 			</div>
-		</div>
-
+		</a>
 
 		<button class="back-btn" onclick="history.back()">← 뒤로가기</button>
 	</div>
-<button id="scrollToTopBtn">
-  <img src="img/up1.png" alt="위로 가기 버튼" />
-</button>
+	<button id="scrollToTopBtn">
+		<img src="img/up1.png" alt="위로 가기 버튼" />
+	</button>
 
 	<footer>
 		<div class="footer-container">
@@ -190,10 +273,10 @@ String contextPath = request.getContextPath();
 		</div>
 	</footer>
 
-<script>
+	<script>
 document.addEventListener('DOMContentLoaded', function () {
-    const contextPath = '<%= contextPath %>';
-    const isLoggedIn  = <%= loggedInUser != null %>;
+    const contextPath = '<%=contextPath%>';
+    const isLoggedIn  = <%=loggedInUser != null%>;
 
     // 초기 북마크 상태 세팅
     const wishedBookIds = new Set([
@@ -211,6 +294,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // 토글 기능: DELETE 대신 POST만 사용
     document.querySelectorAll('.bookmark-icon').forEach(icon => {
         icon.addEventListener('click', async e => {
+        	
+        	e.preventDefault();
             e.stopPropagation();
             if (!isLoggedIn) {
                 alert('로그인이 필요한 기능입니다.');
@@ -251,7 +336,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-
 
 </body>
 </html>
