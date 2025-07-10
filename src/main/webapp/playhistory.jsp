@@ -63,7 +63,7 @@ String contextPath = request.getContextPath();
 						<c:param name="image"
 							value="${pageContext.request.contextPath}/img/dur5.jpg" />
 						<c:param name="link"
-							value="https://search.shopping.naver.com/book/catalog/48538749622" />
+							value="https://search.shopping.naver.com/book/catalog/50719395622?query=%EB%84%A5%EC%84%9C%EC%8A%A4&NaPm=ct%3Dmcv9knps%7Cci%3D1c7803e088b3f185433a205ad833472f78f73959%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3De858420a6754cb480cad7bacc6cde51200163a99" />
 					</c:url>
 
 					<a href="${featuredBookUrl}" class="featured-book-image"
@@ -98,7 +98,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32441695627" />
+						value="https://search.shopping.naver.com/book/catalog/32482377706?query=%EC%82%AC%ED%94%BC%EC%97%94%EC%8A%A4&NaPm=ct%3Dmcv9pads%7Cci%3Ddc5ad71344ab5d87b1254d068e97120cbbbbca55%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D2353d2214368a92cdd1c6d6d565ae0c5af48e2a7" />
 				</c:url>
 				<a class="card" href="${clickUrl_1}" data-book-id="59"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -119,7 +119,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur1.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32436139335" />
+						value="https://search.shopping.naver.com/book/catalog/32491397685?query=%EC%97%AD%EC%82%AC%EB%9E%80%20%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80&NaPm=ct%3Dmcv9phbs%7Cci%3D9e0577f681fe0f5059c132c003f92fbbc4160ce0%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D7d5ce94157c1a96900f87a15794790ee4dbc49ad" />
 				</c:url>
 				<a class="card" href="${clickUrl_2}" data-book-id="60"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -140,7 +140,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur2.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32466981881" />
+						value="https://search.shopping.naver.com/book/catalog/32456299092?query=%EB%A1%9C%EB%A7%88%20%EC%A0%9C%EA%B5%AD%20%EC%87%A0%EB%A7%9D%EC%82%AC&NaPm=ct%3Dmcv9pswg%7Cci%3D7c7e79b601703137124823b1e9551866991353eb%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D77a30cadd5a87a0e16279bee268c198aa7db3fd7" />
 				</c:url>
 				<a class="card" href="${clickUrl_3}" data-book-id="61"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -161,7 +161,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur3.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32436139206" />
+						value="https://search.shopping.naver.com/book/catalog/39856960624?query=%EC%B4%9D%EA%B7%A0%EC%87%A0&NaPm=ct%3Dmcv9q1e0%7Cci%3Dd918366dae18c50f256e93af136b4c006dc73970%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Dcbf29ecfeb600ae1c82d98ade59d76f154b4a941" />
 				</c:url>
 				<a class="card" href="${clickUrl_4}" data-book-id="62"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -182,7 +182,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur4.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32485593026" />
+						value="https://search.shopping.naver.com/book/catalog/32436241087?query=%EB%82%98%EC%9D%98%20%EB%AC%B8%ED%99%94%EC%9C%A0%EC%82%B0%EB%8B%B5%EC%82%AC%EA%B8%B0&NaPm=ct%3Dmcv9qg1s%7Cci%3D61a384213a6586db7c133acbf7a9cccceb7c3283%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3De6f34154fc938ef1e09cce7496c6f49b81f5ece2" />
 				</c:url>
 				<a class="card" href="${clickUrl_5}" data-book-id="63"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -203,7 +203,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur5.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/48538749622" />
+						value="https://search.shopping.naver.com/book/catalog/50719395622?query=%EB%84%A5%EC%84%9C%EC%8A%A4&NaPm=ct%3Dmcv9knps%7Cci%3D1c7803e088b3f185433a205ad833472f78f73959%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3De858420a6754cb480cad7bacc6cde51200163a99" />
 				</c:url>
 				<a class="card" href="${clickUrl_6}" data-book-id="64"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -224,7 +224,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur6.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32488887754" />
+						value="https://search.shopping.naver.com/book/catalog/33294399618?query=%EC%84%9C%EC%96%91%EB%AF%B8%EC%88%A0%EC%82%AC&NaPm=ct%3Dmcv9qpb4%7Cci%3Dfefccef26af017f9f868bb5e79894cb57eabbfe9%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D915160d74c02727423960f43608ab4cd8ae3a190" />
 				</c:url>
 				<a class="card" href="${clickUrl_7}" data-book-id="65"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -245,7 +245,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur7.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32488887857" />
+						value="https://search.shopping.naver.com/book/catalog/32480521928?query=%EB%AC%B8%ED%99%94%EC%9D%98%20%EC%88%98%EC%88%98%EA%BB%98%EB%81%BC&NaPm=ct%3Dmcv9qykg%7Cci%3D87b5ba5aefaf7ab2fdf7e17267d3bd67995cdefb%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Dace7be21204ac288b5d15abe8559270613a23c98" />
 				</c:url>
 				<a class="card" href="${clickUrl_8}" data-book-id="66"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -266,7 +266,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur8.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32441695719" />
+						value="https://search.shopping.naver.com/book/catalog/42353371620?query=%EC%A3%BD%EC%9D%80%20%EA%B2%BD%EC%A0%9C%ED%95%99%EC%9E%90%EC%9D%98%20%EC%82%B4%EC%95%84%EC%9E%88%EB%8A%94%20%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4&NaPm=ct%3Dmcv9r6a8%7Cci%3D18d7cff852655372d279d5035dc805907bf2f85e%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Db876763806dd60cca0d54a2c9b71a0b03b62db73" />
 				</c:url>
 				<a class="card" href="${clickUrl_9}" data-book-id="67"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -287,7 +287,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur9.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32474415891" />
+						value="https://search.shopping.naver.com/book/catalog/32473959224?query=21%EC%84%B8%EA%B8%B0%20%EC%9E%90%EB%B3%B8&NaPm=ct%3Dmcv9re00%7Cci%3Dbd6663b943620bbd2f776fe6b72a08f8c889fa79%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Df3e7954f5759f1058cd7afc4d341bdd2040eb120" />
 				</c:url>
 				<a class="card" href="${clickUrl_10}" data-book-id="68"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -308,7 +308,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur10.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32482037989" />
+						value="https://search.shopping.naver.com/book/catalog/32473668644?query=%EC%9C%A0%EB%9F%BD%20%EB%8F%84%EC%8B%9C%20%EA%B8%B0%ED%96%89&NaPm=ct%3Dmcv9rpko%7Cci%3Db8aaff2b9230f086c66e1010619a8a29785ab7d3%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D1658002f32c0e36a5f9b67cba2b0ff491c978ac3" />
 				</c:url>
 				<a class="card" href="${clickUrl_11}" data-book-id="69"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -329,7 +329,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur11.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32486927391" />
+						value="https://search.shopping.naver.com/book/catalog/32466560260?query=%EC%82%AC%EB%A7%88%EC%B2%9C%20%EC%82%AC%EA%B8%B0&NaPm=ct%3Dmcv9ry28%7Cci%3Df5e55aa87e5ee7dc6478ef365bbe779e0fb3dbb2%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D6ae0ad3fe038ba0bf4bdf6be0ac6f00a6b43ca07" />
 				</c:url>
 				<a class="card" href="${clickUrl_12}" data-book-id="70"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -350,7 +350,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur12.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/44476735622" />
+						value="https://search.shopping.naver.com/book/catalog/32436408621?query=%EC%A1%B0%EC%84%A0%EC%99%95%EC%A1%B0%EC%8B%A4%EB%A1%9D&NaPm=ct%3Dmcv9s508%7Cci%3D05508df25f5460a3cece9ff44bd1a5523da16abf%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D2c2548ed015d5b018b874060c495484506a77627" />
 				</c:url>
 				<a class="card" href="${clickUrl_13}" data-book-id="71"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -371,7 +371,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/a1.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/42529329623" />
+						value="https://search.shopping.naver.com/book/catalog/45945140629?query=%EB%AC%BC%EC%A7%88%EC%9D%98%20%EC%84%B8%EA%B3%84&NaPm=ct%3Dmcv9skfs%7Cci%3Df40d1034a4f9c8e00dfa3d0326891f0b43a2402b%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Dbb9f15cb59a901770e50e6268913e90565a906e4" />
 				</c:url>
 				<a class="card" href="${clickUrl_14}" data-book-id="72"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -392,7 +392,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur13.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32486927393" />
+						value="https://search.shopping.naver.com/book/catalog/32441520646?query=%EC%82%BC%EA%B5%AD%EC%9C%A0%EC%82%AC&NaPm=ct%3Dmcv9sugw%7Cci%3Da95661442bb6b404e0583cd9b8c717770f330c10%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Dbace62bc83582256edec3a162d2088340807a746" />
 				</c:url>
 				<a class="card" href="${clickUrl_15}" data-book-id="73"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -413,7 +413,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur14.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32445834817" />
+						value="https://search.shopping.naver.com/book/catalog/32441619939?query=%EC%97%AD%EC%82%AC%EC%9D%98%20%EC%A2%85%EB%A7%90&NaPm=ct%3Dmcv9t8cw%7Cci%3Dc197e16db9d9bdf6ef6bc783ec690e75f0f35b25%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D2de03783f44a53b810b75690bf1e6ce832e2fd17" />
 				</c:url>
 				<a class="card" href="${clickUrl_16}" data-book-id="74"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -434,7 +434,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur18.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/37622287618" />
+						value="https://search.shopping.naver.com/book/catalog/32466558141?query=%EC%84%B8%EA%B3%84%EC%82%AC%EB%A5%BC%20%EB%B0%94%EA%BE%BC%2010%EA%B0%80%EC%A7%80%20%EC%95%BD&NaPm=ct%3Dmcv9tj5s%7Cci%3D28aff249f6ada1d2842b3e4e388d6375482a0773%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3Dba4a22f51b9e57e109025eed2c3a30509cc11ad5" />
 				</c:url>
 				<a class="card" href="${clickUrl_17}" data-book-id="75"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -455,7 +455,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur17.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/40540789622" />
+						value="https://search.shopping.naver.com/book/catalog/49208589629?query=%EB%8B%A4%EC%8B%9C%2C%20%EC%97%AD%EC%82%AC%EC%9D%98%20%EC%93%B8%EB%AA%A8&NaPm=ct%3Dmcv9tvi8%7Cci%3D111a753f4fdad18da611952ceb1f1fd3e0b1dcd1%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D20bf5022a05c4c0d3f317c6b5ed660eecf89ddee" />
 				</c:url>
 				<a class="card" href="${clickUrl_18}" data-book-id="76"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -476,7 +476,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur15.jpg" />
 					<c:param name="link"
-						value="https://shopping.naver.com/book/catalog/32486926955" />
+						value="https://search.shopping.naver.com/book/catalog/36737624622?query=%EC%9E%83%EC%96%B4%EB%B2%84%EB%A6%B0%20%EC%8B%9C%EA%B0%84%EC%9D%84%20%EC%B0%BE%EC%95%84%EC%84%9C&NaPm=ct%3Dmcv9wsg0%7Cci%3Dccd438d602a7dcf302c5dd014bdde31db946d6cc%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D5df80e5f573771b29217505d3436a2c4df8923ef" />
 				</c:url>
 				<a class="card" href="${clickUrl_19}" data-book-id="77"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -497,7 +497,7 @@ String contextPath = request.getContextPath();
 					<c:param name="image"
 						value="${pageContext.request.contextPath}/img/dur19.jpg" />
 					<c:param name="link"
-						value="https://search.shopping.naver.com/book/catalog/32485593019" />
+						value="https://search.shopping.naver.com/book/catalog/32487126410?query=%ED%98%B8%EB%AA%A8%20%EB%8D%B0%EC%9A%B0%EC%8A%A4&NaPm=ct%3Dmcv9x1pc%7Cci%3Dfb5e8df18a33a3c36949fdecd2a6448dc54043d5%7Ctr%3Dboksl%7Csn%3D95694%7Chk%3D4c0e49e9965d3cb98ddcbc28e866bcf4ebe4caa5" />
 				</c:url>
 				<a class="card" href="${clickUrl_20}" data-book-id="78"> <i
 					class="fas fa-bookmark bookmark-icon"></i> <img class="bg-img"
@@ -526,7 +526,7 @@ String contextPath = request.getContextPath();
 			<p>© 2024 WithUs. All rights reserved.</p>
 		</div>
 	</footer>
-<script>
+	<script>
 document.addEventListener('DOMContentLoaded', function () {
     // 1. JSP가 서버에서 실행되어 contextPath가 "/BookRec_Final"로 올바르게 설정됩니다.
     const contextPath = "<%=request.getContextPath()%>";

@@ -98,7 +98,6 @@ if (loggedInUser == null) {
 				<ul>
 					<li class="active"><a href="#" data-content="recent-history">찜목록</a></li>
 					<li><a href="#" data-content="order-delivery">리뷰 관리</a></li>
-					<li><a href="#" data-content="returns">작가 구독</a></li>
 				</ul>
 
 				<div class="menu-category">회원정보</div>
@@ -158,11 +157,6 @@ if (loggedInUser == null) {
 					<h2>리뷰 관리</h2>
 					<p>작성하신 리뷰들을 관리할 수 있습니다.</p>
 					<p>이곳에 리뷰 목록 및 관리 기능이 들어갑니다.</p>
-				</div>
-
-				<div id="returns-content" class="content-section">
-					<h2>작가 구독 내역</h2>
-					<p>구독 중인 작가들의 목록이 여기에 표시됩니다.</p>
 				</div>
 
 				<div id="edit-profile-content" class="content-section">

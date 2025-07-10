@@ -1,30 +1,28 @@
 package model;
 
 import java.time.LocalDateTime;
-import java.util.Objects; // for equals/hashCode
+// 필요한 다른 import 문이 있다면 여기에 추가하세요.
 
 public class Review {
     private int reviewId;
-    private int userId;
+    private int userId;    // <<-- 이 부분이 'int'로 되어 있어야 합니다!
     private int bookId;
-    private byte rating; // TINYINT는 Java에서 byte로 매핑됩니다 (1~5점)
-    private String title;
-    private String content;
+    private String reviewText;
+    private int rating;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     // 기본 생성자
     public Review() {}
 
-    // 모든 필드를 포함하는 생성자
-    public Review(int reviewId, int userId, int bookId, byte rating, String title, String content,
+    // 모든 필드를 포함하는 생성자 (필요에 따라 오버로드)
+    public Review(int reviewId, int userId, int bookId, String reviewText, int rating,
                   LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.reviewId = reviewId;
         this.userId = userId;
         this.bookId = bookId;
+        this.reviewText = reviewText;
         this.rating = rating;
-        this.title = title;
-        this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -33,20 +31,17 @@ public class Review {
     public int getReviewId() { return reviewId; }
     public void setReviewId(int reviewId) { this.reviewId = reviewId; }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public int getUserId() { return userId; } // <<-- 이 메서드가 'int'를 반환하도록 되어 있어야 합니다!
+    public void setUserId(int userId) { this.userId = userId; } // <<-- 이 메서드가 'int'를 받도록 되어 있어야 합니다!
 
     public int getBookId() { return bookId; }
     public void setBookId(int bookId) { this.bookId = bookId; }
 
-    public byte getRating() { return rating; }
-    public void setRating(byte rating) { this.rating = rating; }
+    public String getReviewText() { return reviewText; }
+    public void setReviewText(String reviewText) { this.reviewText = reviewText; }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
-
-    public String getContent() { return content; }
-    public void setContent(String content) { this.content = content; }
+    public int getRating() { return rating; }
+    public void setRating(int rating) { this.rating = rating; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
@@ -60,22 +55,10 @@ public class Review {
                "reviewId=" + reviewId +
                ", userId=" + userId +
                ", bookId=" + bookId +
+               ", reviewText='" + reviewText + '\'' +
                ", rating=" + rating +
-               ", title='" + title + '\'' +
                ", createdAt=" + createdAt +
+               ", updatedAt=" + updatedAt +
                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Review review = (Review) o;
-        return reviewId == review.reviewId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(reviewId);
     }
 }
