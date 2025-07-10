@@ -155,8 +155,10 @@ if (loggedInUser == null) {
 				</div>
 				<div id="order-delivery-content" class="content-section">
 					<h2>리뷰 관리</h2>
-					<p>작성하신 리뷰들을 관리할 수 있습니다.</p>
-					<p>이곳에 리뷰 목록 및 관리 기능이 들어갑니다.</p>
+					<div id="my-reviews-list-area" class="grid review-grid">
+						<p style="text-align: center; padding: 20px;">작성하신 리뷰들을 불러오는
+							중...</p>
+					</div>
 				</div>
 
 				<div id="edit-profile-content" class="content-section">
@@ -375,24 +377,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ========================================================
-     2.  사이드바 / 컨텐츠 토글
-  ======================================================== */
-  const sidebarLinks    = document.querySelectorAll('.sidebar-menu a');
-  const contentSections = document.querySelectorAll('.content-section');
-  function hideAll(){contentSections.forEach(s=>{s.style.display='none';s.classList.remove('active');});}
-  function deactivate(){sidebarLinks.forEach(l=>l.classList.remove('active'));}
+  2.  사이드바 / 컨텐츠 토글
+======================================================== */
+const sidebarLinks    = document.querySelectorAll('.sidebar-menu a');
+const contentSections = document.querySelectorAll('.content-section');
+function hideAll(){contentSections.forEach(s=>{s.style.display='none';s.classList.remove('active');});}
+function deactivate(){sidebarLinks.forEach(l=>l.classList.remove('active'));}
 
-  sidebarLinks.forEach(link=>{
-    link.addEventListener('click',e=>{
-      e.preventDefault();
-      const id=link.dataset.content+'-content';
-      hideAll();
-      const target=document.getElementById(id);
-      if(target){ target.style.display='block'; target.classList.add('active'); }
-      deactivate(); link.classList.add('active');
-      if(link.dataset.content==='recent-history') loadWishlist();
-    });
-  });
+sidebarLinks.forEach(link=>{
+ link.addEventListener('click',e=>{
+   e.preventDefault();
+   const id=link.dataset.content+'-content';
+   hideAll();
+   const target=document.getElementById(id);
+   if(target){ target.style.display='block'; target.classList.add('active'); }
+   deactivate(); link.classList.add('active');
+   
+   // 추가: '리뷰 관리' 탭 클릭 시 리뷰 목록 로드
+   if(link.dataset.content==='recent-history') {
+       loadWishlist();
+   } else if (link.dataset.content === 'order-delivery') { // '리뷰 관리'의 data-content는 'order-delivery'
+       loadMyReviews();
+   }
+ });
+});
 
   /* ========================================================
      3.  회원정보 수정 / 비밀번호 변경 / 탈퇴 / 문의
@@ -599,14 +607,84 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ========================================================
-     5.  초기 표시 (찜목록 탭)
-  ======================================================== */
-  hideAll();
-  const first=document.getElementById('recent-history-content');
-  if(first){first.style.display='block';first.classList.add('active');}
-  const sideFirst=document.querySelector('.sidebar-menu a[data-content="recent-history"]');
-  if(sideFirst) sideFirst.classList.add('active');
-  loadWishlist();  // 최초 찜목록 조회
+  5.  나의 리뷰 목록 로드 (새로 추가)
+======================================================= */
+async function loadMyReviews(){
+   const myReviewsListArea = document.getElementById('my-reviews-list-area');
+   if(!myReviewsListArea) return;
+
+   myReviewsListArea.innerHTML = '<p style="text-align:center;padding:20px;">나의 리뷰를 불러오는 중...</p>';
+
+   try {
+       const url = contextPath + '/api/myReviews';
+       const res = await fetch(url);
+
+       if(!res.ok) {
+           const errorData = await res.json();
+           throw new Error(errorData.error || `HTTP error! status: ${res.status}`);
+       }
+       
+       const myReviews = await res.json();
+
+       myReviewsListArea.innerHTML = ' ';
+
+       if(myReviews.length === 0) {
+           myReviewsListArea.innerHTML = '<p style="text-align:center;padding:50px;">작성하신 리뷰가 없습니다.</p>';
+           return;
+       }
+
+       const reviewsGrid = document.createElement('div');
+       reviewsGrid.className = 'grid review-grid'; 
+
+       myReviews.forEach(review => {
+           console.log("Processing review object:", review); // 디버깅용 로그
+           console.log("Review ID:", review.reviewId);
+           console.log("Review Rating:", review.rating);
+           console.log("Book Title:", review.bookTitle);
+
+
+           const reviewLink = contextPath + '/reviewDetail?id=' + review.reviewId;
+           const coverImg = review.bookCoverImageUrl ? review.bookCoverImageUrl : contextPath + '/img/icon2.png';
+           const reviewTextPreview = review.reviewText.length > 80 ? review.reviewText.substring(0, 80) + '...' : review.reviewText;
+
+           const reviewCard = document.createElement('div');
+           reviewCard.className = 'card';
+
+           // --- 템플릿 리터럴 내부의 변수 참조 방식 및 별점 렌더링 수정 ---
+           // 'repeat()' 대신 Array.join()을 사용하며, 모든 변수에 ${'${변수}'} 형태를 적용합니다.
+           reviewCard.innerHTML = `
+               <a href="${'${reviewLink}'}" class="card-link">
+                   <img class="bg-img" src="${'${coverImg}'}" alt="">
+                   <img class="cover-img" src="${'${coverImg}'}" alt="${'${review.bookTitle}'}">
+                   <div class="card-content">
+                       <div class="book-title">${'${review.bookTitle}'}</div>
+                       <div class="book-author">${'${review.bookAuthor}'}</div>
+                       <p class="review-preview">${'${reviewTextPreview}'}</p>
+                       <div class="rating">
+                           ${'${Array(review.rating + 1).join("★")}'}${'${Array(5 - review.rating + 1).join("☆")}'}
+                       </div>
+                   </div>
+               </a>
+           `;
+           reviewsGrid.appendChild(reviewCard);
+       });
+
+       myReviewsListArea.appendChild(reviewsGrid);
+
+   } catch (error) {
+       console.error('Error loading my reviews:', error);
+       myReviewsListArea.innerHTML = '<p class="error-message" style="text-align:center;padding:50px;color:red;">나의 리뷰를 불러오는 데 실패했습니다: ' + error.message + '</p>';
+   }
+}
+/* ========================================================
+  6.  초기 표시 (찜목록 탭)
+======================================================== */
+hideAll();
+const firstContent = document.getElementById('recent-history-content');
+if(firstContent){firstContent.style.display='block';firstContent.classList.add('active');}
+const firstSidebarLink = document.querySelector('.sidebar-menu a[data-content="recent-history"]');
+if(firstSidebarLink) firstSidebarLink.classList.add('active');
+loadWishlist();  // 최초 찜목록 조회
 
 }); /* DOMContentLoaded 끝 */
 </script>

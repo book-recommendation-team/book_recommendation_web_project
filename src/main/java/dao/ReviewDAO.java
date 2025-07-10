@@ -16,6 +16,42 @@ import model.Review;
 import util.DBUtil; // DB 연결 유틸리티 클래스 (가정)
 
 public class ReviewDAO {
+	
+	 public List<ReviewListDisplayDTO> getReviewsByUserIdWithBookInfo(int userId) throws SQLException {
+	        List<ReviewListDisplayDTO> userReviews = new ArrayList<>();
+	        String sql = "SELECT r.review_id, r.user_id, r.review_text, r.rating, r.created_at, r.updated_at, " +
+	                     "rb.book_id, rb.isbn, rb.title AS book_title, rb.author AS book_author, rb.cover_image_url AS book_cover_image_url " +
+	                     "FROM reviews r JOIN ReviewBook rb ON r.book_id = rb.book_id " +
+	                     "WHERE r.user_id = ? " + // <-- user_id로 필터링
+	                     "ORDER BY r.created_at DESC"; // 최신 리뷰부터 표시
+
+	        try (Connection conn = DBUtil.getConnection();
+	             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	            pstmt.setInt(1, userId); // user_id 파라미터 설정
+
+	            try (ResultSet rs = pstmt.executeQuery()) {
+	                while (rs.next()) {
+	                    ReviewListDisplayDTO dto = new ReviewListDisplayDTO();
+	                    dto.setReviewId(rs.getInt("review_id"));
+	                    dto.setUserId(rs.getInt("user_id"));
+	                    dto.setReviewText(rs.getString("review_text"));
+	                    dto.setRating(rs.getInt("rating"));
+	                    dto.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+	                    dto.setUpdatedAt(rs.getTimestamp("updated_at").toLocalDateTime());
+
+	                    dto.setBookId(rs.getInt("book_id"));
+	                    dto.setIsbn(rs.getString("isbn"));
+	                    dto.setBookTitle(rs.getString("book_title"));
+	                    dto.setBookAuthor(rs.getString("book_author"));
+	                    dto.setBookCoverImageUrl(rs.getString("book_cover_image_url"));
+
+	                    userReviews.add(dto);
+	                }
+	            }
+	        }
+	        return userReviews;
+	    }
 
 	/**
 	 * 리뷰 내용을 업데이트합니다. rating, review_text, updated_at 필드를 수정합니다.
