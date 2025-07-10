@@ -2,143 +2,166 @@ package service;
 
 import dao.ReviewBookDAO;
 import dao.ReviewDAO;
-import dao.ContentBlockDAO; // ContentBlockDAO 임포트
+import dao.ContentBlockDAO;
 import model.Review;
 import model.ReviewBook;
 import model.ContentBlock; // ContentBlock 모델 임포트
 import dto.ReviewListDisplayDTO;
-import dto.ReviewDetailDisplayDTO; // 새로 만든 DTO 임포트
+import dto.ReviewDetailDisplayDTO;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ReviewService {
     private final ReviewBookDAO reviewBookDAO = new ReviewBookDAO();
     private final ReviewDAO reviewDAO = new ReviewDAO();
-    private final ContentBlockDAO contentBlockDAO = new ContentBlockDAO(); // ContentBlockDAO 인스턴스 생성
+    private final ContentBlockDAO contentBlockDAO = new ContentBlockDAO();
 
-    
-    
-    public boolean deleteReview(int reviewId, int callingUserId) throws SQLException {
-        // 1. 삭제 권한 확인 (선택 사항이지만 중요)
-        // 리뷰 작성자와 삭제 요청자가 같은지 확인합니다.
-        ReviewListDisplayDTO reviewToDelete = reviewDAO.getReviewByIdWithBookInfo(reviewId);
-        if (reviewToDelete == null) {
-            System.out.println("Review with ID " + reviewId + " not found.");
+    // (기존 submitReview, getAllReviewsForDisplay, getReviewDetailWithContentBlocks, deleteReview 메서드들은 여기에 그대로 있다고 가정합니다.)
+
+    /**
+     * 리뷰를 수정하는 서비스 메서드.
+     * @param reviewId 수정할 리뷰의 ID
+     * @param callingUserId 수정을 요청한 사용자 ID (권한 확인용)
+     * @param updatedReviewText 수정된 리뷰 내용
+     * @param updatedRating 수정된 별점
+     * @return 수정 성공 여부 (true: 성공, false: 실패 또는 권한 없음)
+     * @throws SQLException DB 작업 중 오류 발생 시
+     */
+    public boolean updateReview(int reviewId, int callingUserId, String updatedReviewText, int updatedRating) throws SQLException {
+        // 1. 수정 권한 확인
+        // 현재 리뷰의 작성자가 수정을 요청한 사용자인지 확인합니다.
+        ReviewListDisplayDTO existingReview = reviewDAO.getReviewByIdWithBookInfo(reviewId);
+        if (existingReview == null) {
+            System.out.println("Review with ID " + reviewId + " not found for update.");
             return false; // 리뷰가 존재하지 않음
         }
-        if (reviewToDelete.getUserId() != callingUserId) {
-            System.out.println("User " + callingUserId + " does not have permission to delete review " + reviewId);
+        if (existingReview.getUserId() != callingUserId) {
+            System.out.println("User " + callingUserId + " does not have permission to update review " + reviewId);
             return false; // 권한 없음
         }
 
-        // 2. 해당 리뷰의 ContentBlock들을 먼저 삭제
+        // 2. reviews 테이블 업데이트
+        Review reviewToUpdate = new Review();
+        reviewToUpdate.setReviewId(reviewId);
+        reviewToUpdate.setReviewText(updatedReviewText);
+        reviewToUpdate.setRating(updatedRating);
+        // updated_at은 DAO에서 자동으로 설정됩니다.
+        int updatedRows = reviewDAO.update(reviewToUpdate);
+
+        if (updatedRows == 0) {
+            System.out.println("Failed to update review entry in 'reviews' table for ID " + reviewId);
+            return false; // 업데이트 실패
+        }
+
+        // 3. ContentBlock 업데이트 (간단하게 기존 블록 삭제 후 새 텍스트 블록 삽입)
+        // 먼저 기존 ContentBlock들을 삭제합니다.
         int contentBlocksDeleted = contentBlockDAO.deleteByReviewId(reviewId);
-        System.out.println(contentBlocksDeleted + " content blocks deleted for review ID " + reviewId);
+        System.out.println(contentBlocksDeleted + " old content blocks deleted for review ID " + reviewId);
 
-        // 3. Review 본체를 삭제
-        int reviewsDeleted = reviewDAO.delete(reviewId);
-        System.out.println(reviewsDeleted + " review entries deleted for review ID " + reviewId);
+        // 새 ContentBlock (텍스트 타입)을 삽입합니다.
+        ContentBlock newTextBlock = new ContentBlock();
+        newTextBlock.setReviewId(reviewId);
+        newTextBlock.setBlockType("text");
+        newTextBlock.setBlockOrder(1); // 첫 번째 블록으로 설정
+        newTextBlock.setTextContent(updatedReviewText);
+        newTextBlock.setImageUrl(""); // 텍스트 블록이므로 이미지 URL은 비워둠
 
-        return reviewsDeleted > 0; // 1개 이상 삭제되었으면 성공
+        int newBlockId = contentBlockDAO.insert(newTextBlock);
+        if (newBlockId == -1) {
+            // ContentBlock 삽입 실패 (심각한 경우, 리뷰 본체는 업데이트되었는데 블록이 없으면 문제)
+            System.err.println("Failed to insert new text content block for review ID " + reviewId);
+            // 이 경우, 트랜잭션을 사용하여 롤백하는 것이 이상적이지만, 현재는 간단히 처리합니다.
+            return false;
+        }
+        System.out.println("New content block inserted for review ID " + reviewId + ", block_id: " + newBlockId);
+
+        return true; // 최종 업데이트 성공
     }
-    /**
-     * 리뷰 작성을 처리하는 핵심 서비스 메서드.
-     * 책 정보를 바탕으로 ReviewBook을 찾거나 생성하고, Review를 저장합니다.
-     * @param userId 로그인한 사용자 ID (int 타입)
-     * @param reviewBookData form에서 넘어온 책 정보 (ISBN, 제목 등)
-     * @param reviewText 리뷰 내용
-     * @param rating 별점
-     * @return 새로 생성된 review_id 또는 -1 (실패 시)
-     * @throws SQLException DB 작업 중 오류 발생 시
-     */
+    
+    // (기존 submitReview, getAllReviewsForDisplay, getReviewDetailWithContentBlocks, deleteReview 메서드들은 여기에 그대로 있다고 가정합니다.)
     public int submitReview(int userId, ReviewBook reviewBookData, String reviewText, int rating) throws SQLException {
+        // ... (기존 submitReview 메서드 구현) ...
         int bookId;
         ReviewBook existingBook = reviewBookDAO.findByIsbn(reviewBookData.getIsbn());
 
         if (existingBook != null) {
-            // 이미 존재하는 책이면 해당 book_id 사용
             bookId = existingBook.getBookId();
-            System.out.println("Existing book found. Using book_id: " + bookId); // 디버깅용
         } else {
-            // 새로운 책이면 ReviewBook에 삽입하고 생성된 book_id 가져오기
             bookId = reviewBookDAO.insert(reviewBookData);
-            if (bookId == -1) {
-                // 책 삽입 실패 시
-                System.err.println("Failed to insert new book into ReviewBook table.");
-                return -1;
-            }
-            System.out.println("New book inserted. Generated book_id: " + bookId); // 디버깅용
+            if (bookId == -1) { return -1; }
         }
 
-        // 리뷰 객체 생성
         Review review = new Review();
-        review.setUserId(userId); // int userId 설정
+        review.setUserId(userId);
         review.setBookId(bookId);
         review.setReviewText(reviewText);
         review.setRating(rating);
-        // created_at, updated_at은 DB에서 자동으로 설정되지만, 필요하면 여기서도 설정 가능
         review.setCreatedAt(LocalDateTime.now());
         review.setUpdatedAt(LocalDateTime.now());
 
-        // reviews 테이블에 리뷰 삽입
         int reviewId = reviewDAO.insert(review);
-        System.out.println("Review inserted. Generated review_id: " + reviewId); // 디버깅용
+        // submitReview에서 content_blocks에 저장하는 로직이 빠져 있었습니다. 여기서 추가합니다.
+        if (reviewId > 0) {
+            ContentBlock initialTextBlock = new ContentBlock();
+            initialTextBlock.setReviewId(reviewId);
+            initialTextBlock.setBlockType("text");
+            initialTextBlock.setBlockOrder(1);
+            initialTextBlock.setTextContent(reviewText);
+            initialTextBlock.setImageUrl(""); // 초기 텍스트 블록이므로 이미지 없음
 
+            int initialBlockId = contentBlockDAO.insert(initialTextBlock);
+            if (initialBlockId == -1) {
+                System.err.println("Initial content block insertion failed for new review ID: " + reviewId);
+                // 이 경우, 리뷰 본체를 롤백하거나 (트랜잭션 필요), 관리자에게 알림 등의 처리가 필요합니다.
+                // 현재는 간단히 오류로 반환합니다.
+                // reviewDAO.delete(reviewId); // 삽입된 review 본체를 롤백하는 예시 (트랜잭션 없이)
+                return -1;
+            }
+        }
         return reviewId;
     }
 
-    /**
-     * 리뷰 목록 페이지에 표시할 모든 리뷰와 책 정보를 가져옵니다.
-     * @return ReviewListDisplayDTO 객체들의 리스트
-     * @throws SQLException DB 오류 시
-     */
     public List<ReviewListDisplayDTO> getAllReviewsForDisplay() throws SQLException {
         return reviewDAO.getAllReviewsWithBookInfo();
     }
 
-    /**
-     * 특정 리뷰 상세와 해당 책 정보, 그리고 모든 내용 블록들을 가져옵니다.
-     * ReviewDetailServlet에서 사용됩니다.
-     * @param reviewId 조회할 리뷰 ID
-     * @return ReviewDetailDisplayDTO 객체 (없으면 null)
-     * @throws SQLException DB 오류 시
-     */
     public ReviewDetailDisplayDTO getReviewDetailWithContentBlocks(int reviewId) throws SQLException {
-        // 1. 리뷰 기본 정보 (Review + ReviewBook) 조회
         ReviewListDisplayDTO listDisplayDto = reviewDAO.getReviewByIdWithBookInfo(reviewId);
-
-        if (listDisplayDto == null) {
-            return null; // 해당 reviewId의 리뷰가 없으면 null 반환
-        }
-
-        // 2. 해당 리뷰의 ContentBlock들 조회
+        if (listDisplayDto == null) { return null; }
         List<ContentBlock> contentBlocks = contentBlockDAO.findByReviewId(reviewId);
 
-        // 3. ReviewDetailDisplayDTO에 모든 정보 조합
         ReviewDetailDisplayDTO detailDto = new ReviewDetailDisplayDTO();
-        // ReviewListDisplayDTO의 필드들을 ReviewDetailDisplayDTO로 복사 (상속받았으므로 setter 사용)
         detailDto.setReviewId(listDisplayDto.getReviewId());
         detailDto.setUserId(listDisplayDto.getUserId());
-        detailDto.setReviewText(listDisplayDto.getReviewText());
+        detailDto.setReviewText(listDisplayDto.getReviewText()); // ReviewListDisplayDTO에는 reviewText가 있음
         detailDto.setRating(listDisplayDto.getRating());
         detailDto.setCreatedAt(listDisplayDto.getCreatedAt());
         detailDto.setUpdatedAt(listDisplayDto.getUpdatedAt());
         detailDto.setBookId(listDisplayDto.getBookId());
+        detailDto.setIsbn(listDisplayDto.getIsbn()); 
         detailDto.setBookTitle(listDisplayDto.getBookTitle());
         detailDto.setBookAuthor(listDisplayDto.getBookAuthor());
         detailDto.setBookCoverImageUrl(listDisplayDto.getBookCoverImageUrl());
-        // 필요하다면 listDisplayDto에 naverLink, isbn, publisher 등 추가 정보가 있다면 여기에 복사 설정
 
-        detailDto.setContentBlocks(contentBlocks); // ContentBlock 리스트 설정
+        detailDto.setContentBlocks(contentBlocks);
 
         return detailDto;
     }
 
-    // 이전에 사용되었던 getReviewDetailForDisplay 메서드는 이제 getReviewDetailWithContentBlocks로 대체됩니다.
-    // 하지만 만약 다른 곳에서 이 메서드를 호출한다면 유지해야 합니다.
-    // 현재 ReviewDetailServlet에서 getReviewDetailWithContentBlocks를 사용하므로 이 메서드는 더 이상 직접 호출되지 않을 수 있습니다.
+    public boolean deleteReview(int reviewId, int callingUserId) throws SQLException {
+        // ... (기존 deleteReview 메서드 구현) ...
+        ReviewListDisplayDTO reviewToDelete = reviewDAO.getReviewByIdWithBookInfo(reviewId);
+        if (reviewToDelete == null || reviewToDelete.getUserId() != callingUserId) {
+            return false;
+        }
+
+        contentBlockDAO.deleteByReviewId(reviewId);
+        int reviewsDeleted = reviewDAO.delete(reviewId);
+        return reviewsDeleted > 0;
+    }
+
     public ReviewListDisplayDTO getReviewDetailForDisplay(int reviewId) throws SQLException {
         return reviewDAO.getReviewByIdWithBookInfo(reviewId);
     }

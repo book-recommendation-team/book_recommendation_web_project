@@ -1,8 +1,5 @@
 package dao;
 
-import model.ContentBlock;
-import util.DBUtil; // 데이터베이스 연결을 위한 유틸리티 클래스 (당신의 프로젝트에 맞춰야 함)
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,8 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+
+import model.ContentBlock;
+import util.DBUtil; // 데이터베이스 연결을 위한 유틸리티 클래스 (당신의 프로젝트에 맞춰야 함)
 
 public class ContentBlockDAO {
 
@@ -45,8 +46,9 @@ public class ContentBlockDAO {
 			pstmt.setInt(3, block.getBlockOrder());
 			pstmt.setString(4, block.getTextContent());
 			pstmt.setString(5, block.getImageUrl());
-			pstmt.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now())); // created_at은 현재 시간으로 설정
-			pstmt.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // updated_at은 현재 시간으로 설정
+			pstmt.setTimestamp(6, Timestamp.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())); // created_at
+			pstmt.setTimestamp(7, Timestamp.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())); // updated_at
+			// updated_at은 현재 시간으로 설정
 
 			int affectedRows = pstmt.executeUpdate();
 			if (affectedRows > 0) {

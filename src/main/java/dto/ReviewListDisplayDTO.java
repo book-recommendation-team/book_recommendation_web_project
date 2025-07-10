@@ -1,25 +1,32 @@
 package dto;
 
+import model.Review;
+import model.ReviewBook;
 import java.time.LocalDateTime;
 
+// 리뷰 목록 화면에 표시할 데이터를 담는 DTO
 public class ReviewListDisplayDTO {
+    // Review 테이블에서 가져올 정보
     private int reviewId;
-    private int userId; // <<-- 이 부분이 'int'로 되어 있어야 합니다!
+    private int userId;
     private String reviewText;
     private int rating;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    // ReviewBook 테이블에서 가져올 정보
     private int bookId;
+    private String isbn; // <<-- 이 줄을 추가합니다!
     private String bookTitle;
     private String bookAuthor;
     private String bookCoverImageUrl;
 
     public ReviewListDisplayDTO() {}
 
+    // 생성자 (isbn 필드도 추가)
     public ReviewListDisplayDTO(int reviewId, int userId, String reviewText, int rating,
                                 LocalDateTime createdAt, LocalDateTime updatedAt,
-                                int bookId, String bookTitle, String bookAuthor, String bookCoverImageUrl) {
+                                int bookId, String isbn, String bookTitle, String bookAuthor, String bookCoverImageUrl) { // <<-- isbn 파라미터 추가
         this.reviewId = reviewId;
         this.userId = userId;
         this.reviewText = reviewText;
@@ -27,16 +34,18 @@ public class ReviewListDisplayDTO {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.bookId = bookId;
+        this.isbn = isbn; // <<-- 초기화
         this.bookTitle = bookTitle;
         this.bookAuthor = bookAuthor;
         this.bookCoverImageUrl = bookCoverImageUrl;
     }
 
+    // Getter 및 Setter 메서드
     public int getReviewId() { return reviewId; }
     public void setReviewId(int reviewId) { this.reviewId = reviewId; }
 
     public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; } // <<-- 이 메서드가 'int'를 받도록 되어 있어야 합니다!
+    public void setUserId(int userId) { this.userId = userId; }
 
     public String getReviewText() { return reviewText; }
     public void setReviewText(String reviewText) { this.reviewText = reviewText; }
@@ -52,6 +61,9 @@ public class ReviewListDisplayDTO {
 
     public int getBookId() { return bookId; }
     public void setBookId(int bookId) { this.bookId = bookId; }
+
+    public String getIsbn() { return isbn; } // <<-- 이 메서드를 추가합니다!
+    public void setIsbn(String isbn) { this.isbn = isbn; } // <<-- 이 메서드를 추가합니다!
 
     public String getBookTitle() { return bookTitle; }
     public void setBookTitle(String bookTitle) { this.bookTitle = bookTitle; }
@@ -72,6 +84,7 @@ public class ReviewListDisplayDTO {
                ", createdAt=" + createdAt +
                ", updatedAt=" + updatedAt +
                ", bookId=" + bookId +
+               ", isbn='" + isbn + '\'' + // <<-- toString에도 추가
                ", bookTitle='" + bookTitle + '\'' +
                ", bookAuthor='" + bookAuthor + '\'' +
                ", bookCoverImageUrl='" + bookCoverImageUrl + '\'' +

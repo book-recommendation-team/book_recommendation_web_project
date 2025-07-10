@@ -15,14 +15,16 @@ public class ReviewDetailDisplayDTO extends ReviewListDisplayDTO {
         super(); // 부모 클래스(ReviewListDisplayDTO)의 기본 생성자 호출
     }
 
-    // 모든 필드를 포함하는 생성자 (필요시 사용)
-    // 부모 클래스의 필드와 자체 필드를 모두 초기화합니다.
+    // 모든 필드를 포함하는 생성자
+    // 부모 클래스(ReviewListDisplayDTO)의 필드와 자체 필드를 모두 초기화합니다.
+    // isbn 파라미터를 추가하고 super() 호출 시 전달합니다.
     public ReviewDetailDisplayDTO(int reviewId, int userId, String reviewText, int rating,
                                   LocalDateTime createdAt, LocalDateTime updatedAt,
-                                  int bookId, String bookTitle, String bookAuthor, String bookCoverImageUrl,
+                                  int bookId, String isbn, String bookTitle, String bookAuthor, String bookCoverImageUrl, // <<-- String isbn 추가!
                                   List<ContentBlock> contentBlocks) {
+        // super() 호출 시 isbn 파라미터를 추가합니다.
         super(reviewId, userId, reviewText, rating, createdAt, updatedAt,
-              bookId, bookTitle, bookAuthor, bookCoverImageUrl); // 부모 클래스 생성자 호출
+              bookId, isbn, bookTitle, bookAuthor, bookCoverImageUrl); // <<-- super()에 isbn 전달!
         this.contentBlocks = contentBlocks;
     }
 
@@ -39,17 +41,18 @@ public class ReviewDetailDisplayDTO extends ReviewListDisplayDTO {
     @Override
     public String toString() {
         return "ReviewDetailDisplayDTO{" +
-               "reviewId=" + getReviewId() + // ReviewListDisplayDTO에서 상속받은 필드 사용
+               "reviewId=" + getReviewId() +
                ", userId=" + getUserId() +
                ", reviewText='" + getReviewText() + '\'' +
                ", rating=" + getRating() +
                ", createdAt=" + getCreatedAt() +
                ", updatedAt=" + getUpdatedAt() +
                ", bookId=" + getBookId() +
+               ", isbn='" + getIsbn() + '\'' + // isbn 필드도 toString에 포함
                ", bookTitle='" + getBookTitle() + '\'' +
                ", bookAuthor='" + getBookAuthor() + '\'' +
                ", bookCoverImageUrl='" + getBookCoverImageUrl() + '\'' +
-               ", contentBlocks=" + (contentBlocks != null ? contentBlocks.size() + " blocks" : "null") + // 블록 개수 표시
+               ", contentBlocks=" + (contentBlocks != null ? contentBlocks.size() + " blocks" : "null") +
                '}';
     }
 }

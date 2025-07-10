@@ -1,29 +1,72 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ page import="model.User"%>
+<%@ page import="dto.ReviewDetailDisplayDTO"%> <%-- 리뷰 상세 DTO 임포트 --%>
 
 <%
     User loggedInUser = (User) session.getAttribute("loggedInUser");
     String contextPath = request.getContextPath();
 
-    // bookSearchForReview.jsp에서 넘겨받은 책 정보 파라미터
+    // -- 폼에 미리 채울 책/리뷰 정보 --
     String isbn = request.getParameter("isbn");
     String title = request.getParameter("title");
     String author = request.getParameter("author");
     String coverImageUrl = request.getParameter("coverImageUrl");
     String naverLink = request.getParameter("naverLink");
 
+    // 수정 모드일 때 (editReview 서블릿에서 포워딩될 때)
+    ReviewDetailDisplayDTO reviewDetailToEdit = (ReviewDetailDisplayDTO) request.getAttribute("reviewDetailToEdit");
+
+    // 리뷰 수정 모드인지 확인
+    boolean isEditMode = (reviewDetailToEdit != null);
+
+    // 수정 모드이면 reviewDetailToEdit에서 값 가져오기
+    if (isEditMode) {
+        isbn = reviewDetailToEdit.getIsbn();
+        title = reviewDetailToEdit.getBookTitle();
+        author = reviewDetailToEdit.getBookAuthor();
+        coverImageUrl = reviewDetailToEdit.getBookCoverImageUrl();
+        // naverLink는 ReviewListDisplayDTO에 없으므로, 필요시 ReviewDetailDisplayDTO에 추가하거나,
+        // ReviewBookDAO를 통해 ReviewEditServlet에서 별도로 가져와야 합니다.
+        // 현재는 naverLink를 reviewForm에 표시하지 않으므로, 이 부분은 그대로 둡니다.
+
+        // 기존 리뷰 내용과 별점
+        request.setAttribute("existingReviewText", reviewDetailToEdit.getReviewText());
+        request.setAttribute("existingRating", reviewDetailToEdit.getRating());
+        request.setAttribute("reviewIdToEdit", reviewDetailToEdit.getReviewId()); // 수정할 리뷰 ID
+    }
+
     // 파라미터가 null일 경우 빈 문자열로 처리 (초기 로드 또는 비정상 접근 시)
     if (isbn == null) isbn = "";
     if (title == null) title = "";
     if (author == null) author = "";
     if (coverImageUrl == null || coverImageUrl.isEmpty()) coverImageUrl = contextPath + "/img/icon2.png"; // 기본 이미지
-    if (naverLink == null) naverLink = "";
+    if (naverLink == null) naverLink = ""; // naverLink는 현재 폼에 표시되지 않음
 
-    // 로그인하지 않은 사용자는 리뷰 작성 불가 (선택 사항: 로그인 페이지로 리다이렉트)
+    // 로그인하지 않은 사용자는 리뷰 작성/수정 불가 (로그인 페이지로 리다이렉트)
     if (loggedInUser == null) {
-        response.sendRedirect(contextPath + "/login.jsp?redirectUrl=" + request.getRequestURI());
+        response.sendRedirect(contextPath + "/login.jsp?message=" + java.net.URLEncoder.encode("리뷰를 작성/수정하려면 로그인해주세요.", "UTF-8") + "&redirectUrl=" + request.getRequestURI());
         return;
+    }
+
+    // 에러 메시지 (SubmitReviewServlet 또는 UpdateReviewServlet에서 전달될 수 있음)
+    String errorMessage = request.getParameter("errorMessage");
+    if (errorMessage == null) errorMessage = (String) request.getAttribute("errorMessage");
+    if (errorMessage == null) errorMessage = "";
+
+    // 이전 제출 시 입력되었던 리뷰 내용 (유효성 검사 실패 시 재입력용)
+    String prevReviewText = request.getParameter("reviewText");
+    if (prevReviewText == null) prevReviewText = (String) request.getAttribute("prevReviewText");
+    if (prevReviewText == null) prevReviewText = "";
+
+    // 이전 제출 시 입력되었던 별점
+    String prevRatingStr = request.getParameter("rating");
+    int prevRating = 0;
+    if (prevRatingStr != null && !prevRatingStr.isEmpty()) {
+        try { prevRating = Integer.parseInt(prevRatingStr); } catch(NumberFormatException e) { /* 무시 */ }
+    }
+    if (request.getAttribute("prevRating") != null) {
+        prevRating = (int) request.getAttribute("prevRating");
     }
 %>
 
@@ -31,11 +74,11 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>리뷰 작성</title>
+    <title><%= isEditMode ? "리뷰 수정" : "새 리뷰 작성" %></title>
     <%@ include file="css/main_css.jsp"%>
     <link rel="stylesheet" href="<%=contextPath%>/css/reviewForm.css" />
     <style>
-        /* 이 페이지만 적용: 컨테이너 높이로 푸터를 화면 하단에 고정 */
+        /* (생략된 스타일) */
         .container {
             min-height: calc(100vh - 250px);
             padding: 20px;
@@ -144,14 +187,20 @@
     </nav>
 
     <div class="container">
-        <h2>새 리뷰 작성</h2>
-        <form id="reviewForm" action="<%=contextPath%>/submitReview" method="post">
+        <h2><%= isEditMode ? "리뷰 수정" : "새 리뷰 작성" %></h2>
+        <% if (!errorMessage.isEmpty()) { %>
+            <p class="error-message" style="text-align: center;"><%= errorMessage %></p>
+        <% } %>
+
+        <form id="reviewForm" action="<%= isEditMode ? contextPath + "/editReview" : contextPath + "/submitReview" %>" method="post">
             <div class="book-info-display">
                 <img src="<%=coverImageUrl%>" alt="<%=title%> 표지" onerror="this.onerror=null; this.src='<%=contextPath%>/img/icon2.png';"/>
                 <div class="book-details">
                     <p><strong>제목:</strong> <span id="bookTitleDisplay"><%=title%></span></p>
                     <p><strong>저자:</strong> <span id="bookAuthorDisplay"><%=author%></span></p>
-                    <p><strong>네이버 책:</strong> <a href="<%=naverLink%>" target="_blank">링크 이동</a></p>
+                    <% if (!naverLink.isEmpty()) { %>
+                        <p><strong>네이버 책:</strong> <a href="<%=naverLink%>" target="_blank">링크 이동</a></p>
+                    <% } %>
                 </div>
             </div>
 
@@ -160,23 +209,28 @@
             <input type="hidden" name="author" value="<%=author%>">
             <input type="hidden" name="coverImageUrl" value="<%=coverImageUrl%>">
             <input type="hidden" name="naverLink" value="<%=naverLink%>">
+            
+            <%-- 수정 모드일 때 리뷰 ID 전달 --%>
+            <% if (isEditMode) { %>
+                <input type="hidden" name="reviewId" value="<%= (Integer) request.getAttribute("reviewIdToEdit") %>">
+            <% } %>
 
             <div class="form-group">
                 <label for="rating">별점:</label>
                 <div id="ratingStars" class="rating-stars">
                     <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
                 </div>
-                <input type="hidden" name="rating" id="ratingInput" value="0">
+                <input type="hidden" name="rating" id="ratingInput" value="<%= isEditMode ? request.getAttribute("existingRating") : prevRating %>">
                 <div id="ratingError" class="error-message"></div>
             </div>
 
             <div class="form-group">
                 <label for="reviewText">리뷰 내용:</label>
-                <textarea id="reviewText" name="reviewText" placeholder="이 책에 대한 당신의 생각을 자유롭게 공유해주세요." required></textarea>
+                <textarea id="reviewText" name="reviewText" placeholder="이 책에 대한 당신의 생각을 자유롭게 공유해주세요." required><%= isEditMode ? (String) request.getAttribute("existingReviewText") : prevReviewText %></textarea>
                 <div id="reviewTextError" class="error-message"></div>
             </div>
 
-            <button type="submit" class="submit-btn">리뷰 제출</button>
+            <button type="submit" class="submit-btn"><%= isEditMode ? "리뷰 수정" : "리뷰 제출" %></button>
         </form>
     </div>
 
@@ -191,7 +245,8 @@
             const reviewTextError = document.getElementById('reviewTextError');
             const reviewTextarea = document.getElementById('reviewText');
 
-            let currentRating = 0; // 초기 별점
+            // 초기 별점 설정 (기존 별점이 있거나, 이전에 입력했던 별점)
+            let currentRating = parseInt(ratingInput.value) || 0; 
 
             // 별점 클릭 이벤트
             ratingStars.addEventListener('click', (e) => {
@@ -256,7 +311,7 @@
                 }
             });
 
-            // 초기 로드 시 별점 UI 업데이트 (넘겨받은 별점이 있다면)
+            // 초기 로드 시 별점 UI 업데이트
             updateStars(currentRating);
         });
     </script>
