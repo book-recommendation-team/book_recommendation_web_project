@@ -1,0 +1,15 @@
+127.0.0.1 - - [11/Jul/2025:14:17:58 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/main.jsp HTTP/1.1" 200 42455
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/logo.png HTTP/1.1" 200 272141
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/up1.png HTTP/1.1" 200 40952
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/love.jpg HTTP/1.1" 200 58996
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/9791158791971.jpg HTTP/1.1" 200 73232
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/9791160408331.jpg HTTP/1.1" 200 59240
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/9791158792183.jpg HTTP/1.1" 200 51876
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:17:59 +0900] "GET /BookRec_Final/img/9791193190364.jpg HTTP/1.1" 200 75008
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:18:00 +0900] "GET /BookRec_Final/register.jsp HTTP/1.1" 200 20954
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:18:24 +0900] "POST /BookRec_Final/api/users HTTP/1.1" 500 135
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:18:54 +0900] "POST /BookRec_Final/api/users HTTP/1.1" 500 135
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:18:55 +0900] "GET /BookRec_Final/register.jsp HTTP/1.1" 200 20954
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:18:55 +0900] "GET /BookRec_Final/img/icon2.png HTTP/1.1" 200 4834
+0:0:0:0:0:0:0:1 - - [11/Jul/2025:14:19:15 +0900] "POST /BookRec_Final/api/users HTTP/1.1" 201 264
